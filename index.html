@@ -15,18 +15,243 @@
 
   <h1>ROS 2 Jazzy Notes</h1>
 
+  <!-- General Section -->
+  <div class="card mb-4">
+    <div class="card-header bg-primary text-white">
+      <h2 class="mb-0">Bienvenido al Curso de ROS 2</h2>
+    </div>
+    <div class="card-body">
+      <p id="docs-internal-guid-791d960f-7fff-ed92-baa6-3457fa10d419" dir="ltr" style="line-height: 1.68; text-align: justify; margin-top: 12pt; margin-bottom: 12pt;"><span style="font-size: 11pt; font-family: Roboto,sans-serif; color: #666666; background-color: transparent; font-weight: 400; font-style: normal; font-variant: normal; text-decoration: none; vertical-align: baseline; white-space: pre-wrap;">Este curso te llevará paso a paso, desde un nivel principiante hasta convertirte en un desarrollador de ROS 2 capaz de crear aplicaciones robóticas escalables.</span></p>
+      <p dir="ltr" style="line-height: 1.68; text-align: justify; margin-top: 12pt; margin-bottom: 12pt;"><span style="font-size: 11pt; font-family: Roboto,sans-serif; color: #666666; background-color: transparent; font-weight: 400; font-style: normal; font-variant: normal; text-decoration: none; vertical-align: baseline; white-space: pre-wrap;">Si estás comenzando con ROS 2 y no sabes por dónde empezar, este curso está diseñado para ti. Aquí aprenderás </span><span style="font-size: 11pt; font-family: Roboto,sans-serif; color: #e01b84; background-color: transparent; font-weight: bold; font-style: normal; font-variant: normal; text-decoration: none; vertical-align: baseline; white-space: pre-wrap;">desde cero</span><span style="font-size: 11pt; font-family: Roboto,sans-serif; color: #666666; background-color: transparent; font-weight: 400; font-style: normal; font-variant: normal; text-decoration: none; vertical-align: baseline; white-space: pre-wrap;">, sin necesidad de conocimientos previos en ROS1, evitando la confusión y la curva de aprendizaje empinada que muchos enfrentan.</span></p>
+      <p dir="ltr" style="line-height: 1.68; text-align: justify; margin-top: 12pt; margin-bottom: 12pt;"><span style="font-size: 11pt; font-family: Roboto,sans-serif; color: #666666; background-color: transparent; font-weight: 400; font-style: normal; font-variant: normal; text-decoration: none; vertical-align: baseline; white-space: pre-wrap;">El contenido está estructurado de manera progresiva, con explicaciones claras y prácticas, para que puedas desarrollar tus propias aplicaciones en ROS 2 con confianza.</span></p>
+      <p dir="ltr" style="line-height: 1.68; text-align: justify; margin-top: 12pt; margin-bottom: 12pt;"><span style="font-size: 11pt; font-family: Roboto,sans-serif; color: #666666; background-color: transparent; font-weight: 400; font-style: normal; font-variant: normal; text-decoration: none; vertical-align: baseline; white-space: pre-wrap;">Si ya tienes conocimientos básicos en ROS 2 y buscas avanzar en la creación y simulación de robots personalizados, este curso también te permitirá profundizar en herramientas clave como </span><span style="font-size: 11pt; font-family: Roboto,sans-serif; color: #e01b84; background-color: transparent; font-weight: bold; font-style: normal; font-variant: normal; text-decoration: none; vertical-align: baseline; white-space: pre-wrap;">URDF, TF, y el diseño de arquitecturas de software en ROS2</span><span style="font-size: 11pt; font-family: Roboto,sans-serif; color: #666666; background-color: transparent; font-weight: bold; font-style: normal; font-variant: normal; text-decoration: none; vertical-align: baseline; white-space: pre-wrap;">.</span></p>
+    </div>
+  </div>
+
+  <!-- Course Sections -->
   <div class="accordion" id="lectures">
 
+    <!-- Sección 1: Introducción -->
     <div class="accordion-item">
       <h2 class="accordion-header">
         <button class="accordion-button" data-bs-toggle="collapse"
-                data-bs-target="#lec1">
-          Lecture 1 – Introduction
+                data-bs-target="#sec1">
+          Sección 1: Introducción
         </button>
       </h2>
-      <div id="lec1" class="accordion-collapse collapse show">
+      <div id="sec1" class="accordion-collapse collapse show">
         <div class="accordion-body">
-          Content here…
+          <div class="list-group">
+            <a href="section1/1_1.html" class="list-group-item list-group-item-action">
+              <h5>1.1. Introducción a ROS2: qué es, por qué usarlo y cuándo aplicarlo</h5>
+              <p class="mb-0 text-muted">PDF - Fundamentos esenciales de ROS 2</p>
+            </a>
+            <a href="section1/1_2.html" class="list-group-item list-group-item-action">
+              <h5>1.2. Recursos adicionales</h5>
+              <p class="mb-0 text-muted">Cursos y materiales complementarios para el aprendizaje</p>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Sección 2: Instala ROS2 y configura tu entorno -->
+    <div class="accordion-item">
+      <h2 class="accordion-header">
+        <button class="accordion-button collapsed" data-bs-toggle="collapse"
+                data-bs-target="#sec2">
+          Sección 2: Instala ROS 2 y configura tu entorno
+        </button>
+      </h2>
+      <div id="sec2" class="accordion-collapse collapse">
+        <div class="accordion-body">
+          <div class="list-group">
+            <a href="section2/2_1.html" class="list-group-item list-group-item-action">
+              <h5>2.1. Instala Ubuntu 24.04 en una Máquina Virtual (VirtualBox)</h5>
+              <p class="mb-0 text-muted">Aprenderás a instalar Ubuntu 24.04 en una máquina virtual utilizando VirtualBox, una herramienta clave para quienes no pueden instalar Ubuntu directamente.</p>
+            </a>
+            <a href="section2/2_2.html" class="list-group-item list-group-item-action">
+              <h5>2.2. Herramientas para programación adicionales</h5>
+              <p class="mb-0 text-muted">Instala y configura Terminator, VS Code y Gedit para facilitar el desarrollo en ROS 2.</p>
+            </a>
+            <a href="section2/2_3.html" class="list-group-item list-group-item-action">
+              <h5>2.3. Instala ROS 2 Jazzy en Ubuntu 24.04</h5>
+              <p class="mb-0 text-muted">Instalación paso a paso de ROS 2 Jazzy en un sistema nativo o máquina virtual.</p>
+            </a>
+            <a href="section2/2_4.html" class="list-group-item list-group-item-action">
+              <h5>2.4. Configura tu entorno para ROS 2</h5>
+              <p class="mb-0 text-muted">Configuración manual y automatizada del entorno para que los comandos funcionen correctamente.</p>
+            </a>
+            <a href="section2/2_5.html" class="list-group-item list-group-item-action">
+              <h5>2.5. Ejecuta tu primer programa de ROS 2</h5>
+              <p class="mb-0 text-muted">Ejecuta los programas de ejemplo talker y listener para verificar que el entorno está correctamente instalado.</p>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Sección 3 -->
+    <div class="accordion-item">
+      <h2 class="accordion-header">
+        <button class="accordion-button collapsed" data-bs-toggle="collapse"
+                data-bs-target="#sec3">
+          Sección 3: Escribe tu primer programa de ROS 2
+        </button>
+      </h2>
+      <div id="sec3" class="accordion-collapse collapse">
+        <div class="accordion-body">
+          Contenido próximamente...
+        </div>
+      </div>
+    </div>
+
+    <!-- Sección 4 -->
+    <div class="accordion-item">
+      <h2 class="accordion-header">
+        <button class="accordion-button collapsed" data-bs-toggle="collapse"
+                data-bs-target="#sec4">
+          Sección 4: Introducción a herramientas de ROS 2
+        </button>
+      </h2>
+      <div id="sec4" class="accordion-collapse collapse">
+        <div class="accordion-body">
+          Contenido próximamente...
+        </div>
+      </div>
+    </div>
+
+    <!-- Sección 5 -->
+    <div class="accordion-item">
+      <h2 class="accordion-header">
+        <button class="accordion-button collapsed" data-bs-toggle="collapse"
+                data-bs-target="#sec5">
+          Sección 5: ROS 2 Topics - Haz que tus nodos se comuniquen entre ellos
+        </button>
+      </h2>
+      <div id="sec5" class="accordion-collapse collapse">
+        <div class="accordion-body">
+          Contenido próximamente...
+        </div>
+      </div>
+    </div>
+
+    <!-- Sección 6 -->
+    <div class="accordion-item">
+      <h2 class="accordion-header">
+        <button class="accordion-button collapsed" data-bs-toggle="collapse"
+                data-bs-target="#sec6">
+          Sección 6: ROS 2 Services - Client / Server
+        </button>
+      </h2>
+      <div id="sec6" class="accordion-collapse collapse">
+        <div class="accordion-body">
+          Contenido próximamente...
+        </div>
+      </div>
+    </div>
+
+    <!-- Sección 7 -->
+    <div class="accordion-item">
+      <h2 class="accordion-header">
+        <button class="accordion-button collapsed" data-bs-toggle="collapse"
+                data-bs-target="#sec7">
+          Sección 7: ROS 2 Nodes Parameters
+        </button>
+      </h2>
+      <div id="sec7" class="accordion-collapse collapse">
+        <div class="accordion-body">
+          Contenido próximamente...
+        </div>
+      </div>
+    </div>
+
+    <!-- Sección 8 -->
+    <div class="accordion-item">
+      <h2 class="accordion-header">
+        <button class="accordion-button collapsed" data-bs-toggle="collapse"
+                data-bs-target="#sec8">
+          Sección 8: ROS 2 Launch Files
+        </button>
+      </h2>
+      <div id="sec8" class="accordion-collapse collapse">
+        <div class="accordion-body">
+          Contenido próximamente...
+        </div>
+      </div>
+    </div>
+
+    <!-- Sección 9 -->
+    <div class="accordion-item">
+      <h2 class="accordion-header">
+        <button class="accordion-button collapsed" data-bs-toggle="collapse"
+                data-bs-target="#sec9">
+          Sección 9: TF (Transform)
+        </button>
+      </h2>
+      <div id="sec9" class="accordion-collapse collapse">
+        <div class="accordion-body">
+          Contenido próximamente...
+        </div>
+      </div>
+    </div>
+
+    <!-- Sección 10 -->
+    <div class="accordion-item">
+      <h2 class="accordion-header">
+        <button class="accordion-button collapsed" data-bs-toggle="collapse"
+                data-bs-target="#sec10">
+          Sección 10: Crea un URDF para tu robot
+        </button>
+      </h2>
+      <div id="sec10" class="accordion-collapse collapse">
+        <div class="accordion-body">
+          Contenido próximamente...
+        </div>
+      </div>
+    </div>
+
+    <!-- Sección 11 -->
+    <div class="accordion-item">
+      <h2 class="accordion-header">
+        <button class="accordion-button collapsed" data-bs-toggle="collapse"
+                data-bs-target="#sec11">
+          Sección 11: Broadcast TFs con Robot State Publisher
+        </button>
+      </h2>
+      <div id="sec11" class="accordion-collapse collapse">
+        <div class="accordion-body">
+          Contenido próximamente...
+        </div>
+      </div>
+    </div>
+
+    <!-- Sección 12 -->
+    <div class="accordion-item">
+      <h2 class="accordion-header">
+        <button class="accordion-button collapsed" data-bs-toggle="collapse"
+                data-bs-target="#sec12">
+          Sección 12: Mejorar el URDF con Xacro
+        </button>
+      </h2>
+      <div id="sec12" class="accordion-collapse collapse">
+        <div class="accordion-body">
+          Contenido próximamente...
+        </div>
+      </div>
+    </div>
+
+    <!-- Sección 13 -->
+    <div class="accordion-item">
+      <h2 class="accordion-header">
+        <button class="accordion-button collapsed" data-bs-toggle="collapse"
+                data-bs-target="#sec13">
+          Sección 13: PlotJuggler / Rviz2
+        </button>
+      </h2>
+      <div id="sec13" class="accordion-collapse collapse">
+        <div class="accordion-body">
+          Contenido próximamente...
         </div>
       </div>
     </div>
