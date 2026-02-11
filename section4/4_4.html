@@ -1,38 +1,148 @@
 <!DOCTYPE html>
 <html>
+
 <head>
-  <meta charset="utf-8">
-  <title>4.4. Visualizar nodos con rqt_graph - ROS 2 Jazzy Notes</title>
+    <meta charset="utf-8">
+    <title>4.4. Visualizar nodos con rqt_graph - ROS 2 Jazzy Notes</title>
 
-  <!-- Bootstrap CSS -->
-  <link
-    href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
-    rel="stylesheet"
-  >
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
 
-  <style>
-    .back-link {
-      margin-bottom: 2rem;
-    }
-  </style>
+    <style>
+        .back-link {
+            margin-bottom: 2rem;
+        }
+    </style>
 
 </head>
+
 <body class="container py-4">
 
-  <a href="../index.html" class="btn btn-secondary back-link">← Volver al inicio</a>
+    <a href="../index.html" class="btn btn-secondary back-link">← Volver al inicio</a>
 
-  <h1 class="mb-4">4.4. Visualizar nodos con rqt_graph en ROS 2</h1>
+    <h1 class="mb-4">4.4. Visualizar nodos con rqt_graph en ROS 2</h1>
 
-  <p class="lead">En esta clase aprenderás a utilizar rqt_graph, una herramienta gráfica de ROS 2 que te permite visualizar en tiempo real los nodos y sus conexiones. Es ideal para entender y depurar la estructura de tu aplicación ROS.</p>
+    <p class="lead">En esta clase aprenderás a utilizar rqt_graph, una herramienta gráfica de ROS 2 que te permite
+        visualizar en tiempo real los nodos y sus conexiones. Es ideal para entender y depurar la estructura de tu
+        aplicación ROS.</p>
 
-  <div class="alert alert-light">
-    <p><strong>Contenido:</strong> Esta sección está en desarrollo.</p>
-  </div>
+    <p class="" data-start="409" data-end="433">📘 <strong data-start="412" data-end="433">Notas de la clase</strong>
+    </p>
+    <p class="" data-start="435" data-end="456"><strong data-start="435" data-end="456">1. ¿Qué es <code
+                data-start="448" data-end="453">rqt</code>?</strong></p>
+    <ul data-start="458" data-end="673">
+        <li class="" data-start="458" data-end="509">
+            <p class="" data-start="460" data-end="509"><code data-start="460" data-end="465">rqt</code> es una interfaz
+                gráfica modular para ROS.</p>
+        </li>
+        <li class="" data-start="510" data-end="615">
+            <p class="" data-start="512" data-end="615">Permite realizar introspección, configurar parámetros,
+                visualizar logs, probar servicios y mucho más.</p>
+        </li>
+        <li class="" data-start="616" data-end="673">
+            <p class="" data-start="618" data-end="673">Es equivalente al uso de comandos <code data-start="652"
+                    data-end="658">ros2</code>, pero con GUI.</p>
+        </li>
+    </ul>
+    <p class="" data-start="675" data-end="700"><strong data-start="675" data-end="700">2. Cómo iniciar <code
+                data-start="693" data-end="698">rqt</code></strong></p>
+    <ul data-start="702" data-end="732">
+        <li class="" data-start="702" data-end="732">
+            <p class="" data-start="704" data-end="732">Abre una terminal y ejecuta:</p>
+        </li>
+    </ul>
+    <p class="" data-start="734" data-end="737">rqt</p>
+    <ul data-start="739" data-end="803">
+        <li class="" data-start="739" data-end="803">
+            <p class="" data-start="741" data-end="803">Carga varios plugins útiles. El que nos interesa por ahora es:
+            </p>
+        </li>
+    </ul>
+    <p class="" data-start="805" data-end="875">📌 <strong data-start="808" data-end="821">rqt_graph</strong> →
+        Visualiza todos los nodos activos y sus conexiones.</p>
+    <p class="" data-start="877" data-end="916"><strong data-start="877" data-end="916">3. Iniciar <code
+                data-start="890" data-end="901">rqt_graph</code> directamente</strong></p>
+    <p class="" data-start="918" data-end="959">Si solo quieres abrir la vista del grafo:</p>
+    <p class="" data-start="961" data-end="970">rqt_graph</p>
+    <blockquote data-start="972" data-end="1024">
+        <p class="" data-start="974" data-end="1024">Inicialmente estará vacío si no hay nodos activos.</p>
+    </blockquote>
+    <p class="" data-start="1026" data-end="1065"><strong data-start="1026" data-end="1065">4. Ver nodos activos en
+            tiempo real</strong></p>
+    <ul data-start="1067" data-end="1113">
+        <li class="" data-start="1067" data-end="1113">
+            <p class="" data-start="1069" data-end="1113">Ejecuta tus nodos como siempre, por ejemplo:</p>
+        </li>
+    </ul>
+    <p><code>ros2 run my_py_pkg py_node  </code><br><code>ros2 run my_cpp_pkg cpp_node</code></p>
+    <ul data-start="1186" data-end="1314">
+        <li class="" data-start="1186" data-end="1252">
+            <p class="" data-start="1188" data-end="1252">Luego vuelve a <code data-start="1203"
+                    data-end="1214">rqt_graph</code> y pulsa el botón de 🔁 <strong data-start="1238"
+                    data-end="1251">refrescar</strong>.</p>
+        </li>
+        <li class="" data-start="1253" data-end="1314">
+            <p class="" data-start="1255" data-end="1314">Aparecerán los nodos activos (ej: <code data-start="1289"
+                    data-end="1299">/py_test</code>, <code data-start="1301" data-end="1312">/cpp_test</code>).</p>
+        </li>
+    </ul>
+    <p class="" data-start="1316" data-end="1356"><strong data-start="1316" data-end="1356">5. Mostrar/Ocultar nodos del
+            sistema</strong></p>
+    <ul data-start="1358" data-end="1609">
+        <li class="" data-start="1358" data-end="1558">
+            <p class="" data-start="1360" data-end="1448">En <code data-start="1363" data-end="1374">rqt_graph</code>,
+                puedes desmarcar la opción <strong data-start="1403" data-end="1414">"Debug"</strong> para ocultar nodos
+                internos como:</p>
+            <ul data-start="1452" data-end="1558">
+                <li class="" data-start="1452" data-end="1504">
+                    <p class="" data-start="1454" data-end="1504"><code data-start="1454"
+                            data-end="1471">/ros2cli_daemon</code> (proceso de línea de comandos)</p>
+                </li>
+                <li class="" data-start="1507" data-end="1558">
+                    <p class="" data-start="1509" data-end="1558"><code data-start="1509"
+                            data-end="1531">/rqt_gui_py_node_xxx</code> (el nodo del propio <code data-start="1552"
+                            data-end="1557">rqt</code>)</p>
+                </li>
+            </ul>
+        </li>
+        <li class="" data-start="1560" data-end="1609">
+            <p class="" data-start="1562" data-end="1609">Puedes volver a activarlos cuando lo necesites.</p>
+        </li>
+    </ul>
+    <p class="" data-start="1611" data-end="1651"><strong data-start="1611" data-end="1651">6. Visualizar conexiones
+            entre nodos</strong></p>
+    <ul data-start="1653" data-end="1903">
+        <li class="" data-start="1653" data-end="1728">
+            <p class="" data-start="1655" data-end="1728"><code data-start="1655" data-end="1666">rqt_graph</code>
+                muestra las flechas entre nodos conectados mediante <em data-start="1719" data-end="1727">topics</em>.
+            </p>
+        </li>
+        <li class="" data-start="1729" data-end="1814">
+            <p class="" data-start="1731" data-end="1814">Por ahora verás flechas hacia <code data-start="1761"
+                    data-end="1770">/rosout</code>, ya que todos los nodos publican logs allí.</p>
+        </li>
+        <li class="" data-start="1815" data-end="1903">
+            <p class="" data-start="1817" data-end="1903">Más adelante, cuando tus nodos usen <code data-start="1853"
+                    data-end="1872">publish/subscribe</code>, verás conexiones adicionales.</p>
+        </li>
+    </ul>
+    <p class="" data-start="1905" data-end="1938"><strong data-start="1905" data-end="1938">7. ¿Por qué usar <code
+                data-start="1924" data-end="1935">rqt_graph</code>?</strong></p>
+    <p class="" data-start="1940" data-end="2167">✅ Visualización clara y global del estado del sistema<br
+            data-start="1993" data-end="1996">✅ Detección fácil de errores de nombre o comunicación<br data-start="2049"
+            data-end="2052">✅ Muy útil al trabajar con muchos nodos o sistemas distribuidos<br data-start="2115"
+            data-end="2118">✅ Alternativa gráfica a <code data-start="2142" data-end="2158">ros2 node list</code> e
+        <code data-start="2161" data-end="2167">info</code></p>
+    <p class="" data-start="2169" data-end="2203">💾 <strong data-start="2172" data-end="2203">Código trabajado /
+            recursos</strong></p>
+    <p class="" data-start="2169" data-end="2203">
+        <code>Ejecutables visualizados: py_node y cpp_node  </code><br><code>Herramienta utilizada: rqt_graph (GUI)</code>
+    </p>
 
-  <!-- Bootstrap JS -->
-  <script
-    src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js">
-  </script>
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js">
+    </script>
 
 </body>
+
 </html>

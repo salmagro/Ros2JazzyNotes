@@ -1,38 +1,167 @@
 <!DOCTYPE html>
 <html>
+
 <head>
-  <meta charset="utf-8">
-  <title>4.5. Introducción a TurtleSim - ROS 2 Jazzy Notes</title>
+    <meta charset="utf-8">
+    <title>4.5. Introducción a TurtleSim - ROS 2 Jazzy Notes</title>
 
-  <!-- Bootstrap CSS -->
-  <link
-    href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
-    rel="stylesheet"
-  >
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
 
-  <style>
-    .back-link {
-      margin-bottom: 2rem;
-    }
-  </style>
+    <style>
+        .back-link {
+            margin-bottom: 2rem;
+        }
+    </style>
 
 </head>
+
 <body class="container py-4">
 
-  <a href="../index.html" class="btn btn-secondary back-link">← Volver al inicio</a>
+    <a href="../index.html" class="btn btn-secondary back-link">← Volver al inicio</a>
 
-  <h1 class="mb-4">4.5. Introducción a TurtleSim y ejecución de nodos en ROS 2</h1>
+    <h1 class="mb-4">4.5. Introducción a TurtleSim y ejecución de nodos en ROS 2</h1>
 
-  <p class="lead">En esta clase aprenderás a iniciar y controlar una simulación 2D básica usando el paquete turtlesim en ROS 2, aplicando los conocimientos previos sobre ejecución de nodos y comunicación entre ellos.</p>
+    <p class="lead">En esta clase aprenderás a iniciar y controlar una simulación 2D básica usando el paquete turtlesim
+        en ROS 2, aplicando los conocimientos previos sobre ejecución de nodos y comunicación entre ellos.</p>
 
-  <div class="alert alert-light">
-    <p><strong>Contenido:</strong> Esta sección está en desarrollo.</p>
-  </div>
+    <p class="" data-start="471" data-end="495">📝 <strong data-start="246" data-end="267">Documentación</strong><br><a
+            href="https://docs.ros.org/en/jazzy/Tutorials/Beginner-CLI-Tools/Introducing-Turtlesim/Introducing-Turtlesim.html">https://docs.ros.org/en/jazzy/Tutorials/Beginner-CLI-Tools/Introducing-Turtlesim/Introducing-Turtlesim.html</a>
+    </p>
+    <p class="" data-start="471" data-end="495"><br>📘 <strong data-start="474" data-end="495">Notas de la
+            clase</strong></p>
+    <p class="" data-start="497" data-end="519"><strong data-start="497" data-end="519">¿Qué es TurtleSim?</strong></p>
+    <ul data-start="520" data-end="772">
+        <li class="" data-start="520" data-end="623">
+            <p class="" data-start="522" data-end="623"><code data-start="522" data-end="533">turtlesim</code> es un
+                paquete de simulación 2D que permite controlar una "tortuga" en un entorno gráfico.</p>
+        </li>
+        <li class="" data-start="624" data-end="696">
+            <p class="" data-start="626" data-end="696">Es ideal para practicar conceptos de ROS 2 de forma visual y
+                sencilla.</p>
+        </li>
+    </ul>
+    <p class="" data-start="774" data-end="812"><strong data-start="774" data-end="812">Cómo ejecutar el nodo de
+            TurtleSim</strong></p>
+    <ol data-start="813" data-end="1175">
+        <li class="" data-start="813" data-end="834">
+            <p class="" data-start="816" data-end="834">Abre una terminal.</p>
+        </li>
+        <li class="" data-start="835" data-end="895">
+            <p class="" data-start="838" data-end="895">Ejecuta el nodo con:
+                <code>ros2 run turtlesim turtlesim_node</code></p>
+        </li>
+        <li class="" data-start="896" data-end="1097">
+            <p class="" data-start="899" data-end="1097">Si recibes un error indicando que el paquete no está instalado:
+                <code>sudo apt install ros-&lt;distro&gt;-turtlesim</code> (Reemplaza <code data-start="1020"
+                    data-end="1030">&lt;distro&gt;</code> con tu distribución actual de ROS, por ejemplo <code
+                    data-start="1078" data-end="1086">humble</code> o <code data-start="1089"
+                    data-end="1095">foxy</code>).</p>
+        </li>
+        <li class="" data-start="1098" data-end="1175">
+            <p class="" data-start="1101" data-end="1175">Al ejecutarlo correctamente, se abrirá una ventana gráfica con
+                la tortuga.</p>
+        </li>
+    </ol>
+    <p class="" data-start="1177" data-end="1216"><strong data-start="1177" data-end="1216">Controlar la tortuga con el
+            teclado</strong></p>
+    <ol data-start="1217" data-end="1555">
+        <li class="" data-start="1217" data-end="1246">
+            <p class="" data-start="1220" data-end="1246">Abre una segunda terminal.</p>
+        </li>
+        <li class="" data-start="1247" data-end="1375">
+            <p class="" data-start="1250" data-end="1375">Ejecuta el siguiente comando para iniciar el nodo que permite
+                el control por teclado: <br><code>ros2 run turtlesim turtle_teleop_key</code></p>
+        </li>
+        <li class="" data-start="1376" data-end="1470">
+            <p class="" data-start="1379" data-end="1470">Este nodo lee las teclas del teclado (flechas) y envía
+                comandos de movimiento a la tortuga.</p>
+        </li>
+        <li class="" data-start="1471" data-end="1555">
+            <p class="" data-start="1474" data-end="1555">Asegúrate de tener seleccionada la terminal activa antes de
+                presionar las teclas.</p>
+        </li>
+    </ol>
+    <p class="" data-start="1557" data-end="1599"><strong data-start="1557" data-end="1599">Visualizar la comunicación
+            entre nodos</strong></p>
+    <ol data-start="1600" data-end="1891">
+        <li class="" data-start="1600" data-end="1629">
+            <p class="" data-start="1603" data-end="1629">Abre una tercera terminal.</p>
+        </li>
+        <li class="" data-start="1630" data-end="1684">
+            <p class="" data-start="1633" data-end="1684">Ejecuta el comando:
+                <br><code>ros2 run rqt_graph rqt_graph</code></p>
+        </li>
+        <li class="" data-start="1685" data-end="1891">
+            <p class="" data-start="1688" data-end="1721">En la ventana que aparece puedes:</p>
+            <ul data-start="1725" data-end="1891">
+                <li class="" data-start="1725" data-end="1776">
+                    <p class="" data-start="1727" data-end="1776">Cambiar la vista a "Nodes Only" o "Nodes/Topics".</p>
+                </li>
+                <li class="" data-start="1780" data-end="1891">
+                    <p class="" data-start="1782" data-end="1891">Ver cómo el nodo <code data-start="1799"
+                            data-end="1818">turtle_teleop_key</code> se comunica con <code data-start="1835"
+                            data-end="1851">turtlesim_node</code> a través del tópico <code data-start="1872"
+                            data-end="1890">/turtle1/cmd_vel</code>.</p>
+                </li>
+            </ul>
+        </li>
+    </ol>
+    <p class="" data-start="1893" data-end="1937"><strong data-start="1893" data-end="1937">Renombrar nodos usando
+            argumentos de ROS</strong></p>
+    <ul data-start="1938" data-end="2140">
+        <li class="" data-start="1938" data-end="2081">
+            <p class="" data-start="1940" data-end="2081">Puedes asignar un nombre personalizado al nodo al momento de
+                ejecutarlo: <br><code>ros2 run turtlesim turtlesim_node --ros-args -r __node:=mi_tortuga</code></p>
+        </li>
+        <li class="" data-start="2082" data-end="2140">
+            <p class="" data-start="2084" data-end="2140">En el gráfico de nodos, verás el nuevo nombre reflejado.</p>
+        </li>
+    </ul>
+    <p class="" data-start="2142" data-end="2172"><strong data-start="2142" data-end="2172">Resumen de conceptos
+            clave</strong></p>
+    <ul data-start="2173" data-end="2395">
+        <li class="" data-start="2173" data-end="2221">
+            <p class="" data-start="2175" data-end="2221">Uso del comando <code data-start="2191"
+                    data-end="2201">ros2 run</code> para iniciar nodos.</p>
+        </li>
+        <li class="" data-start="2222" data-end="2265">
+            <p class="" data-start="2224" data-end="2265">Interacción entre nodos mediante tópicos.</p>
+        </li>
+        <li class="" data-start="2266" data-end="2329">
+            <p class="" data-start="2268" data-end="2329">Visualización de la arquitectura del sistema con <code
+                    data-start="2317" data-end="2328">rqt_graph</code>.</p>
+        </li>
+        <li class="" data-start="2330" data-end="2395">
+            <p class="" data-start="2332" data-end="2395">Argumentos de línea de comandos para remapeo y
+                personalización.</p>
+        </li>
+    </ul>
+    <p class="" data-start="2397" data-end="2431">💾 <strong data-start="2400" data-end="2431">Código trabajado /
+            recursos</strong></p>
+    <ul data-start="2432" data-end="2728">
+        <li class="" data-start="2432" data-end="2496">
+            <p class="" data-start="2434" data-end="2496">Ejecutar nodo principal:<br data-start="2458"
+                    data-end="2461"><code>ros2 run turtlesim turtlesim_node</code></p>
+        </li>
+        <li class="" data-start="2497" data-end="2571">
+            <p class="" data-start="2499" data-end="2571">Ejecutar nodo de teleoperación:<br data-start="2530"
+                    data-end="2533"><code>ros2 run turtlesim turtle_teleop_key</code></p>
+        </li>
+        <li class="" data-start="2572" data-end="2646">
+            <p class="" data-start="2574" data-end="2646">Ejecutar visualizador gráfico de nodos:<br data-start="2613"
+                    data-end="2616"><code>ros2 run rqt_graph rqt_graph</code></p>
+        </li>
+        <li class="" data-start="2647" data-end="2728">
+            <p class="" data-start="2649" data-end="2728">Instalar paquete (si es necesario):<br data-start="2684"
+                    data-end="2687"><code>sudo apt install ros-&lt;distro&gt;-turtlesim</code></p>
+        </li>
+    </ul>
 
-  <!-- Bootstrap JS -->
-  <script
-    src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js">
-  </script>
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js">
+    </script>
 
 </body>
+
 </html>

@@ -1,38 +1,137 @@
 <!DOCTYPE html>
 <html>
+
 <head>
-  <meta charset="utf-8">
-  <title>4.3. --symlink-install para desarrollo rápido - ROS 2 Jazzy Notes</title>
+    <meta charset="utf-8">
+    <title>4.3. --symlink-install para desarrollo rápido - ROS 2 Jazzy Notes</title>
 
-  <!-- Bootstrap CSS -->
-  <link
-    href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
-    rel="stylesheet"
-  >
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
 
-  <style>
-    .back-link {
-      margin-bottom: 2rem;
-    }
-  </style>
+    <style>
+        .back-link {
+            margin-bottom: 2rem;
+        }
+    </style>
 
 </head>
+
 <body class="container py-4">
 
-  <a href="../index.html" class="btn btn-secondary back-link">← Volver al inicio</a>
+    <a href="../index.html" class="btn btn-secondary back-link">← Volver al inicio</a>
 
-  <h1 class="mb-4">4.3. Opción --symlink-install para desarrollo rápido de nodos Python en ROS 2</h1>
+    <h1 class="mb-4">4.3. Opción --symlink-install para desarrollo rápido de nodos Python en ROS 2</h1>
 
-  <p class="lead">En esta clase aprenderás cómo usar la opción --symlink-install al compilar paquetes Python en ROS 2, para acelerar el ciclo de desarrollo sin necesidad de recompilar cada vez que haces cambios en el código.</p>
+    <p class="lead">En esta clase aprenderás cómo usar la opción --symlink-install al compilar paquetes Python en ROS 2,
+        para acelerar el ciclo de desarrollo sin necesidad de recompilar cada vez que haces cambios en el código.</p>
 
-  <div class="alert alert-light">
-    <p><strong>Contenido:</strong> Esta sección está en desarrollo.</p>
-  </div>
+    <p class="" data-start="439" data-end="463">📘 <strong data-start="442" data-end="463">Notas de la clase</strong>
+    </p>
+    <p class="" data-start="465" data-end="500"><strong data-start="465" data-end="500">1. Recordatorio: Dónde
+            compilar</strong></p>
+    <ul data-start="502" data-end="637">
+        <li class="" data-start="502" data-end="559">
+            <p class="" data-start="504" data-end="559">Siempre compila desde la raíz del workspace:<br data-start="548"
+                    data-end="551"><code data-start="553" data-end="559">~/ws</code></p>
+        </li>
+        <li class="" data-start="560" data-end="637">
+            <p class="" data-start="562" data-end="637">No compiles desde <code data-start="580"
+                    data-end="585">src</code>, desde el paquete, ni desde ningún otro directorio.</p>
+        </li>
+    </ul>
+    <p class="" data-start="639" data-end="674"><strong data-start="639" data-end="674">2. Comando básico para
+            compilar</strong></p>
+    <p class="" data-start="676" data-end="688">colcon build</p>
+    <ul data-start="690" data-end="745">
+        <li class="" data-start="690" data-end="745">
+            <p class="" data-start="692" data-end="745">Compila todos los paquetes encontrados en <code data-start="734"
+                    data-end="744">~/ws/src</code>.</p>
+        </li>
+    </ul>
+    <p class="" data-start="747" data-end="777">Para compilar solo un paquete:</p>
+    <p class="" data-start="779" data-end="819">colcon build --packages-select my_py_pkg</p>
+    <p class="" data-start="821" data-end="889"><strong data-start="821" data-end="889">3. Nueva opción: <code
+                data-start="840" data-end="859">--symlink-install</code> (solo para paquetes Python)</strong></p>
+    <p class="" data-start="891" data-end="985">Para permitir ejecutar directamente archivos <code data-start="936"
+            data-end="941">.py</code> desde <code data-start="948" data-end="953">src</code> sin volver a compilar cada
+        vez:</p>
+    <p class="" data-start="987" data-end="1045">colcon build --packages-select my_py_pkg --symlink-install</p>
+    <p class="" data-start="1047" data-end="1073"><strong data-start="1047" data-end="1073">¿Qué hace esta
+            opción?</strong></p>
+    <ul data-start="1075" data-end="1293">
+        <li class="" data-start="1075" data-end="1141">
+            <p class="" data-start="1077" data-end="1141">Crea enlaces simbólicos desde <code data-start="1107"
+                    data-end="1117">install/</code> hacia tu carpeta <code data-start="1135" data-end="1141">src/</code>
+            </p>
+        </li>
+        <li class="" data-start="1142" data-end="1217">
+            <p class="" data-start="1144" data-end="1217">Permite que <code data-start="1156"
+                    data-end="1166">ros2 run</code> ejecute directamente tu script <code data-start="1198"
+                    data-end="1203">.py</code> actualizado</p>
+        </li>
+        <li class="" data-start="1218" data-end="1293">
+            <p class="" data-start="1220" data-end="1293">Ya no es necesario compilar de nuevo tras cada cambio en el
+                archivo <code data-start="1288" data-end="1293">.py</code></p>
+        </li>
+    </ul>
+    <p class="" data-start="1295" data-end="1342"><strong data-start="1295" data-end="1342">4. Flujo de trabajo con
+            <code data-start="1321" data-end="1340">--symlink-install</code></strong></p>
+    <ul data-start="1344" data-end="1529">
+        <li class="" data-start="1344" data-end="1392">
+            <p class="" data-start="1346" data-end="1392">1️⃣ Compilas una vez con <code data-start="1371"
+                    data-end="1390">--symlink-install</code></p>
+        </li>
+        <li class="" data-start="1393" data-end="1435">
+            <p class="" data-start="1395" data-end="1435">2️⃣ Haces cambios en tu archivo Python</p>
+        </li>
+        <li class="" data-start="1436" data-end="1462">
+            <p class="" data-start="1438" data-end="1462">3️⃣ Guardas el archivo</p>
+        </li>
+        <li class="" data-start="1463" data-end="1529">
+            <p class="" data-start="1465" data-end="1529">4️⃣ Ejecutas de nuevo con <code data-start="1491"
+                    data-end="1501">ros2 run</code> → ¡El cambio ya se refleja!</p>
+        </li>
+    </ul>
+    <p class="" data-start="1531" data-end="1552"><strong data-start="1531" data-end="1552">5. Ejemplo de uso</strong>
+    </p>
+    <p class="" data-start="1531" data-end="1552"><code>ros2 run my_py_pkg py_node</code></p>
+    <p data-start="1531" data-end="1552">Luego, editas my_first_node.py, guardas, y al ejecutar otra vez:</p>
+    <p data-start="1531" data-end="1552"><code>ros2 run my_py_pkg py_node</code></p>
+    <p class="" data-start="1702" data-end="1764">… ya verás los cambios <strong data-start="1725" data-end="1763">sin
+            necesidad de compilar de nuevo</strong>.</p>
+    <p class="" data-start="1766" data-end="1797"><strong data-start="1766" data-end="1797">6. Advertencias
+            importantes</strong></p>
+    <p class="" data-start="1799" data-end="1862">⚠️ Esta opción es <strong data-start="1817" data-end="1841">solo para
+            desarrollo</strong>, no para producción.</p>
+    <p class="" data-start="1864" data-end="1905">⚠️ Solo funciona con <strong data-start="1885"
+            data-end="1904">paquetes Python</strong>.</p>
+    <p class="" data-start="1907" data-end="1979">⚠️ Puede ocasionar errores o comportamientos inesperados. Si algo
+        falla:</p>
+    <ul data-start="1981" data-end="2074">
+        <li class="" data-start="1981" data-end="2026">
+            <p class="" data-start="1983" data-end="2026">Vuelve a compilar sin <code data-start="2005"
+                    data-end="2024">--symlink-install</code></p>
+        </li>
+        <li class="" data-start="2027" data-end="2074">
+            <p class="" data-start="2029" data-end="2074">Usa el flujo estándar: <code data-start="2052"
+                    data-end="2074">build → source → run</code></p>
+        </li>
+    </ul>
+    <p class="" data-start="2076" data-end="2097"><strong data-start="2076" data-end="2097">7. Resumen de uso</strong>
+    </p>
+    <p class="" data-start="2099" data-end="2245">✅ Ideal para iteraciones rápidas mientras desarrollas nodos en
+        Python<br data-start="2168" data-end="2171">❌ No usar con paquetes C++<br data-start="2197" data-end="2200">❌ No
+        recomendado para despliegue o producción</p>
+    <p class="" data-start="2247" data-end="2281">💾 <strong data-start="2250" data-end="2281">Código trabajado /
+            recursos</strong></p>
+    <p data-start="1531" data-end="1552">
+        <code>Nodo Python: ~/ws/src/my_py_pkg/my_py_pkg/my_first_node.py  </code><br><code>Build con: colcon build --packages-select my_py_pkg --symlink-install</code>
+    </p>
 
-  <!-- Bootstrap JS -->
-  <script
-    src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js">
-  </script>
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js">
+    </script>
 
 </body>
+
 </html>
