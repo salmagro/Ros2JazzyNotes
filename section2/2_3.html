@@ -1,14 +1,12 @@
 <!DOCTYPE html>
 <html>
+
 <head>
   <meta charset="utf-8">
   <title>2.3. Instala ROS 2 Jazzy - ROS 2 Jazzy Notes</title>
 
   <!-- Bootstrap CSS -->
-  <link
-    href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
-    rel="stylesheet"
-  >
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
 
   <style>
     .back-link {
@@ -17,22 +15,195 @@
   </style>
 
 </head>
+
 <body class="container py-4">
 
   <a href="../index.html" class="btn btn-secondary back-link">← Volver al inicio</a>
 
   <h1 class="mb-4">2.3. Instala ROS 2 Jazzy en Ubuntu 24.04</h1>
 
-  <p class="lead">En esta clase instalarás ROS 2 Jazzy sobre Ubuntu 24.04, ya sea en un sistema nativo o dentro de una máquina virtual. Seguirás una serie de pasos recomendados para asegurarte de que el entorno quede correctamente configurado.</p>
+  <p class="lead">En esta clase instalarás ROS 2 Jazzy sobre Ubuntu 24.04, ya sea en un sistema nativo o dentro de una
+    máquina virtual. Seguirás una serie de pasos recomendados para asegurarte de que el entorno quede correctamente
+    configurado.</p>
 
-  <div class="alert alert-info">
-    <p><strong>Contenido:</strong> Esta sección está en desarrollo.</p>
+  <div class="alert alert-light">
+    <p class="" data-start="539" data-end="569">🔗 <strong data-start="2688" data-end="2697">Video Tutorial</strong></p>
+    <p class="" data-start="539" data-end="569"><br data-start="2697" data-end="2700"><a class=""
+        href="https://youtu.be/W9VJlGxfZj8" target="_new" rel="noopener" data-start="2700"
+        data-end="2760">https://youtu.be/W9VJlGxfZj8</a></p>
+    <p class="" data-start="539" data-end="569">📝  <strong data-start="542" data-end="569">Documentación</strong></p>
+    <p class="" data-start="539" data-end="569"><a
+        href="https://docs.ros.org/en/jazzy/Installation/Ubuntu-Install-Debs.html">https://docs.ros.org/https://docs.ros.org/en/jazzy/Installation/Ubuntu-Install-Debs.htmlen/jazzy/Installation/Ubuntu-Install-Debs.html</a><br><br>📘
+      <strong data-start="542" data-end="569">Notas de la clase</strong></p>
+    <h3 class="" data-start="571" data-end="612">Verifica la configuración del sistema</h3>
+    <ul data-start="613" data-end="927">
+      <li class="" data-start="613" data-end="722">
+        <p class="" data-start="615" data-end="660">Abre una terminal y verifica la codificación:</p>
+        <ul data-start="663" data-end="722">
+          <li class="" data-start="663" data-end="682">
+            <p class="" data-start="665" data-end="682">Comando: <code data-start="674" data-end="682">locale</code></p>
+          </li>
+          <li class="" data-start="685" data-end="722">
+            <p class="" data-start="687" data-end="722">Debe mostrar codificación en UTF-8.</p>
+          </li>
+        </ul>
+      </li>
+      <li class="" data-start="723" data-end="927">
+        <p class="" data-start="725" data-end="796">Si no aparece UTF-8, ejecuta los siguientes comandos para
+          configurarla:</p>
+        <ul data-start="799" data-end="927">
+          <li class="" data-start="799" data-end="836">
+            <p class="" data-start="801" data-end="836"><code data-start="801"
+                data-end="836">sudo locale-gen en_US en_US.UTF-8</code></p>
+          </li>
+          <li class="" data-start="839" data-end="897">
+            <p class="" data-start="841" data-end="897"><code data-start="841"
+                data-end="897">sudo update-locale LC_ALL=en_US.UTF-8 LANG=en_US.UTF-8</code></p>
+          </li>
+          <li class="" data-start="900" data-end="927">
+            <p class="" data-start="902" data-end="927"><code data-start="902"
+                data-end="927">export LANG=en_US.UTF-8</code></p>
+          </li>
+        </ul>
+      </li>
+    </ul>
+    <h3 class="" data-start="929" data-end="972">Agregar repositorios ROS 2 a tu sistema</h3>
+    <ol data-start="973" data-end="1553">
+      <li class="" data-start="973" data-end="1100">
+        <p class="" data-start="976" data-end="1009">Añadir el repositorio <code data-start="998"
+            data-end="1008">universe</code>:</p>
+        <ul data-start="1013" data-end="1100">
+          <li class="" data-start="1013" data-end="1060">
+            <p class="" data-start="1015" data-end="1060"><code data-start="1015"
+                data-end="1060">sudo apt install software-properties-common</code></p>
+          </li>
+          <li class="" data-start="1064" data-end="1100">
+            <p class="" data-start="1066" data-end="1100"><code data-start="1066"
+                data-end="1100">sudo add-apt-repository universe</code></p>
+          </li>
+        </ul>
+      </li>
+      <li class="" data-start="1101" data-end="1266">
+        <p class="" data-start="1104" data-end="1134">Agregar la clave GPG de ROS 2:</p>
+        <ul data-start="1138" data-end="1266">
+          <li class="" data-start="1138" data-end="1266">
+            <p class="" data-start="1140" data-end="1266"><code data-start="1140"
+                data-end="1266">sudo curl -sSL https://raw.githubusercontent.com/ros/rosdistro/master/ros.key -o /usr/share/keyrings/ros-archive-keyring.gpg</code>
+            </p>
+          </li>
+        </ul>
+      </li>
+      <li class="" data-start="1267" data-end="1553">
+        <p class="" data-start="1270" data-end="1301">Añadir el repositorio de ROS 2:</p>
+        <ul data-start="1305" data-end="1553">
+          <li class="" data-start="1305" data-end="1553">
+            <p class="" data-start="1307" data-end="1553"><code data-start="1307"
+                data-end="1553">echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/ros-archive-keyring.gpg] http://packages.ros.org/ros2/ubuntu $(. /etc/os-release &amp;&amp; echo $UBUNTU_CODENAME) main" | sudo tee /etc/apt/sources.list.d/ros2.list &gt; /dev/null</code>
+            </p>
+          </li>
+        </ul>
+      </li>
+    </ol>
+    <h3 class="" data-start="1555" data-end="1584">Actualización del sistema</h3>
+    <ul data-start="1585" data-end="1709">
+      <li class="" data-start="1585" data-end="1709">
+        <p class="" data-start="1587" data-end="1595">Ejecuta:</p>
+        <ul data-start="1598" data-end="1709">
+          <li class="" data-start="1598" data-end="1617">
+            <p class="" data-start="1600" data-end="1617"><code data-start="1600" data-end="1617">sudo apt update</code>
+            </p>
+          </li>
+          <li class="" data-start="1620" data-end="1686">
+            <p class="" data-start="1622" data-end="1686">Verifica que aparezca <code data-start="1644"
+                data-end="1662">packages.ros.org</code> entre los repositorios.</p>
+          </li>
+          <li class="" data-start="1689" data-end="1709">
+            <p class="" data-start="1691" data-end="1709"><code data-start="1691"
+                data-end="1709">sudo apt upgrade</code></p>
+          </li>
+        </ul>
+      </li>
+    </ul>
+    <h3 class="" data-start="1711" data-end="1773">Herramientas de desarrollo ROS (opcional pero recomendado)</h3>
+    <ul data-start="1774" data-end="1851">
+      <li class="" data-start="1774" data-end="1851">
+        <p class="" data-start="1776" data-end="1814">Instalar herramientas para desarrollo:</p>
+        <ul data-start="1817" data-end="1851">
+          <li class="" data-start="1817" data-end="1851">
+            <p class="" data-start="1819" data-end="1851"><code data-start="1819"
+                data-end="1851">sudo apt install ros-dev-tools</code></p>
+          </li>
+        </ul>
+      </li>
+    </ul>
+    <h3 class="" data-start="1853" data-end="1883">Instalación de ROS 2 Jazzy</h3>
+    <ul data-start="1884" data-end="2182">
+      <li class="" data-start="1884" data-end="2118">
+        <p class="" data-start="1886" data-end="1915">Hay dos opciones principales:</p>
+        <ul data-start="1918" data-end="2118">
+          <li class="" data-start="1918" data-end="1990">
+            <p class="" data-start="1920" data-end="1990"><strong data-start="1920"
+                data-end="1942">ros-jazzy-ros-base</strong>: instalación mínima, sin herramientas gráficas.</p>
+          </li>
+          <li class="" data-start="1993" data-end="2118">
+            <p class="" data-start="1995" data-end="2118"><strong data-start="1995"
+                data-end="2016">ros-jazzy-desktop</strong>: instalación completa (recomendada para el curso), incluye
+              herramientas gráficas, demos y tutoriales.</p>
+          </li>
+        </ul>
+      </li>
+      <li class="" data-start="2119" data-end="2182">
+        <p class="" data-start="2121" data-end="2141">Comando recomendado:</p>
+        <ul data-start="2144" data-end="2182">
+          <li class="" data-start="2144" data-end="2182">
+            <p class="" data-start="2146" data-end="2182"><code data-start="2146"
+                data-end="2182">sudo apt install ros-jazzy-desktop</code></p>
+          </li>
+        </ul>
+      </li>
+    </ul>
+    <blockquote data-start="2184" data-end="2290">
+      <p class="" data-start="2186" data-end="2290">Nota: este proceso puede tomar entre 5 y 10 minutos (o más) según tu
+        conexión y rendimiento del sistema.</p>
+    </blockquote>
+    <h3 class="" data-start="2292" data-end="2337">Limpieza y mantenimiento post-instalación</h3>
+    <ul data-start="2338" data-end="2564">
+      <li class="" data-start="2338" data-end="2564">
+        <p class="" data-start="2340" data-end="2386">Para mantener el sistema limpio y actualizado:</p>
+        <ul data-start="2389" data-end="2564">
+          <li class="" data-start="2389" data-end="2408">
+            <p class="" data-start="2391" data-end="2408"><code data-start="2391" data-end="2408">sudo apt update</code>
+            </p>
+          </li>
+          <li class="" data-start="2411" data-end="2431">
+            <p class="" data-start="2413" data-end="2431"><code data-start="2413"
+                data-end="2431">sudo apt upgrade</code></p>
+          </li>
+          <li class="" data-start="2434" data-end="2495">
+            <p class="" data-start="2436" data-end="2495"><code data-start="2436"
+                data-end="2457">sudo apt autoremove</code> (para eliminar paquetes innecesarios)</p>
+          </li>
+          <li class="" data-start="2498" data-end="2564">
+            <p class="" data-start="2500" data-end="2564">También puedes actualizar paquetes individuales si es
+              necesario.</p>
+          </li>
+        </ul>
+      </li>
+    </ul>
+    <p class="" data-start="2566" data-end="2593">📌 <strong data-start="2569" data-end="2593">Verifica
+        instalación</strong></p>
+    <ul data-start="2594" data-end="2683">
+      <li class="" data-start="2594" data-end="2683">
+        <p class="" data-start="2596" data-end="2683">Ejecuta <code data-start="2604"
+            data-end="2622">sudo apt upgrade</code> nuevamente para confirmar que no quedan paquetes pendientes.</p>
+      </li>
+    </ul>
   </div>
 
   <!-- Bootstrap JS -->
-  <script
-    src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js">
   </script>
 
 </body>
+
 </html>
