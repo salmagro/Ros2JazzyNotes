@@ -1,14 +1,12 @@
 <!DOCTYPE html>
 <html>
+
 <head>
   <meta charset="utf-8">
   <title>2.4. Configura tu entorno - ROS 2 Jazzy Notes</title>
 
   <!-- Bootstrap CSS -->
-  <link
-    href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
-    rel="stylesheet"
-  >
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
 
   <style>
     .back-link {
@@ -17,22 +15,136 @@
   </style>
 
 </head>
+
 <body class="container py-4">
 
   <a href="../index.html" class="btn btn-secondary back-link">← Volver al inicio</a>
 
   <h1 class="mb-4">2.4. Configura tu entorno para ROS 2</h1>
 
-  <p class="lead">Antes de comenzar a trabajar con ROS 2, es necesario configurar correctamente el entorno para que los comandos funcionen en la terminal. En esta clase aprenderás cómo hacerlo de forma manual y cómo automatizar el proceso.</p>
+  <p class="lead">Antes de comenzar a trabajar con ROS 2, es necesario configurar correctamente el entorno para que los
+    comandos funcionen en la terminal. En esta clase aprenderás cómo hacerlo de forma manual y cómo automatizar el
+    proceso.</p>
 
-  <div class="alert alert-info">
-    <p><strong>Contenido:</strong> Esta sección está en desarrollo.</p>
+  <div class="alert alert-light">
+    <p class="" data-start="451" data-end="483">📝 <strong data-start="454" data-end="481">Documentación<br></strong>
+    </p>
+    <p class="" data-start="451" data-end="483"><a
+        href="https://docs.ros.org/en/jazzy/Tutorials/Beginner-CLI-Tools/Configuring-ROS2-Environment.html"
+        target="_blank"
+        rel="noopener">https://docs.ros.org/en/jazzy/Tutorials/Beginner-CLI-Tools/Configuring-ROS2-Environment.html</a>
+    </p>
+    <p class="" data-start="451" data-end="483">📘 <strong data-start="454" data-end="481">Notas de la clase</strong>
+    </p>
+    <ul data-start="485" data-end="758">
+      <li class="" data-start="485" data-end="596">
+        <p class="" data-start="487" data-end="596">Aunque ROS 2 ya está instalado, no se puede usar de inmediato desde
+          la terminal sin una configuración previa.</p>
+      </li>
+      <li class="" data-start="597" data-end="758">
+        <p class="" data-start="599" data-end="758">Es necesario <strong data-start="612"
+            data-end="626">"sourcear"</strong> (cargar) un script llamado <code data-start="654"
+            data-end="666">setup.bash</code>, ubicado en el directorio de instalación de ROS 2, para que los comandos
+          estén disponibles.</p>
+      </li>
+    </ul>
+    <p class="" data-start="760" data-end="807"><strong data-start="760" data-end="807">Pasos para configurar ROS 2 en
+        la terminal:</strong></p>
+    <ol data-start="809" data-end="1343">
+      <li class="" data-start="809" data-end="905">
+        <p class="" data-start="812" data-end="905">Intentar ejecutar <code data-start="830" data-end="836">ros2</code>
+          sin configuración previa genera el error: <code data-start="879"
+            data-end="904">ros2: command not found</code>.</p>
+      </li>
+      <li class="" data-start="906" data-end="1058">
+        <p class="" data-start="909" data-end="1058">Verificar que ROS 2 está instalado en:<br data-start="947"
+            data-end="950"><code data-start="953" data-end="964">/opt/ros/</code><br data-start="964"
+            data-end="967">Allí habrá una carpeta con el nombre de la distribución instalada, por ejemplo: <code
+            data-start="1050" data-end="1057">jazzy</code>.</p>
+      </li>
+      <li class="" data-start="1059" data-end="1149">
+        <p class="" data-start="1062" data-end="1149">Dentro de la carpeta <code data-start="1083"
+            data-end="1090">jazzy</code>, se encuentra el archivo:<br data-start="1116" data-end="1119"><code
+            data-start="1122" data-end="1149">/opt/ros/jazzy/setup.bash</code></p>
+      </li>
+      <li class="" data-start="1150" data-end="1246">
+        <p class="" data-start="1153" data-end="1246">Para habilitar ROS 2 en la terminal actual, ejecutar:<br
+            data-start="1206" data-end="1209"><code data-start="1212"
+            data-end="1246">source /opt/ros/jazzy/setup.bash</code></p>
+      </li>
+      <li class="" data-start="1247" data-end="1343">
+        <p class="" data-start="1250" data-end="1343">Luego de hacer esto, al ejecutar <code data-start="1283"
+            data-end="1289">ros2</code> ya aparece un mensaje de ayuda y el comando funciona.</p>
+      </li>
+    </ol>
+    <p class="" data-start="1345" data-end="1399"><strong data-start="1345" data-end="1399">Automatizar la carga del
+        entorno en cada terminal:</strong></p>
+    <ol start="6" data-start="1401" data-end="1830">
+      <li class="" data-start="1401" data-end="1741">
+        <p class="" data-start="260" data-end="414">En lugar de cargar automáticamente ROS 2 al abrir cada terminal,
+          puedes crear una función en tu archivo <code data-start="364" data-end="373">.bashrc</code> para activarlo
+          solo cuando lo necesites.</p>
+        <p class="" data-start="416" data-end="426"><strong data-start="416" data-end="426">Pasos:</strong></p>
+        <ol data-start="428" data-end="1103">
+          <li class="" data-start="428" data-end="501">
+            <p class="" data-start="431" data-end="501">Abrir el archivo <code data-start="448"
+                data-end="457">.bashrc</code> en tu directorio personal:<br data-start="484" data-end="487"><code
+                data-start="490" data-end="501">~/.bashrc</code></p>
+          </li>
+          <li class="" data-start="503" data-end="785">
+            <p class="" data-start="506" data-end="552">Ir al final del archivo y añadir esta
+              función<br><code>function set-ros() {</code><br><code>    source /opt/ros/jazzy/setup.bash</code><br><code>    env | grep ROS</code><br><code>}</code>
+            </p>
+          </li>
+          <li class="" data-start="787" data-end="818">
+            <p class="" data-start="790" data-end="818">Guardar y cerrar el archivo.</p>
+          </li>
+          <li class="" data-start="820" data-end="860">
+            <p class="" data-start="823" data-end="860">Cerrar la terminal y abrir una nueva.</p>
+          </li>
+          <li class="" data-start="862" data-end="1103">
+            <p class="" data-start="865" data-end="939">Cuando quieras activar ROS 2 en una terminal, solo escribe:<br
+                data-start="924" data-end="927"><code data-start="930" data-end="939">set-ros</code></p>
+            <p class="" data-start="944" data-end="949">Esto:</p>
+            <ul data-start="953" data-end="1103">
+              <li class="" data-start="953" data-end="996">
+                <p class="" data-start="955" data-end="996">Ejecuta el <code data-start="966"
+                    data-end="974">source</code> del entorno de ROS 2.</p>
+              </li>
+              <li class="" data-start="1000" data-end="1103">
+                <p class="" data-start="1002" data-end="1103">Luego muestra todas las variables de entorno relacionadas
+                  con ROS (verificadas con <code data-start="1085" data-end="1101">env | grep ROS</code>).</p>
+              </li>
+            </ul>
+          </li>
+        </ol>
+      </li>
+    </ol>
+    <p class="" data-start="1832" data-end="1979"><strong data-start="1832" data-end="1854">¿Qué es <code
+          data-start="1842" data-end="1851">.bashrc</code>?</strong><br data-start="1854" data-end="1857">Es un script
+      que se ejecuta cada vez que se abre una nueva sesión de terminal. Permite personalizar el entorno de trabajo.</p>
+    <p class="" data-start="1981" data-end="2028">💾 <strong data-start="1984" data-end="2026">Código trabajado /
+        recursos (opcional)</strong></p>
+    <ul data-start="2030" data-end="2129">
+      <li class="" data-start="2030" data-end="2129">
+        <p class="" data-start="1389" data-end="1442">Función para añadir al final del archivo <code data-start="1430"
+            data-end="1441">~/.bashrc</code>:</p>
+        <p class="" data-start="1446" data-end="1544"><code data-start="1446"
+            data-end="1468">function set-ros() {</code><br data-start="1468" data-end="1471"><code data-start="1473"
+            data-end="1511">source /opt/ros/jazzy/setup.bash</code><br data-start="1511" data-end="1514"><code
+            data-start="1516" data-end="1536">env | grep ROS</code><br data-start="1536" data-end="1539"><code
+            data-start="1541" data-end="1544">}</code></p>
+        <p class="" data-start="2032" data-end="2129"> </p>
+      </li>
+    </ul>
+    <p> </p>
+
   </div>
 
   <!-- Bootstrap JS -->
-  <script
-    src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js">
   </script>
 
 </body>
+
 </html>
