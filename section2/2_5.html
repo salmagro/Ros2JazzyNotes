@@ -1,14 +1,12 @@
 <!DOCTYPE html>
 <html>
+
 <head>
   <meta charset="utf-8">
   <title>2.5. Ejecuta tu primer programa ROS 2 - ROS 2 Jazzy Notes</title>
 
   <!-- Bootstrap CSS -->
-  <link
-    href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
-    rel="stylesheet"
-  >
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
 
   <style>
     .back-link {
@@ -17,22 +15,93 @@
   </style>
 
 </head>
+
 <body class="container py-4">
 
   <a href="../index.html" class="btn btn-secondary back-link">← Volver al inicio</a>
 
   <h1 class="mb-4">2.5. Ejecuta tu primer programa de ROS 2</h1>
 
-  <p class="lead">En esta clase ejecutaremos dos programas de ejemplo incluidos en ROS 2 para verificar que el entorno esté correctamente instalado: un publicador ("talker") y un suscriptor ("listener").</p>
+  <p class="lead">En esta clase ejecutaremos dos programas de ejemplo incluidos en ROS 2 para verificar que el entorno
+    esté correctamente instalado: un publicador ("talker") y un suscriptor ("listener").</p>
 
-  <div class="alert alert-info">
-    <p><strong>Contenido:</strong> Esta sección está en desarrollo.</p>
+  <div class="alert alert-light">
+    <p class="" data-start="435" data-end="465">📘 <strong data-start="438" data-end="465">Notas de la clase</strong>
+    </p>
+    <ul data-start="467" data-end="659">
+      <li class="" data-start="467" data-end="560">
+        <p class="" data-start="469" data-end="560">No es necesario escribir código en esta sección, se usarán ejemplos
+          que ya vienen con ROS2.</p>
+      </li>
+      <li class="" data-start="561" data-end="631">
+        <p class="" data-start="563" data-end="631">Objetivo: validar que la instalación de ROS2 funciona correctamente.
+        </p>
+      </li>
+      <li class="" data-start="632" data-end="659">
+        <p class="" data-start="634" data-end="659">Abrir <strong data-start="640" data-end="658">dos
+            terminales</strong>.</p>
+      </li>
+    </ul>
+    <p class="" data-start="661" data-end="688"><strong data-start="661" data-end="688">En la primera terminal:</strong>
+    </p>
+    <ul data-start="690" data-end="920">
+      <li class="" data-start="690" data-end="850">
+        <p class="" data-start="692" data-end="850">Ejecutar el publicador (<code data-start="716"
+            data-end="724">talker</code>) con el siguiente comando:<br data-start="751" data-end="754"><code
+            data-start="756" data-end="788">ros2 run demo_nodes_cpp talker</code><br data-start="788"
+            data-end="791">(Nota: se puede usar <strong data-start="814" data-end="821">Tab</strong> para autocompletar
+          comandos)</p>
+      </li>
+      <li class="" data-start="851" data-end="920">
+        <p class="" data-start="853" data-end="920">Deberías ver líneas como:<br data-start="878" data-end="881"><code
+            data-start="883" data-end="920">Publishing: 'Hello World: [número]'</code></p>
+      </li>
+    </ul>
+    <p class="" data-start="922" data-end="949"><strong data-start="922" data-end="949">En la segunda terminal:</strong>
+    </p>
+    <ul data-start="951" data-end="1099">
+      <li class="" data-start="951" data-end="1032">
+        <p class="" data-start="953" data-end="1032">Ejecutar el suscriptor (<code data-start="977"
+            data-end="987">listener</code>) con:<br data-start="993" data-end="996"><code data-start="998"
+            data-end="1032">ros2 run demo_nodes_cpp listener</code></p>
+      </li>
+      <li class="" data-start="1033" data-end="1099">
+        <p class="" data-start="1035" data-end="1099">Aparecerán mensajes como:<br data-start="1060"
+            data-end="1063"><code data-start="1065" data-end="1099">I heard: 'Hello World: [número]'</code></p>
+      </li>
+    </ul>
+    <p class="" data-start="1101" data-end="1200">Esto indica que el nodo "talker" está publicando mensajes y el nodo
+      "listener" los está recibiendo.</p>
+    <p class="" data-start="1202" data-end="1217"><strong data-start="1202" data-end="1217">Importante:</strong></p>
+    <ul data-start="1219" data-end="1524">
+      <li class="" data-start="1219" data-end="1387">
+        <p class="" data-start="1221" data-end="1387">Si no ves los mensajes o aparece un error, probablemente <strong
+            data-start="1278" data-end="1324">no has "sourceado" bien el entorno de ROS2</strong>. Vuelve a la clase
+          anterior y revisa los pasos de instalación.</p>
+      </li>
+      <li class="" data-start="1388" data-end="1453">
+        <p class="" data-start="1390" data-end="1453">Puedes detener los programas con <strong data-start="1423"
+            data-end="1435">Ctrl + C</strong> en cada terminal.</p>
+      </li>
+      <li class="" data-start="1454" data-end="1524">
+        <p class="" data-start="1456" data-end="1524">Si el "talker" se detiene, el "listener" dejará de recibir
+          mensajes.</p>
+      </li>
+    </ul>
+    <p class="" data-start="1526" data-end="1571">💾 <strong data-start="1529" data-end="1571">Código trabajado /
+        recursos (opcional)</strong></p>
+    <ul data-start="1573" data-end="1690">
+      <li class="" data-start="1573" data-end="1690">
+        <p class="" data-start="1575" data-end="1690">Este ejercicio utiliza ejemplos ya incluidos en la instalación de
+          ROS2. No es necesario descargar código adicional.</p>
+      </li>
+    </ul>
   </div>
 
   <!-- Bootstrap JS -->
-  <script
-    src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js">
   </script>
 
 </body>
+
 </html>
