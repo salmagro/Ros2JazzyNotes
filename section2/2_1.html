@@ -1,14 +1,12 @@
 <!DOCTYPE html>
 <html>
+
 <head>
   <meta charset="utf-8">
   <title>2.1. Instala Ubuntu 24.04 en VirtualBox - ROS 2 Jazzy Notes</title>
 
   <!-- Bootstrap CSS -->
-  <link
-    href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
-    rel="stylesheet"
-  >
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
 
   <style>
     .back-link {
@@ -17,22 +15,224 @@
   </style>
 
 </head>
+
 <body class="container py-4">
 
   <a href="../index.html" class="btn btn-secondary back-link">← Volver al inicio</a>
 
   <h1 class="mb-4">2.1. Instala Ubuntu 24.04 en una Máquina Virtual (VirtualBox)</h1>
 
-  <p class="lead">Aprenderás a instalar Ubuntu 24.04 en una máquina virtual utilizando VirtualBox, una herramienta clave para quienes no pueden instalar Ubuntu directamente. Esta guía te permitirá seguir el curso sin complicaciones desde cualquier sistema operativo.</p>
+  <p class="lead">Aprenderás a instalar Ubuntu 24.04 en una máquina virtual utilizando VirtualBox, una herramienta clave
+    para quienes no pueden instalar Ubuntu directamente. Esta guía te permitirá seguir el curso sin complicaciones desde
+    cualquier sistema operativo.</p>
 
-  <div class="alert alert-info">
-    <p><strong>Contenido:</strong> Esta sección está en desarrollo.</p>
+  <div class="alert alert-light">
+
+    <p class="" data-start="538" data-end="568">🔗 <strong data-start="3290" data-end="3299">Video
+        Tutorial</strong><br>En este tutorial, aprenderás a instalar Ubuntu 24.04 en una máquina con Windows o Mac
+      utilizando VirtualBox. Ubuntu sigue siendo el mismo en ambos sistemas; la única diferencia es el instalador de
+      VirtualBox que debes descargar según tu sistema operativo.</p>
+    <p>Sigue los pasos detallados para completar la instalación correctamente y asegurarte de que tu entorno de Ubuntu
+      funcione sin problemas.</p>
+    <p><a href="https://youtu.be/6FARNO45SY8">https://youtu.be/6FARNO45SY8</a></p>
+    <p class="" data-start="538" data-end="568"><br>📘 <strong data-start="541" data-end="568">Notas de la
+        clase</strong></p>
+    <h3 class="" data-start="570" data-end="606">Sistemas operativos recomendados</h3>
+    <ul data-start="607" data-end="842">
+      <li class="" data-start="607" data-end="656">
+        <p class="" data-start="609" data-end="656">ROS 2 Jazzy funciona mejor en <strong data-start="639"
+            data-end="655">Ubuntu 24.04</strong>.</p>
+      </li>
+      <li class="" data-start="657" data-end="693">
+        <p class="" data-start="659" data-end="693">macOS no es recomendable (tier 3).</p>
+      </li>
+      <li class="" data-start="694" data-end="755">
+        <p class="" data-start="696" data-end="755">Windows puede presentar muchos problemas de compatibilidad.</p>
+      </li>
+      <li class="" data-start="756" data-end="842">
+        <p class="" data-start="758" data-end="842">Ubuntu ofrece la menor cantidad de inconvenientes, especialmente
+          para principiantes.</p>
+      </li>
+    </ul>
+    <h3 class="" data-start="844" data-end="877">Opciones para instalar Ubuntu</h3>
+    <ol data-start="878" data-end="1043">
+      <li class="" data-start="878" data-end="950">
+        <p class="" data-start="881" data-end="950"><strong data-start="881" data-end="917">Instalación nativa
+            (recomendada)</strong>: dual boot en tu máquina física.</p>
+      </li>
+      <li class="" data-start="951" data-end="1043">
+        <p class="" data-start="954" data-end="1043"><strong data-start="954" data-end="973">Máquina virtual</strong>:
+          si no puedes modificar tu sistema (por ejemplo, equipos de trabajo).</p>
+      </li>
+    </ol>
+    <h3 class="" data-start="1045" data-end="1073">Descarga de herramientas</h3>
+    <ul data-start="1074" data-end="1341">
+      <li class="" data-start="1074" data-end="1223">
+        <p class="" data-start="1076" data-end="1223"><strong data-start="1076" data-end="1091">Ubuntu ISO:</strong>
+          busca “Ubuntu 24.04 download” en Google o visita <a class="" href="https://releases.ubuntu.com" target="_new"
+            rel="noopener" data-start="1141" data-end="1191">releases.ubuntu.com</a> para elegir la versión Desktop.</p>
+      </li>
+      <li class="" data-start="1224" data-end="1341">
+        <p class="" data-start="1226" data-end="1341"><strong data-start="1226" data-end="1241">VirtualBox:</strong>
+          descarga desde <a class="" href="https://www.virtualbox.org" target="_new" rel="noopener" data-start="1257"
+            data-end="1313">https://www.virtualbox.org</a> según tu sistema operativo.</p>
+      </li>
+    </ul>
+    <h3 class="" data-start="1343" data-end="1372">Instalación de VirtualBox</h3>
+    <ul data-start="1373" data-end="1524">
+      <li class="" data-start="1373" data-end="1463">
+        <p class="" data-start="1375" data-end="1463">Ejecuta el instalador y sigue los pasos por defecto (aceptar
+          términos, ubicación, etc.).</p>
+      </li>
+      <li class="" data-start="1464" data-end="1524">
+        <p class="" data-start="1466" data-end="1524">Asegúrate de instalar los controladores si son necesarios.</p>
+      </li>
+    </ul>
+    <h3 class="" data-start="1526" data-end="1557">Creación de máquina virtual</h3>
+    <ul data-start="1558" data-end="1882">
+      <li class="" data-start="1558" data-end="1604">
+        <p class="" data-start="1560" data-end="1604">Nombre: algo como <em data-start="1578"
+            data-end="1604">ubuntu-24.04-ros2-course</em></p>
+      </li>
+      <li class="" data-start="1605" data-end="1657">
+        <p class="" data-start="1607" data-end="1657">Selección de imagen ISO: elige la que descargaste.</p>
+      </li>
+      <li class="" data-start="1658" data-end="1691">
+        <p class="" data-start="1660" data-end="1691">Sistema: Linux / Ubuntu 64-bit.</p>
+      </li>
+      <li class="" data-start="1692" data-end="1732">
+        <p class="" data-start="1694" data-end="1732"><strong data-start="1694" data-end="1707">Desactiva</strong>
+          instalación desatendida.</p>
+      </li>
+      <li class="" data-start="1733" data-end="1882">
+        <p class="" data-start="1735" data-end="1751">Asigna recursos:</p>
+        <ul data-start="1754" data-end="1882">
+          <li class="" data-start="1754" data-end="1793">
+            <p class="" data-start="1756" data-end="1793">RAM: entre 4–8 GB (según tu máquina).</p>
+          </li>
+          <li class="" data-start="1796" data-end="1849">
+            <p class="" data-start="1798" data-end="1849">CPU: la mitad de tus núcleos (por ejemplo, 4 de 8).</p>
+          </li>
+          <li class="" data-start="1852" data-end="1882">
+            <p class="" data-start="1854" data-end="1882">Disco duro: mínimo 30–40 GB.</p>
+          </li>
+        </ul>
+      </li>
+    </ul>
+    <h3 class="" data-start="1884" data-end="1932">Ajustes adicionales (antes de iniciar la VM)</h3>
+    <ul data-start="1933" data-end="2082">
+      <li class="" data-start="1933" data-end="1998">
+        <p class="" data-start="1935" data-end="1998">En <strong data-start="1938" data-end="1963">Sistema &gt;
+            Aceleración</strong>: desactiva "Enable Nested Paging".</p>
+      </li>
+      <li class="" data-start="1999" data-end="2044">
+        <p class="" data-start="2001" data-end="2044">En <strong data-start="2004" data-end="2035">Pantalla &gt; Memoria
+            de video</strong>: 128 MB.</p>
+      </li>
+      <li class="" data-start="2045" data-end="2082">
+        <p class="" data-start="2047" data-end="2082">Desactiva “Enable 3D acceleration”.</p>
+      </li>
+    </ul>
+    <h3 class="" data-start="2084" data-end="2130">Instalación de Ubuntu dentro de VirtualBox</h3>
+    <ol data-start="2131" data-end="2531">
+      <li class="" data-start="2131" data-end="2169">
+        <p class="" data-start="2134" data-end="2169">Selecciona "Try or Install Ubuntu".</p>
+      </li>
+      <li class="" data-start="2170" data-end="2218">
+        <p class="" data-start="2173" data-end="2218">Configura idioma, teclado, y conexión de red.</p>
+      </li>
+      <li class="" data-start="2219" data-end="2272">
+        <p class="" data-start="2222" data-end="2272">Elige instalación interactiva con apps esenciales.</p>
+      </li>
+      <li class="" data-start="2273" data-end="2351">
+        <p class="" data-start="2276" data-end="2351">Marca la casilla para instalar software de terceros (drivers,
+          Wi-Fi, etc.).</p>
+      </li>
+      <li class="" data-start="2352" data-end="2428">
+        <p class="" data-start="2355" data-end="2428">Método de instalación: <em data-start="2378" data-end="2409">Erase
+            disk and install Ubuntu</em> (es seguro en VM).</p>
+      </li>
+      <li class="" data-start="2429" data-end="2492">
+        <p class="" data-start="2432" data-end="2492">Configura nombre de usuario, nombre del equipo y contraseña.</p>
+      </li>
+      <li class="" data-start="2493" data-end="2531">
+        <p class="" data-start="2496" data-end="2531">Finaliza la instalación y reinicia.</p>
+      </li>
+    </ol>
+    <h3 class="" data-start="2533" data-end="2571">Primeros pasos tras la instalación</h3>
+    <ul data-start="2572" data-end="2989">
+      <li class="" data-start="2572" data-end="2643">
+        <p class="" data-start="2574" data-end="2598">Abre terminal y ejecuta:</p>
+        <ul data-start="2601" data-end="2643">
+          <li class="" data-start="2601" data-end="2620">
+            <p class="" data-start="2603" data-end="2620"><code data-start="2603" data-end="2620">sudo apt update</code>
+            </p>
+          </li>
+          <li class="" data-start="2623" data-end="2643">
+            <p class="" data-start="2625" data-end="2643"><code data-start="2625"
+                data-end="2643">sudo apt upgrade</code></p>
+          </li>
+        </ul>
+      </li>
+      <li class="" data-start="2644" data-end="2989">
+        <p class="" data-start="2646" data-end="2712"><strong data-start="2646" data-end="2712">Instalación de
+            herramientas para VirtualBox (Guest Additions):</strong></p>
+        <ul data-start="2715" data-end="2989">
+          <li class="" data-start="2715" data-end="2820">
+            <p class="" data-start="2717" data-end="2745">Instala paquetes necesarios:</p>
+            <ul data-start="2750" data-end="2820">
+              <li class="" data-start="2750" data-end="2769">
+                <p class="" data-start="2752" data-end="2769"><code data-start="2752"
+                    data-end="2769">build-essential</code></p>
+              </li>
+              <li class="" data-start="2774" data-end="2781">
+                <p class="" data-start="2776" data-end="2781"><code data-start="2776" data-end="2781">gcc</code></p>
+              </li>
+              <li class="" data-start="2786" data-end="2794">
+                <p class="" data-start="2788" data-end="2794"><code data-start="2788" data-end="2794">make</code></p>
+              </li>
+              <li class="" data-start="2799" data-end="2807">
+                <p class="" data-start="2801" data-end="2807"><code data-start="2801" data-end="2807">perl</code></p>
+              </li>
+              <li class="" data-start="2812" data-end="2820">
+                <p class="" data-start="2814" data-end="2820"><code data-start="2814" data-end="2820">dkms</code></p>
+              </li>
+            </ul>
+          </li>
+          <li class="" data-start="2823" data-end="2907">
+            <p class="" data-start="2825" data-end="2907">En VirtualBox: ve a <em data-start="2845"
+                data-end="2906">Dispositivos &gt; Insertar imagen de CD de las Guest Additions</em>.</p>
+          </li>
+          <li class="" data-start="2910" data-end="2989">
+            <p class="" data-start="2912" data-end="2989">Abre terminal en la carpeta del CD y ejecuta <code
+                data-start="2957" data-end="2988">sudo ./VBoxLinuxAdditions.run</code>.</p>
+          </li>
+        </ul>
+      </li>
+    </ul>
+    <h3 class="" data-start="2991" data-end="3006">Finalizando</h3>
+    <ul data-start="3007" data-end="3167">
+      <li class="" data-start="3007" data-end="3037">
+        <p class="" data-start="3009" data-end="3037">Reinicia la máquina virtual.</p>
+      </li>
+      <li class="" data-start="3038" data-end="3100">
+        <p class="" data-start="3040" data-end="3100">Configura <em data-start="3050" data-end="3075">portapapeles
+            compartido</em> en modo <em data-start="3084" data-end="3099">bidireccional</em>.</p>
+      </li>
+      <li class="" data-start="3101" data-end="3167">
+        <p class="" data-start="3103" data-end="3167">Ubuntu está listo para trabajar con ROS 2 en el resto del curso.
+        </p>
+      </li>
+    </ul>
+
+
   </div>
 
+
   <!-- Bootstrap JS -->
-  <script
-    src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js">
   </script>
 
 </body>
+
 </html>
