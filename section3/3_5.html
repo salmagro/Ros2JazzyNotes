@@ -1,38 +1,172 @@
 <!DOCTYPE html>
 <html>
+
 <head>
-  <meta charset="utf-8">
-  <title>3.5. Crear un nodo Python básico - ROS 2 Jazzy Notes</title>
+    <meta charset="utf-8">
+    <title>3.5. Crear un nodo Python básico - ROS 2 Jazzy Notes</title>
 
-  <!-- Bootstrap CSS -->
-  <link
-    href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
-    rel="stylesheet"
-  >
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
 
-  <style>
-    .back-link {
-      margin-bottom: 2rem;
-    }
-  </style>
+    <style>
+        .back-link {
+            margin-bottom: 2rem;
+        }
+    </style>
 
 </head>
+
 <body class="container py-4">
 
-  <a href="../index.html" class="btn btn-secondary back-link">← Volver al inicio</a>
+    <a href="../index.html" class="btn btn-secondary back-link">← Volver al inicio</a>
 
-  <h1 class="mb-4">3.5. Crear, instalar y ejecutar un nodo Python básico en ROS 2</h1>
+    <h1 class="mb-4">3.5. Crear, instalar y ejecutar un nodo Python básico en ROS 2</h1>
 
-  <p class="lead">En esta clase aprenderás a crear un nodo básico en Python dentro de tu paquete ROS 2, instalarlo y ejecutarlo correctamente desde la terminal usando ros2 run.</p>
+    <p class="lead">En esta clase aprenderás a crear un nodo básico en Python dentro de tu paquete ROS 2, instalarlo y
+        ejecutarlo correctamente desde la terminal usando ros2 run.</p>
 
-  <div class="alert alert-light">
-    <p><strong>Contenido:</strong> Esta sección está en desarrollo.</p>
-  </div>
+    <p class="" data-start="429" data-end="453">📘 <strong data-start="432" data-end="453">Notas de la clase</strong>
+    </p>
+    <p class="" data-start="455" data-end="545"><strong data-start="455" data-end="487">1. Crear el archivo del
+            nodo</strong><br data-start="487" data-end="490">Desde <code data-start="496"
+            data-end="527">~/ws/src/my_py_pkg/my_py_pkg/</code>, crea el archivo:</p>
+    <p class="" data-start="547" data-end="569">touch my_first_node.py</p>
+    <p class="" data-start="571" data-end="723">Este archivo será donde escribas el código del nodo. Asegúrate de
+        trabajar dentro del directorio que tiene el mismo nombre que tu paquete (<code data-start="710"
+            data-end="721">my_py_pkg</code>).</p>
+    <p class="" data-start="725" data-end="822"><strong data-start="725" data-end="771">2. Estructura mínima del código
+            de un nodo</strong><br data-start="771" data-end="774">Contenido básico del archivo <code data-start="803"
+            data-end="821">my_first_node.py</code>:</p>
+    <ul data-start="824" data-end="1239">
+        <li class="" data-start="824" data-end="867">
+            <p class="" data-start="826" data-end="867">Línea shebang: <code data-start="841"
+                    data-end="865">#!/usr/bin/env python3</code></p>
+        </li>
+        <li class="" data-start="868" data-end="943">
+            <p class="" data-start="870" data-end="886">Importaciones:</p>
+            <ul data-start="889" data-end="943">
+                <li class="" data-start="889" data-end="907">
+                    <p class="" data-start="891" data-end="907"><code data-start="891"
+                            data-end="905">import rclpy</code></p>
+                </li>
+                <li class="" data-start="910" data-end="943">
+                    <p class="" data-start="912" data-end="943"><code data-start="912"
+                            data-end="941">from rclpy.node import Node</code></p>
+                </li>
+            </ul>
+        </li>
+        <li class="" data-start="944" data-end="1239">
+            <p class="" data-start="946" data-end="990">Función principal (<code data-start="965"
+                    data-end="982">main(args=None)</code>) que:</p>
+            <ul data-start="993" data-end="1239">
+                <li class="" data-start="993" data-end="1028">
+                    <p class="" data-start="995" data-end="1028">Inicializa ROS 2 (<code data-start="1013"
+                            data-end="1025">rclpy.init</code>)</p>
+                </li>
+                <li class="" data-start="1031" data-end="1074">
+                    <p class="" data-start="1033" data-end="1074">Crea un nodo (<code data-start="1047"
+                            data-end="1071">node = Node('py_test')</code>)</p>
+                </li>
+                <li class="" data-start="1077" data-end="1152">
+                    <p class="" data-start="1079" data-end="1152">Imprime un mensaje en consola (<code data-start="1110"
+                            data-end="1149">node.get_logger().info('Hello world')</code>)</p>
+                </li>
+                <li class="" data-start="1155" data-end="1203">
+                    <p class="" data-start="1157" data-end="1203">Hace un <em data-start="1165"
+                            data-end="1171">spin</em> del nodo (<code data-start="1182"
+                            data-end="1200">rclpy.spin(node)</code>)</p>
+                </li>
+                <li class="" data-start="1206" data-end="1239">
+                    <p class="" data-start="1208" data-end="1239">Finaliza con <code data-start="1221"
+                            data-end="1239">rclpy.shutdown()</code></p>
+                </li>
+            </ul>
+        </li>
+    </ul>
+    <p class="" data-start="1241" data-end="1317"><strong data-start="1241" data-end="1288">3. Ejecutar directamente el
+            nodo (opcional)</strong><br data-start="1288" data-end="1291">Haz el archivo ejecutable:</p>
+    <p class="" data-start="1319" data-end="1344">chmod +x my_first_node.py</p>
+    <p class="" data-start="1346" data-end="1368">Y luego ejecútalo con:</p>
+    <p class="" data-start="1370" data-end="1388">./my_first_node.py</p>
+    <p class="" data-start="1390" data-end="1546"><strong data-start="1390" data-end="1438">4. Instalar el nodo como
+            ejecutable en ROS 2</strong><br data-start="1438" data-end="1441">Para poder ejecutar el nodo con <code
+            data-start="1473" data-end="1483">ros2 run</code>, edita el archivo <code data-start="1502"
+            data-end="1512">setup.py</code> ubicado en <code data-start="1524"
+            data-end="1545">~/ws/src/my_py_pkg/</code>:</p>
+    <p class="" data-start="1548" data-end="1617">Dentro del bloque <code data-start="1566"
+            data-end="1609">entry_points={ 'console_scripts': [...] }</code>, añade:</p>
+    <p class="" data-start="1619" data-end="1659">"py_node = my_py_pkg.my_first_node:main"</p>
+    <p class="" data-start="1661" data-end="1678"><strong data-start="1661" data-end="1676">Importante:</strong></p>
+    <ul data-start="1679" data-end="1851">
+        <li class="" data-start="1679" data-end="1729">
+            <p class="" data-start="1681" data-end="1729"><code data-start="1681" data-end="1692">"py_node"</code> será
+                el <strong data-start="1701" data-end="1726">nombre del ejecutable</strong>.</p>
+        </li>
+        <li class="" data-start="1730" data-end="1799">
+            <p class="" data-start="1732" data-end="1799"><code data-start="1732"
+                    data-end="1757">my_py_pkg.my_first_node</code> es el <strong data-start="1764"
+                    data-end="1784">archivo del nodo</strong> (sin <code data-start="1790" data-end="1795">.py</code>).
+            </p>
+        </li>
+        <li class="" data-start="1800" data-end="1851">
+            <p class="" data-start="1802" data-end="1851"><code data-start="1802" data-end="1808">main</code> es el
+                <strong data-start="1815" data-end="1839">nombre de la función</strong> a ejecutar.</p>
+        </li>
+    </ul>
+    <p class="" data-start="1853" data-end="1872">Guarda los cambios.</p>
+    <p class="" data-start="1874" data-end="1938"><strong data-start="1874" data-end="1900">5. Compilar el
+            paquete</strong><br data-start="1900" data-end="1903">Desde el workspace <code data-start="1922"
+            data-end="1928">~/ws</code>, ejecuta:</p>
+    <p class="" data-start="1940" data-end="1980">colcon build --packages-select my_py_pkg</p>
+    <p class="" data-start="1982" data-end="2009">Luego, refresca el entorno:</p>
+    <p class="" data-start="2011" data-end="2027">source ~/.bashrc</p>
+    <p class="" data-start="2029" data-end="2079"><strong data-start="2029" data-end="2077">6. Ejecutar el nodo
+            instalado con <code data-start="2065" data-end="2075">ros2 run</code></strong></p>
+    <p class="" data-start="2081" data-end="2107">ros2 run my_py_pkg py_node</p>
+    <ul data-start="2109" data-end="2202">
+        <li class="" data-start="2109" data-end="2144">
+            <p class="" data-start="2111" data-end="2144"><code data-start="2111" data-end="2122">my_py_pkg</code>:
+                nombre del paquete</p>
+        </li>
+        <li class="" data-start="2145" data-end="2202">
+            <p class="" data-start="2147" data-end="2202"><code data-start="2147" data-end="2156">py_node</code>: nombre
+                del ejecutable definido en <code data-start="2192" data-end="2202">setup.py</code></p>
+        </li>
+    </ul>
+    <p class="" data-start="2204" data-end="2266"><strong data-start="2204" data-end="2236">7. Diferencias entre
+            nombres</strong><br data-start="2236" data-end="2239">Es importante entender que:</p>
+    <ul data-start="2268" data-end="2444">
+        <li class="" data-start="2268" data-end="2314">
+            <p class="" data-start="2270" data-end="2314"><strong data-start="2270" data-end="2293">Nombre del
+                    archivo:</strong> <code data-start="2294" data-end="2312">my_first_node.py</code></p>
+        </li>
+        <li class="" data-start="2315" data-end="2380">
+            <p class="" data-start="2317" data-end="2380"><strong data-start="2317" data-end="2337">Nombre del
+                    nodo:</strong> <code data-start="2338" data-end="2349">'py_test'</code> (definido dentro del código)
+            </p>
+        </li>
+        <li class="" data-start="2381" data-end="2444">
+            <p class="" data-start="2383" data-end="2444"><strong data-start="2383" data-end="2409">Nombre del
+                    ejecutable:</strong> <code data-start="2410" data-end="2419">py_node</code> (definido en <code
+                    data-start="2433" data-end="2443">setup.py</code>)</p>
+        </li>
+    </ul>
+    <p class="" data-start="2446" data-end="2535">Estos tres nombres <strong data-start="2465" data-end="2500">pueden
+            ser iguales o diferentes</strong>, pero tienen propósitos distintos.</p>
+    <p class="" data-start="2537" data-end="2707"><strong data-start="2537" data-end="2580">8. Mantener el nodo activo
+            con <code data-start="2570" data-end="2578">spin()</code></strong><br data-start="2580" data-end="2583">La
+        función <code data-start="2594" data-end="2612">rclpy.spin(node)</code> mantiene el nodo ejecutándose hasta que
+        se interrumpa manualmente (por ejemplo, con <code data-start="2697" data-end="2705">Ctrl+C</code>).</p>
+    <p class="" data-start="2709" data-end="2743">💾 <strong data-start="2712" data-end="2743">Código trabajado /
+            recursos</strong></p>
+    <p class="" data-start="2709" data-end="2743"><strong data-start="2712" data-end="2743"><code
+                class="!whitespace-pre"><span>Código <span class="hljs-symbol">trabajado:</span> ~<span class="hljs-regexp">/ws/src</span><span class="hljs-regexp">/my_py_pkg/my</span>_py_pkg/my_first_node.py</span></code></strong>
+    </p>
 
-  <!-- Bootstrap JS -->
-  <script
-    src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js">
-  </script>
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js">
+    </script>
 
 </body>
+
 </html>

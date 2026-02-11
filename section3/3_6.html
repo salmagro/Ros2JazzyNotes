@@ -1,38 +1,195 @@
 <!DOCTYPE html>
 <html>
+
 <head>
-  <meta charset="utf-8">
-  <title>3.6. Nodo Python con OOP - ROS 2 Jazzy Notes</title>
+    <meta charset="utf-8">
+    <title>3.6. Nodo Python con OOP - ROS 2 Jazzy Notes</title>
 
-  <!-- Bootstrap CSS -->
-  <link
-    href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
-    rel="stylesheet"
-  >
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
 
-  <style>
-    .back-link {
-      margin-bottom: 2rem;
-    }
-  </style>
+    <style>
+        .back-link {
+            margin-bottom: 2rem;
+        }
+    </style>
 
 </head>
+
 <body class="container py-4">
 
-  <a href="../index.html" class="btn btn-secondary back-link">← Volver al inicio</a>
+    <a href="../index.html" class="btn btn-secondary back-link">← Volver al inicio</a>
 
-  <h1 class="mb-4">3.6. Nodo Python con Programación Orientada a Objetos (OOP) y temporizador en ROS 2</h1>
+    <h1 class="mb-4">3.6. Nodo Python con Programación Orientada a Objetos (OOP) y temporizador en ROS 2</h1>
 
-  <p class="lead">En esta clase mejorarás tu nodo Python aplicando programación orientada a objetos (OOP), y aprenderás cómo usar un temporizador para ejecutar acciones periódicas dentro del nodo.</p>
+    <p class="lead">En esta clase mejorarás tu nodo Python aplicando programación orientada a objetos (OOP), y
+        aprenderás cómo usar un temporizador para ejecutar acciones periódicas dentro del nodo.</p>
 
-  <div class="alert alert-light">
-    <p><strong>Contenido:</strong> Esta sección está en desarrollo.</p>
-  </div>
+    <p class="" data-start="440" data-end="464">📘 <strong data-start="443" data-end="464">Notas de la clase</strong>
+    </p>
+    <p class="" data-start="466" data-end="657"><strong data-start="466" data-end="533">1. Uso de programación orientada
+            a objetos (OOP) en nodos ROS 2</strong><br data-start="533" data-end="536">ROS 2 recomienda estructurar los
+        nodos utilizando clases, ya que facilita la escalabilidad y el mantenimiento del código.</p>
+    <p class="" data-start="659" data-end="700"><strong data-start="659" data-end="700">Estructura básica de un nodo con
+            OOP:</strong></p>
+    <ul data-start="702" data-end="993">
+        <li class="" data-start="702" data-end="784">
+            <p class="" data-start="704" data-end="784">Se define una clase que hereda de <code data-start="738"
+                    data-end="744">Node</code>, por ejemplo:<br data-start="758" data-end="761"><code data-start="763"
+                    data-end="784">class MyNode(Node):</code></p>
+        </li>
+        <li class="" data-start="785" data-end="887">
+            <p class="" data-start="787" data-end="887">En el constructor (<code data-start="806"
+                    data-end="816">__init__</code>), se llama al constructor del padre:<br data-start="853"
+                    data-end="856"><code data-start="858" data-end="887">super().__init__('py_test')</code></p>
+        </li>
+        <li class="" data-start="888" data-end="993">
+            <p class="" data-start="890" data-end="993">Se pueden utilizar funcionalidades de ROS 2 como el logger:<br
+                    data-start="949" data-end="952"><code data-start="954"
+                    data-end="993">self.get_logger().info('Hello world')</code></p>
+        </li>
+    </ul>
+    <p class="" data-start="995" data-end="1098"><strong data-start="995" data-end="1035">2. Modificación del archivo
+            del nodo</strong><br data-start="1035" data-end="1038">El archivo <code data-start="1049"
+            data-end="1067">my_first_node.py</code> queda ahora estructurado como:</p>
+    <ul data-start="1100" data-end="1347">
+        <li class="" data-start="1100" data-end="1139">
+            <p class="" data-start="1102" data-end="1139">Clase <code data-start="1108" data-end="1116">MyNode</code>
+                que hereda de <code data-start="1131" data-end="1137">Node</code></p>
+        </li>
+        <li class="" data-start="1140" data-end="1189">
+            <p class="" data-start="1142" data-end="1189">Constructor con <code data-start="1158"
+                    data-end="1187">super().__init__('py_test')</code></p>
+        </li>
+        <li class="" data-start="1190" data-end="1257">
+            <p class="" data-start="1192" data-end="1257">Dentro del <code data-start="1203"
+                    data-end="1209">main</code>, se crea una instancia:<br data-start="1233" data-end="1236"><code
+                    data-start="1238" data-end="1255">node = MyNode()</code></p>
+        </li>
+        <li class="" data-start="1258" data-end="1347">
+            <p class="" data-start="1260" data-end="1282">Se mantiene el patrón:</p>
+            <ul data-start="1285" data-end="1347">
+                <li class="" data-start="1285" data-end="1301">
+                    <p class="" data-start="1287" data-end="1301"><code data-start="1287"
+                            data-end="1301">rclpy.init()</code></p>
+                </li>
+                <li class="" data-start="1304" data-end="1324">
+                    <p class="" data-start="1306" data-end="1324"><code data-start="1306"
+                            data-end="1324">rclpy.spin(node)</code></p>
+                </li>
+                <li class="" data-start="1327" data-end="1347">
+                    <p class="" data-start="1329" data-end="1347"><code data-start="1329"
+                            data-end="1347">rclpy.shutdown()</code></p>
+                </li>
+            </ul>
+        </li>
+    </ul>
+    <p class="" data-start="1349" data-end="1512"><strong data-start="1349" data-end="1386">3. Añadir un temporizador al
+            nodo</strong><br data-start="1386" data-end="1389">El temporizador permite ejecutar una función
+        periódicamente mientras el nodo está activo. Se usa la función <code data-start="1497"
+            data-end="1511">create_timer</code>.</p>
+    <p class="" data-start="1514" data-end="1553"><strong data-start="1514" data-end="1553">Pasos para agregar un
+            temporizador:</strong></p>
+    <ul data-start="1555" data-end="1813">
+        <li class="" data-start="1555" data-end="1622">
+            <p class="" data-start="1557" data-end="1622">Definir un método en la clase, por ejemplo <code
+                    data-start="1600" data-end="1622">timer_callback(self)</code></p>
+        </li>
+        <li class="" data-start="1623" data-end="1813">
+            <p class="" data-start="1625" data-end="1653">Usar dentro del constructor:</p>
+            <p class="" data-start="1659" data-end="1704"><code data-start="1659"
+                    data-end="1704">self.create_timer(1.0, self.timer_callback)</code></p>
+            <ul data-start="1708" data-end="1813">
+                <li class="" data-start="1708" data-end="1752">
+                    <p class="" data-start="1710" data-end="1752"><code data-start="1710" data-end="1715">1.0</code>:
+                        intervalo en segundos (1 segundo)</p>
+                </li>
+                <li class="" data-start="1755" data-end="1813">
+                    <p class="" data-start="1757" data-end="1813"><code data-start="1757"
+                            data-end="1778">self.timer_callback</code>: función a ejecutar periódicamente</p>
+                </li>
+            </ul>
+        </li>
+    </ul>
+    <p class="" data-start="1815" data-end="1867"><strong data-start="1815" data-end="1865">4. Contador dentro del
+            temporizador (opcional)</strong></p>
+    <ul data-start="1868" data-end="2100">
+        <li class="" data-start="1868" data-end="1951">
+            <p class="" data-start="1870" data-end="1951">Se puede definir un contador como atributo de la clase:<br
+                    data-start="1925" data-end="1928"><code data-start="1930" data-end="1949">self.counter_ = 0</code>
+            </p>
+        </li>
+        <li class="" data-start="1952" data-end="2100">
+            <p class="" data-start="1954" data-end="2016">En el <code data-start="1960"
+                    data-end="1976">timer_callback</code>, incrementar el contador y mostrarlo:</p>
+            <p class="" data-start="2020" data-end="2100"><code data-start="2020"
+                    data-end="2075">self.get_logger().info('Hello ' + str(self.counter_))</code><br data-start="2075"
+                    data-end="2078"><code data-start="2080" data-end="2100">self.counter_ += 1</code></p>
+        </li>
+    </ul>
+    <p class="" data-start="2102" data-end="2132"><strong data-start="2102" data-end="2132">5. Compilación y
+            ejecución</strong></p>
+    <p class="" data-start="2134" data-end="2180">Pasos a seguir cada vez que modificas el nodo:</p>
+    <ul data-start="2182" data-end="2389">
+        <li class="" data-start="2182" data-end="2241">
+            <p class="" data-start="2184" data-end="2241"><strong data-start="2184" data-end="2193">Build</strong>:<br
+                    data-start="2194" data-end="2197"><code data-start="2199"
+                    data-end="2241">colcon build --packages-select my_py_pkg</code></p>
+        </li>
+        <li class="" data-start="2243" data-end="2344">
+            <p class="" data-start="2245" data-end="2344"><strong data-start="2245" data-end="2255">Source</strong>:<br
+                    data-start="2256" data-end="2259"><code data-start="2261" data-end="2279">source ~/.bashrc</code><br
+                    data-start="2279" data-end="2282"><em data-start="2284" data-end="2344">(o directamente: <code
+                        data-start="2302" data-end="2329">source install/setup.bash</code> desde <code data-start="2336"
+                        data-end="2342">~/ws</code>)</em></p>
+        </li>
+        <li class="" data-start="2346" data-end="2389">
+            <p class="" data-start="2348" data-end="2389"><strong data-start="2348" data-end="2355">Run</strong>:<br
+                    data-start="2356" data-end="2359"><code data-start="2361"
+                    data-end="2389">ros2 run my_py_pkg py_node</code></p>
+        </li>
+    </ul>
+    <p class="" data-start="2391" data-end="2413"><strong data-start="2391" data-end="2413">6. Errores comunes</strong>
+    </p>
+    <ul data-start="2415" data-end="2619">
+        <li class="" data-start="2415" data-end="2523">
+            <p class="" data-start="2417" data-end="2523">Si hay un error de sintaxis en el archivo Python, el build
+                fallará y se mostrará el mensaje en la consola.</p>
+        </li>
+        <li class="" data-start="2524" data-end="2619">
+            <p class="" data-start="2526" data-end="2619">Otros errores como excepciones de tiempo de ejecución solo se
+                detectarán al ejecutar el nodo.</p>
+        </li>
+    </ul>
+    <p class="" data-start="2621" data-end="2658"><strong data-start="2621" data-end="2658">7. Resumen de nombres
+            importantes</strong></p>
+    <ul data-start="2660" data-end="2896">
+        <li class="" data-start="2660" data-end="2706">
+            <p class="" data-start="2662" data-end="2706"><strong data-start="2662" data-end="2684">Nombre del
+                    archivo</strong>: <code data-start="2686" data-end="2704">my_first_node.py</code></p>
+        </li>
+        <li class="" data-start="2707" data-end="2768">
+            <p class="" data-start="2709" data-end="2768"><strong data-start="2709" data-end="2728">Nombre del
+                    nodo</strong>: <code data-start="2730" data-end="2741">'py_test'</code> (definido en <code
+                    data-start="2755" data-end="2765">__init__</code>)</p>
+        </li>
+        <li class="" data-start="2769" data-end="2896">
+            <p class="" data-start="2771" data-end="2896"><strong data-start="2771" data-end="2796">Nombre del
+                    ejecutable</strong>: <code data-start="2798" data-end="2807">py_node</code> (definido en <code
+                    data-start="2821" data-end="2831">setup.py</code>)<br data-start="2832" data-end="2835">Estos
+                nombres pueden coincidir, pero son conceptos distintos.</p>
+        </li>
+    </ul>
+    <p class="" data-start="2898" data-end="2932">💾 <strong data-start="2901" data-end="2932">Código trabajado /
+            recursos</strong></p>
+    <p class="" data-start="2898" data-end="2932">
+        <code>Código trabajado: ~/ws/src/my_py_pkg/my_py_pkg/my_first_node.py  <br>Ejecutable definido en: ~/ws/src/my_py_pkg/setup.py</code>
+    </p>
 
-  <!-- Bootstrap JS -->
-  <script
-    src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js">
-  </script>
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js">
+    </script>
 
 </body>
+
 </html>

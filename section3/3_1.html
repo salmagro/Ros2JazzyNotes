@@ -1,38 +1,122 @@
 <!DOCTYPE html>
 <html>
+
 <head>
-  <meta charset="utf-8">
-  <title>3.1. Creación y configuración del workspace - ROS 2 Jazzy Notes</title>
+    <meta charset="utf-8">
+    <title>3.1. Creación y configuración del workspace - ROS 2 Jazzy Notes</title>
 
-  <!-- Bootstrap CSS -->
-  <link
-    href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
-    rel="stylesheet"
-  >
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
 
-  <style>
-    .back-link {
-      margin-bottom: 2rem;
-    }
-  </style>
+    <style>
+        .back-link {
+            margin-bottom: 2rem;
+        }
+    </style>
 
 </head>
+
 <body class="container py-4">
 
-  <a href="../index.html" class="btn btn-secondary back-link">← Volver al inicio</a>
+    <a href="../index.html" class="btn btn-secondary back-link">← Volver al inicio</a>
 
-  <h1 class="mb-4">3.1. Creación y configuración del workspace en ROS 2</h1>
+    <h1 class="mb-4">3.1. Creación y configuración del workspace en ROS 2</h1>
 
-  <p class="lead">En esta clase aprenderás cómo crear un workspace en ROS 2, configurarlo correctamente y dejarlo listo para comenzar a desarrollar paquetes y ejecutar nodos en tu aplicación.</p>
+    <p class="lead">En esta clase aprenderás cómo crear un workspace en ROS 2, configurarlo correctamente y dejarlo
+        listo para comenzar a desarrollar paquetes y ejecutar nodos en tu aplicación.</p>
 
-  <div class="alert alert-light">
-    <p><strong>Contenido:</strong> Esta sección está en desarrollo.</p>
-  </div>
+    <p class="" data-start="415" data-end="439">📘 <strong data-start="418" data-end="439">Notas de la clase</strong>
+    </p>
+    <p class="" data-start="441" data-end="642"><strong data-start="441" data-end="478">1. ¿Qué es un workspace en ROS
+            2?</strong><br data-start="478" data-end="481">Un <em data-start="484" data-end="495">workspace</em> es
+        simplemente un directorio donde desarrollarás y compilarás tu aplicación en ROS 2. Es el entorno de trabajo para
+        tus paquetes, nodos y scripts.</p>
+    <p class="" data-start="644" data-end="687"><strong data-start="644" data-end="685">2. Creación del workspace paso a
+            paso</strong></p>
+    <ul data-start="688" data-end="959">
+        <li class="" data-start="688" data-end="742">
+            <p class="" data-start="690" data-end="742">Asegúrate de estar en tu directorio home:<br data-start="731"
+                    data-end="734"><code data-start="736" data-end="740">cd</code></p>
+        </li>
+        <li class="" data-start="743" data-end="816">
+            <p class="" data-start="745" data-end="816">Crea una carpeta para el workspace, por ejemplo:<br
+                    data-start="793" data-end="796"><code data-start="798" data-end="814">mkdir ws</code></p>
+        </li>
+        <li class="" data-start="817" data-end="867">
+            <p class="" data-start="819" data-end="867">Ingresa al nuevo directorio:<br data-start="847"
+                    data-end="850"><code data-start="852" data-end="865">cd ws</code></p>
+        </li>
+        <li class="" data-start="868" data-end="959">
+            <p class="" data-start="870" data-end="959">Dentro de este workspace, crea un subdirectorio llamado <code
+                    data-start="926" data-end="931">src</code> (source):<br data-start="941" data-end="944"><code
+                    data-start="946" data-end="957">mkdir src</code></p>
+        </li>
+    </ul>
+    <p class="" data-start="961" data-end="1002"><strong data-start="961" data-end="1000">3. Estructura inicial del
+            workspace</strong></p>
+    <p class="" data-start="961" data-end="1002"><code>ws/</code><br><code>└── src/</code></p>
+    <p class="" data-start="1031" data-end="1077"><strong data-start="1031" data-end="1075">4. Compilar el workspace por
+            primera vez</strong></p>
+    <ul data-start="1078" data-end="1249">
+        <li class="" data-start="1078" data-end="1162">
+            <p class="" data-start="1080" data-end="1162">Desde el directorio raíz del workspace (<code
+                    data-start="1120" data-end="1130">ws</code>), ejecuta:<br data-start="1141" data-end="1144"><code
+                    data-start="1146" data-end="1160">colcon build</code></p>
+        </li>
+        <li class="" data-start="1163" data-end="1249">
+            <p class="" data-start="1165" data-end="1249">Esto genera tres nuevas carpetas automáticamente:<br
+                    data-start="1214" data-end="1217"><code data-start="1219" data-end="1227">build/</code>, <code
+                    data-start="1229" data-end="1239">install/</code>, y <code data-start="1243"
+                    data-end="1249">log/</code></p>
+        </li>
+    </ul>
+    <p class="" data-start="1251" data-end="1401"><strong data-start="1251" data-end="1300">5. Si el comando <code
+                data-start="1270" data-end="1278">colcon</code> no está disponible:</strong><br data-start="1300"
+            data-end="1303">Asegúrate de haber instalado la herramienta:<br data-start="1347" data-end="1350"><code
+            data-start="1350" data-end="1401">sudo apt install python3-colcon-common-extensions</code></p>
+    <p class="" data-start="1403" data-end="1444"><strong data-start="1403" data-end="1442">6. Activar el entorno del
+            workspace</strong></p>
+    <ul data-start="1445" data-end="1655">
+        <li class="" data-start="1445" data-end="1540">
+            <p class="" data-start="1447" data-end="1540">Luego de compilar, ve al directorio <code data-start="1483"
+                    data-end="1493">install/</code> y verifica que existe el script <code data-start="1526"
+                    data-end="1538">setup.bash</code></p>
+        </li>
+        <li class="" data-start="1541" data-end="1655">
+            <p class="" data-start="1543" data-end="1655">Para acceder a las funcionalidades del workspace, se debe
+                "sourcear" el archivo:<br data-start="1623" data-end="1626"><code data-start="1628"
+                    data-end="1655">source install/setup.bash</code></p>
+        </li>
+    </ul>
+    <p class="" data-start="1657" data-end="1703"><strong data-start="1657" data-end="1701">7. Automatizar el sourcing
+            del workspace</strong></p>
+    <ul data-start="1704" data-end="1991">
+        <li class="" data-start="1704" data-end="1756">
+            <p class="" data-start="1706" data-end="1756">Edita el archivo <code data-start="1723"
+                    data-end="1732">.bashrc</code>:<br data-start="1733" data-end="1736"><code data-start="1738"
+                    data-end="1754">nano ~/.bashrc</code></p>
+        </li>
+        <li class="" data-start="1757" data-end="1886">
+            <p class="" data-start="1759" data-end="1886">Añade la siguiente línea después del sourcing de ROS global
+                (asegúrate del orden):<br data-start="1841" data-end="1844"><code data-start="1846"
+                    data-end="1884">source ~/ws/install/setup.bash</code></p>
+        </li>
+        <li class="" data-start="1887" data-end="1918">
+            <p class="" data-start="1889" data-end="1918">Guarda el archivo y cierra.</p>
+        </li>
+        <li class="" data-start="1919" data-end="1991">
+            <p class="" data-start="1921" data-end="1991">Ahora, cada nueva terminal tendrá el workspace activo
+                automáticamente.</p>
+        </li>
+    </ul>
+    <p class="" data-start="1993" data-end="2105"><strong data-start="1993" data-end="2015">8. Resultado
+            final</strong><br data-start="2015" data-end="2018">El entorno está listo para comenzar a crear paquetes ROS
+        2 dentro del directorio <code data-start="2099" data-end="2104">src</code>.</p>
 
-  <!-- Bootstrap JS -->
-  <script
-    src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js">
-  </script>
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js">
+    </script>
 
 </body>
+
 </html>

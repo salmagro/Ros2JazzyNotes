@@ -1,38 +1,164 @@
 <!DOCTYPE html>
 <html>
+
 <head>
-  <meta charset="utf-8">
-  <title>3.8. Nodo C++ con OOP - ROS 2 Jazzy Notes</title>
+    <meta charset="utf-8">
+    <title>3.8. Nodo C++ con OOP - ROS 2 Jazzy Notes</title>
 
-  <!-- Bootstrap CSS -->
-  <link
-    href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
-    rel="stylesheet"
-  >
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
 
-  <style>
-    .back-link {
-      margin-bottom: 2rem;
-    }
-  </style>
+    <style>
+        .back-link {
+            margin-bottom: 2rem;
+        }
+    </style>
 
 </head>
+
 <body class="container py-4">
 
-  <a href="../index.html" class="btn btn-secondary back-link">← Volver al inicio</a>
+    <a href="../index.html" class="btn btn-secondary back-link">← Volver al inicio</a>
 
-  <h1 class="mb-4">3.8. Nodo C++ con Programación Orientada a Objetos (OOP) y temporizador en ROS 2</h1>
+    <h1 class="mb-4">3.8. Nodo C++ con Programación Orientada a Objetos (OOP) y temporizador en ROS 2</h1>
 
-  <p class="lead">En esta clase mejorarás tu nodo C++ aplicando programación orientada a objetos (OOP), y aprenderás cómo usar un temporizador para ejecutar acciones periódicas dentro del nodo.</p>
+    <p class="lead">En esta clase mejorarás tu nodo C++ aplicando programación orientada a objetos (OOP), y aprenderás
+        cómo usar un temporizador para ejecutar acciones periódicas dentro del nodo.</p>
 
-  <div class="alert alert-light">
-    <p><strong>Contenido:</strong> Esta sección está en desarrollo.</p>
-  </div>
+    <p class="" data-start="461" data-end="485">📘 <strong data-start="464" data-end="485">Notas de la clase</strong>
+    </p>
+    <p class="" data-start="487" data-end="523"><strong data-start="487" data-end="523">1. Estructura OOP de un nodo
+            C++</strong></p>
+    <p class="" data-start="525" data-end="705">Se define una clase propia que hereda de <code data-start="566"
+            data-end="580">rclcpp::Node</code>. Esta es la forma recomendada de escribir nodos en C++ en ROS 2, ya que
+        facilita la organización y escalabilidad del código.</p>
+    <pre class="language-cpp"><code>class MyNode : public rclcpp::Node {
+  // ...
+};</code></pre>
+    <ul>
+        <li>En el constructor se llama al constructor de la clase padre con el nombre del nodo:<br data-start="853"
+                data-end="856"><code data-start="858" data-end="876">Node("cpp_test")</code><br><br></li>
+    </ul>
+    <p class="" data-start="878" data-end="914"><strong data-start="878" data-end="914">2. Funcionalidad básica del
+            nodo</strong></p>
+    <p class="" data-start="916" data-end="934">En el constructor:</p>
+    <ul data-start="936" data-end="1100">
+        <li class="" data-start="936" data-end="1014">
+            <p class="" data-start="938" data-end="1014">Se imprime un log con:<br data-start="960" data-end="963"><code
+                    data-start="965" data-end="1014">RCLCPP_INFO(this-&gt;get_logger(), "Hello world");</code></p>
+        </li>
+        <li class="" data-start="1016" data-end="1100">
+            <p class="" data-start="1018" data-end="1100">Se puede usar <code data-start="1032"
+                    data-end="1040">this-&gt;</code> para acceder a métodos de <code data-start="1067"
+                    data-end="1073">Node</code>, aunque no es obligatorio.</p>
+        </li>
+    </ul>
+    <p class="" data-start="1102" data-end="1143"><strong data-start="1102" data-end="1143">3. Mantener el nodo activo
+            con <code data-start="1135" data-end="1141">spin</code></strong></p>
+    <p class="" data-start="1145" data-end="1160">Desde <code data-start="1151" data-end="1159">main()</code>:</p>
+    <ul data-start="1162" data-end="1369">
+        <li class="" data-start="1162" data-end="1241">
+            <p class="" data-start="1164" data-end="1241">Crear un <code data-start="1173"
+                    data-end="1185">shared_ptr</code> del nodo:<br data-start="1195" data-end="1198"><code
+                    data-start="1200" data-end="1241">auto node = std::make_shared&lt;MyNode&gt;();</code></p>
+        </li>
+        <li class="" data-start="1242" data-end="1290">
+            <p class="" data-start="1244" data-end="1290">Iniciar ROS 2 con: <code data-start="1263"
+                    data-end="1290">rclcpp::init(argc, argv);</code></p>
+        </li>
+        <li class="" data-start="1291" data-end="1331">
+            <p class="" data-start="1293" data-end="1331">Ejecutar <code data-start="1302" data-end="1308">spin</code>:
+                <code data-start="1310" data-end="1331">rclcpp::spin(node);</code></p>
+        </li>
+        <li class="" data-start="1332" data-end="1369">
+            <p class="" data-start="1334" data-end="1369">Finalizar con <code data-start="1348"
+                    data-end="1369">rclcpp::shutdown();</code></p>
+        </li>
+    </ul>
+    <p class="" data-start="1371" data-end="1413"><strong data-start="1371" data-end="1413">4. Añadir un temporizador
+            con callback</strong></p>
+    <ul data-start="1415" data-end="1616">
+        <li class="" data-start="1415" data-end="1506">
+            <p class="" data-start="1417" data-end="1464">Crear un atributo privado para el temporizador:</p>
+            <p class="" data-start="1468" data-end="1506"><code data-start="1468"
+                    data-end="1506">rclcpp::TimerBase::SharedPtr timer_;</code></p>
+        </li>
+        <li class="" data-start="1508" data-end="1567">
+            <p class="" data-start="1510" data-end="1539">Definir una función callback:</p>
+            <p class="" data-start="1543" data-end="1567"><code data-start="1543"
+                    data-end="1567">void timer_callback();</code></p>
+        </li>
+        <li class="" data-start="1569" data-end="1616">
+            <p class="" data-start="1571" data-end="1616">En el constructor, registrar el temporizador:</p>
+            <pre class="language-cpp"><code>timer_ = this-&gt;create_wall_timer(
+  std::chrono::seconds(1),
+  std::bind(&amp;MyNode::timer_callback, this)
+);</code></pre>
+            <p>Esto ejecutará la función <code data-start="1763" data-end="1779">timer_callback</code> <strong
+                    data-start="1780" data-end="1796">cada segundo</strong> mientras el nodo esté vivo.</p>
+        </li>
+    </ul>
+    <p class="" data-start="1826" data-end="1851"><strong data-start="1826" data-end="1851">5. Añadir un
+            contador</strong></p>
+    <ul data-start="1853" data-end="2012">
+        <li class="" data-start="1853" data-end="1914">
+            <p class="" data-start="1855" data-end="1914">En los atributos privados, definir:<br data-start="1890"
+                    data-end="1893"><code data-start="1895" data-end="1914">int counter_ = 0;</code></p>
+        </li>
+        <li class="" data-start="1916" data-end="2012">
+            <p class="" data-start="1918" data-end="2012">En el callback:<br data-start="1933" data-end="1936"><code
+                    data-start="1938"
+                    data-end="1994">RCLCPP_INFO(this-&gt;get_logger(), "Hello %d", counter_);</code><br
+                    data-start="1994" data-end="1997"><code data-start="1999" data-end="2012">counter_++;</code></p>
+        </li>
+    </ul>
+    <p class="" data-start="2014" data-end="2040"><strong data-start="2014" data-end="2040">6. Compilar y
+            ejecutar</strong></p>
+    <p class="" data-start="2042" data-end="2070">🛠 <strong data-start="2045" data-end="2054">Build</strong><br
+            data-start="2054" data-end="2057">Desde <code data-start="2063" data-end="2069">~/ws</code>:</p>
+    <p class="" data-start="2072" data-end="2113">colcon build --packages-select my_cpp_pkg</p>
+    <p class="" data-start="2115" data-end="2153">🔁 <strong data-start="2118" data-end="2128">Source</strong><br
+            data-start="2128" data-end="2131">Actualizar el entorno:</p>
+    <p class="" data-start="2155" data-end="2203">source ~/.bashrc<br data-start="2171" data-end="2174">o<br
+            data-start="2175" data-end="2178">source install/setup.bash</p>
+    <p class="" data-start="2205" data-end="2215">▶️ <strong data-start="2208" data-end="2215">Run</strong></p>
+    <p class="" data-start="2217" data-end="2245">ros2 run my_cpp_pkg cpp_node</p>
+    <p class="" data-start="2247" data-end="2278"><strong data-start="2247" data-end="2278">7. Recapitulación del
+            flujo</strong></p>
+    <ul data-start="2280" data-end="2570">
+        <li class="" data-start="2280" data-end="2355">
+            <p class="" data-start="2282" data-end="2355">Se ejecuta el <code data-start="2296"
+                    data-end="2304">main()</code>, que crea el nodo y lo mantiene vivo con <code data-start="2346"
+                    data-end="2354">spin()</code>.</p>
+        </li>
+        <li class="" data-start="2356" data-end="2409">
+            <p class="" data-start="2358" data-end="2409">El constructor del nodo se ejecuta automáticamente.</p>
+        </li>
+        <li class="" data-start="2410" data-end="2440">
+            <p class="" data-start="2412" data-end="2440">Se registra el temporizador.</p>
+        </li>
+        <li class="" data-start="2441" data-end="2499">
+            <p class="" data-start="2443" data-end="2499">El <code data-start="2446" data-end="2454">spin()</code>
+                permite ejecutar el callback periódicamente.</p>
+        </li>
+        <li class="" data-start="2500" data-end="2570">
+            <p class="" data-start="2502" data-end="2570">Al presionar <code data-start="2515"
+                    data-end="2523">Ctrl+C</code>, se detiene el nodo y se llama a <code data-start="2557"
+                    data-end="2569">shutdown()</code>.</p>
+        </li>
+    </ul>
+    <p class="" data-start="2572" data-end="2736">💡 <strong data-start="2575" data-end="2584">Nota:</strong> No es
+        necesario modificar <code data-start="2611" data-end="2627">CMakeLists.txt</code> si ya está configurado de
+        clases anteriores. Solo asegúrate de guardar todos los archivos antes de compilar.</p>
+    <p class="" data-start="2738" data-end="2772">💾 <strong data-start="2741" data-end="2772">Código trabajado /
+            recursos<br></strong><code
+            class="!whitespace-pre"><span class="hljs-type">Código</span> trabajado: <span class="hljs-operator">~/</span>ws<span class="hljs-regexp">/src/</span>my_cpp_pkg<span class="hljs-regexp">/src/</span>my_first_node.cpp</code><strong
+            data-start="2741" data-end="2772"><br></strong></p>
 
-  <!-- Bootstrap JS -->
-  <script
-    src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js">
-  </script>
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js">
+    </script>
 
 </body>
+
 </html>

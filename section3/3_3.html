@@ -1,38 +1,138 @@
 <!DOCTYPE html>
 <html>
+
 <head>
-  <meta charset="utf-8">
-  <title>3.3. Creación de un paquete C++ - ROS 2 Jazzy Notes</title>
+    <meta charset="utf-8">
+    <title>3.3. Creación de un paquete C++ - ROS 2 Jazzy Notes</title>
 
-  <!-- Bootstrap CSS -->
-  <link
-    href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
-    rel="stylesheet"
-  >
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
 
-  <style>
-    .back-link {
-      margin-bottom: 2rem;
-    }
-  </style>
+    <style>
+        .back-link {
+            margin-bottom: 2rem;
+        }
+    </style>
 
 </head>
+
 <body class="container py-4">
 
-  <a href="../index.html" class="btn btn-secondary back-link">← Volver al inicio</a>
+    <a href="../index.html" class="btn btn-secondary back-link">← Volver al inicio</a>
 
-  <h1 class="mb-4">3.3. Creación de un paquete C++ en ROS 2</h1>
+    <h1 class="mb-4">3.3. Creación de un paquete C++ en ROS 2</h1>
 
-  <p class="lead">En esta clase aprenderás cómo crear un paquete C++ en ROS 2, utilizando el sistema de construcción ament_cmake. Verás cómo organizarlo dentro del workspace y compilarlo correctamente.</p>
+    <p class="lead">En esta clase aprenderás cómo crear un paquete C++ en ROS 2, utilizando el sistema de construcción
+        ament_cmake. Verás cómo organizarlo dentro del workspace y compilarlo correctamente.</p>
 
-  <div class="alert alert-light">
-    <p><strong>Contenido:</strong> Esta sección está en desarrollo.</p>
-  </div>
+    <p class="" data-start="432" data-end="456">📘 <strong data-start="435" data-end="456">Notas de la clase</strong>
+    </p>
+    <p class="" data-start="458" data-end="577"><strong data-start="458" data-end="486">1. Ubicación del
+            paquete</strong><br data-start="486" data-end="489">Todos los paquetes deben crearse dentro del directorio
+        <code data-start="544" data-end="549">src</code> del workspace:<br data-start="564" data-end="567"><code
+            data-start="567" data-end="577">~/ws/src</code></p>
+    <p class="" data-start="579" data-end="648"><strong data-start="579" data-end="619">2. Comando para crear un paquete
+            C++</strong><br data-start="619" data-end="622">Desde <code data-start="628" data-end="638">~/ws/src</code>,
+        ejecuta:</p>
+    <p class="" data-start="650" data-end="723">
+        <code>ros2 pkg create my_cpp_pkg --build-type ament_cmake --dependencies rclcpp</code></p>
+    <ul data-start="725" data-end="947">
+        <li class="" data-start="725" data-end="803">
+            <p class="" data-start="727" data-end="803"><code data-start="727" data-end="739">my_cpp_pkg</code> es el
+                nombre del paquete (usa guiones bajos si es necesario).</p>
+        </li>
+        <li class="" data-start="804" data-end="871">
+            <p class="" data-start="806" data-end="871"><code data-start="806"
+                    data-end="832">--build-type ament_cmake</code> especifica que el paquete es en C++.</p>
+        </li>
+        <li class="" data-start="872" data-end="947">
+            <p class="" data-start="874" data-end="947"><code data-start="874"
+                    data-end="897">--dependencies rclcpp</code> agrega la dependencia a la librería C++ de ROS 2.</p>
+        </li>
+    </ul>
+    <p class="" data-start="949" data-end="1020">Puedes agregar más dependencias separadas por espacios si lo necesitas.
+    </p>
+    <p class="" data-start="1022" data-end="1060"><strong data-start="1022" data-end="1060">3. Estructura generada del
+            paquete</strong></p>
+    <p class="" data-start="1062" data-end="1114">Al ejecutar el comando, se generará esta estructura:</p>
+    <ul data-start="1116" data-end="1336">
+        <li class="" data-start="1116" data-end="1336">
+            <p class="" data-start="1118" data-end="1131"><code data-start="1118" data-end="1131">my_cpp_pkg/</code></p>
+            <ul data-start="1134" data-end="1336">
+                <li class="" data-start="1134" data-end="1189">
+                    <p class="" data-start="1136" data-end="1189"><code data-start="1136"
+                            data-end="1157">include/my_cpp_pkg/</code> → para archivos <code data-start="1174"
+                            data-end="1180">.hpp</code> o <code data-start="1183" data-end="1187">.h</code></p>
+                </li>
+                <li class="" data-start="1192" data-end="1232">
+                    <p class="" data-start="1194" data-end="1232"><code data-start="1194" data-end="1200">src/</code> →
+                        para archivos fuente <code data-start="1224" data-end="1230">.cpp</code></p>
+                </li>
+                <li class="" data-start="1235" data-end="1279">
+                    <p class="" data-start="1237" data-end="1279"><code data-start="1237"
+                            data-end="1253">CMakeLists.txt</code> → reglas de compilación</p>
+                </li>
+                <li class="" data-start="1282" data-end="1336">
+                    <p class="" data-start="1284" data-end="1336"><code data-start="1284"
+                            data-end="1297">package.xml</code> → metadatos y dependencias del paquete</p>
+                </li>
+            </ul>
+        </li>
+    </ul>
+    <p class="" data-start="1338" data-end="1359"><strong data-start="1338" data-end="1359">4. Archivos clave</strong>
+    </p>
+    <ul data-start="1361" data-end="1706">
+        <li class="" data-start="1361" data-end="1568">
+            <p class="" data-start="1363" data-end="1568"><strong data-start="1363" data-end="1380"><code
+                        data-start="1365" data-end="1378">package.xml</code></strong><br data-start="1380"
+                    data-end="1383">Obligatorio en todo paquete ROS 2. Contiene nombre, versión, descripción, licencia,
+                autor y dependencias (como <code data-start="1496" data-end="1504">rclcpp</code>).<br data-start="1506"
+                    data-end="1509">Puedes agregar más dependencias con etiquetas <code data-start="1557"
+                    data-end="1567">&lt;depend&gt;</code>.</p>
+        </li>
+        <li class="" data-start="1570" data-end="1706">
+            <p class="" data-start="1572" data-end="1706"><strong data-start="1572" data-end="1592"><code
+                        data-start="1574" data-end="1590">CMakeLists.txt</code></strong><br data-start="1592"
+                    data-end="1595">Define cómo se compilarán los archivos C++.<br data-start="1640" data-end="1643">Aún
+                no lo modificamos, se hará cuando se cree el primer nodo.</p>
+        </li>
+    </ul>
+    <p class="" data-start="1708" data-end="1798"><strong data-start="1708" data-end="1758">5. Apertura del proyecto en
+            Visual Studio Code</strong><br data-start="1758" data-end="1761">Desde <code data-start="1767"
+            data-end="1777">~/ws/src</code>, abre el editor con:</p>
+    <p class="" data-start="1800" data-end="1806"><code>code .</code></p>
+    <p class="" data-start="1808" data-end="1907">Esto permite que VS Code detecte correctamente las rutas de inclusión
+        y facilite el autocompletado.</p>
+    <p class="" data-start="1909" data-end="1935"><strong data-start="1909" data-end="1935">6. Compilar el
+            paquete</strong></p>
+    <p class="" data-start="1937" data-end="2028">Nunca compiles desde <code data-start="1958"
+            data-end="1968">~/ws/src</code>. Debes compilar siempre desde la raíz del workspace <code data-start="2021"
+            data-end="2027">~/ws</code>.</p>
+    <p class="" data-start="2030" data-end="2062">Para compilar todo el workspace:</p>
+    <p class="" data-start="2064" data-end="2076"><code>colcon build</code></p>
+    <p class="" data-start="2078" data-end="2131"><strong data-start="2078" data-end="2131">7. Compilar solo un paquete
+            específico (opcional)</strong></p>
+    <p class="" data-start="2133" data-end="2174"><code>colcon build --packages-select my_cpp_pkg</code></p>
+    <p class="" data-start="2176" data-end="2247">Esto es útil cuando hay múltiples paquetes y quieres compilar solo
+        uno.</p>
+    <p class="" data-start="2249" data-end="2451"><strong data-start="2249" data-end="2302">8. Error común: compilar en
+            la carpeta equivocada</strong><br data-start="2302" data-end="2305">Si ejecutas <code data-start="2317"
+            data-end="2331">colcon build</code> dentro de <code data-start="2342" data-end="2352">~/ws/src</code>, se
+        crearán carpetas <code data-start="2374" data-end="2382">build/</code>, <code data-start="2384"
+            data-end="2394">install/</code> y <code data-start="2397" data-end="2403">log/</code> allí.<br
+            data-start="2409" data-end="2412">Esto puede causar conflictos o errores.</p>
+    <p class="" data-start="2453" data-end="2471">Para solucionarlo:</p>
+    <p class="" data-start="2473" data-end="2497"><code>rm -rf build install log</code></p>
+    <p class="" data-start="2499" data-end="2550">Luego vuelve a compilar correctamente desde <code data-start="2543"
+            data-end="2549">~/ws</code>.</p>
+    <p class="" data-start="2552" data-end="2586">💾 <strong data-start="2555" data-end="2586">Código trabajado /
+            recursos</strong></p>
+    <p class="" data-start="2552" data-end="2586"><code>Código trabajado: ~/ws/src/my_cpp_pkg</code></p>
 
-  <!-- Bootstrap JS -->
-  <script
-    src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js">
-  </script>
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js">
+    </script>
 
 </body>
+
 </html>

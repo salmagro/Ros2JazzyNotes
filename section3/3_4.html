@@ -1,38 +1,199 @@
 <!DOCTYPE html>
 <html>
+
 <head>
-  <meta charset="utf-8">
-  <title>3.4. ¿Qué es un nodo en ROS 2? - ROS 2 Jazzy Notes</title>
+    <meta charset="utf-8">
+    <title>3.4. ¿Qué es un nodo en ROS 2? - ROS 2 Jazzy Notes</title>
 
-  <!-- Bootstrap CSS -->
-  <link
-    href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
-    rel="stylesheet"
-  >
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
 
-  <style>
-    .back-link {
-      margin-bottom: 2rem;
-    }
-  </style>
+    <style>
+        .back-link {
+            margin-bottom: 2rem;
+        }
+    </style>
 
 </head>
+
 <body class="container py-4">
 
-  <a href="../index.html" class="btn btn-secondary back-link">← Volver al inicio</a>
+    <a href="../index.html" class="btn btn-secondary back-link">← Volver al inicio</a>
 
-  <h1 class="mb-4">3.4. ¿Qué es un nodo en ROS 2?</h1>
+    <h1 class="mb-4">3.4. ¿Qué es un nodo en ROS 2?</h1>
 
-  <p class="lead">En esta clase aprenderás qué es un nodo en ROS 2, cuál es su rol dentro de una aplicación robótica, y cómo se relaciona con los paquetes y otros nodos a través de un ejemplo práctico.</p>
+    <p class="lead">En esta clase aprenderás qué es un nodo en ROS 2, cuál es su rol dentro de una aplicación robótica,
+        y cómo se relaciona con los paquetes y otros nodos a través de un ejemplo práctico.</p>
 
-  <div class="alert alert-light">
-    <p><strong>Contenido:</strong> Esta sección está en desarrollo.</p>
-  </div>
+    <p class="" data-start="356" data-end="380">📝 <strong data-start="148" data-end="169">Documentación</strong></p>
+    <p class="" data-start="356" data-end="380"><a
+            href="https://docs.ros.org/en/jazzy/Tutorials/Beginner-CLI-Tools/Understanding-ROS2-Nodes/Understanding-ROS2-Nodes.html">https://docs.ros.org/en/jazzy/Tutorials/Beginner-CLI-Tools/Understanding-ROS2-Nodes/Understanding-ROS2-Nodes.html</a>
+    </p>
+    <p class="" data-start="356" data-end="380"><br>📘 <strong data-start="359" data-end="380">Notas de la
+            clase</strong></p>
+    <p class="" data-start="382" data-end="567"><strong data-start="382" data-end="414">1. ¿Qué es un nodo en ROS
+            2?</strong><br data-start="414" data-end="417">Un <strong data-start="420" data-end="428">nodo</strong> es
+        un subprograma dentro de tu aplicación en ROS 2, escrito típicamente en Python o C++. Cada nodo debe tener una
+        única responsabilidad.</p>
+    <ul data-start="568" data-end="789">
+        <li class="" data-start="568" data-end="612">
+            <p class="" data-start="570" data-end="612">Una aplicación puede tener muchos paquetes y nodos.</p>
+        </li>
+        <li class="" data-start="613" data-end="657">
+            <p class="" data-start="615" data-end="657">Los nodos se agrupan dentro de paquetes.</p>
+        </li>
+        <li class="" data-start="658" data-end="789">
+            <p class="" data-start="660" data-end="789">Los nodos se comunican entre sí utilizando mecanismos de
+                comunicación como <strong data-start="735" data-end="745">topics</strong>, <strong data-start="747"
+                    data-end="759">services</strong>, <strong data-start="761" data-end="775">parameters</strong>, entre
+                otros.</p>
+        </li>
+    </ul>
+    <p class="" data-start="791" data-end="917"><strong data-start="791" data-end="855">2. Ejemplo práctico:
+            Arquitectura de una aplicación robótica</strong><br data-start="855" data-end="858">Imagina una aplicación
+        con tres paquetes y múltiples nodos:</p>
+    <p class="" data-start="791" data-end="917"><img class="img-fluid align-bottom" role="presentation"
+            src="../assets/packages_2.png"
+            alt="" width="800" height="448"></p>
+    <p class="" data-start="919" data-end="949"><strong data-start="919" data-end="947">📦 Paquete: <code
+                data-start="933" data-end="945">camera_pkg</code></strong></p>
+    <ul data-start="950" data-end="1067">
+        <li class="" data-start="950" data-end="1005">
+            <p class="" data-start="952" data-end="1005"><strong data-start="952" data-end="967">driver_node</strong>:
+                Captura imágenes desde una cámara.</p>
+        </li>
+        <li class="" data-start="1006" data-end="1067">
+            <p class="" data-start="1008" data-end="1067"><strong data-start="1008"
+                    data-end="1033">image_processing_node</strong>: Procesa las imágenes capturadas.</p>
+        </li>
+    </ul>
+    <p class="" data-start="1069" data-end="1108"><strong data-start="1069" data-end="1106">📦 Paquete: <code
+                data-start="1083" data-end="1104">motion_planning_pkg</code></strong></p>
+    <ul data-start="1109" data-end="1245">
+        <li class="" data-start="1109" data-end="1173">
+            <p class="" data-start="1111" data-end="1173"><strong data-start="1111"
+                    data-end="1134">motion_planner_node</strong>: Calcula trayectorias para el robot.</p>
+        </li>
+        <li class="" data-start="1174" data-end="1245">
+            <p class="" data-start="1176" data-end="1245"><strong data-start="1176"
+                    data-end="1200">path_correction_node</strong>: Ajusta las trayectorias en base al entorno.</p>
+        </li>
+    </ul>
+    <p class="" data-start="1247" data-end="1287"><strong data-start="1247" data-end="1285">📦 Paquete: <code
+                data-start="1261" data-end="1283">hardware_control_pkg</code></strong></p>
+    <ul data-start="1288" data-end="1414">
+        <li class="" data-start="1288" data-end="1354">
+            <p class="" data-start="1290" data-end="1354"><strong data-start="1290"
+                    data-end="1311">motor_driver_node</strong>: Envía comandos a los motores del robot.</p>
+        </li>
+        <li class="" data-start="1355" data-end="1414">
+            <p class="" data-start="1357" data-end="1414"><strong data-start="1357"
+                    data-end="1381">state_publisher_node</strong>: Publica el estado del hardware.</p>
+        </li>
+    </ul>
+    <p class="" data-start="1416" data-end="1449"><strong data-start="1416" data-end="1447">3. Comunicación entre
+            nodos</strong></p>
+    <ul data-start="1450" data-end="1766">
+        <li class="" data-start="1450" data-end="1537">
+            <p class="" data-start="1452" data-end="1537">El <code data-start="1455"
+                    data-end="1478">image_processing_node</code> envía información del entorno al <code
+                    data-start="1512" data-end="1534">path_correction_node</code>.</p>
+        </li>
+        <li class="" data-start="1538" data-end="1610">
+            <p class="" data-start="1540" data-end="1610">El <code data-start="1543"
+                    data-end="1565">path_correction_node</code> comunica cambios al <code data-start="1586"
+                    data-end="1607">motion_planner_node</code>.</p>
+        </li>
+        <li class="" data-start="1611" data-end="1682">
+            <p class="" data-start="1613" data-end="1682">El <code data-start="1616"
+                    data-end="1637">motion_planner_node</code> envía trayectorias al <code data-start="1660"
+                    data-end="1679">motor_driver_node</code>.</p>
+        </li>
+        <li class="" data-start="1683" data-end="1766">
+            <p class="" data-start="1685" data-end="1766">El <code data-start="1688"
+                    data-end="1710">state_publisher_node</code> publica el estado, que puede ser usado por otros nodos.
+            </p>
+        </li>
+    </ul>
+    <p class="" data-start="1768" data-end="1916">Esta arquitectura modular permite que cada nodo cumpla una función
+        específica y se comunique con los demás, formando una <strong data-start="1889" data-end="1905">red de
+            nodos</strong> (o grafo).</p>
+    <p class="" data-start="1918" data-end="1966"><strong data-start="1918" data-end="1966">4. Características y
+            beneficios de los nodos</strong></p>
+    <p class="" data-start="1968" data-end="2007">✅ <strong data-start="1970" data-end="2005">Separación de
+            responsabilidades</strong></p>
+    <ul data-start="2008" data-end="2105">
+        <li class="" data-start="2008" data-end="2105">
+            <p class="" data-start="2010" data-end="2105">Cada nodo tiene una sola tarea clara, lo cual mejora la
+                legibilidad y mantenimiento del código.</p>
+        </li>
+    </ul>
+    <p class="" data-start="2107" data-end="2128">✅ <strong data-start="2109" data-end="2126">Escalabilidad</strong></p>
+    <ul data-start="2129" data-end="2211">
+        <li class="" data-start="2129" data-end="2211">
+            <p class="" data-start="2131" data-end="2211">Separar tu aplicación en nodos y paquetes facilita su
+                crecimiento y modularidad.</p>
+        </li>
+    </ul>
+    <p class="" data-start="2213" data-end="2240">✅ <strong data-start="2215" data-end="2238">Tolerancia a
+            fallos</strong></p>
+    <ul data-start="2241" data-end="2334">
+        <li class="" data-start="2241" data-end="2334">
+            <p class="" data-start="2243" data-end="2334">Si un nodo falla, los otros nodos pueden seguir funcionando si
+                están en procesos separados.</p>
+        </li>
+    </ul>
+    <p class="" data-start="2336" data-end="2370">✅ <strong data-start="2338" data-end="2368">Independencia del
+            lenguaje</strong></p>
+    <ul data-start="2371" data-end="2470">
+        <li class="" data-start="2371" data-end="2470">
+            <p class="" data-start="2373" data-end="2470">Puedes mezclar nodos en distintos lenguajes (Python y C++), y
+                seguir comunicándose correctamente.</p>
+        </li>
+    </ul>
+    <p class="" data-start="2472" data-end="2499">✅ <strong data-start="2474" data-end="2497">Paralelismo
+            natural</strong></p>
+    <ul data-start="2500" data-end="2582">
+        <li class="" data-start="2500" data-end="2582">
+            <p class="" data-start="2502" data-end="2582">Al ejecutarse como procesos separados, los nodos permiten
+                ejecución concurrente.</p>
+        </li>
+    </ul>
+    <p class="" data-start="2584" data-end="2609"><strong data-start="2584" data-end="2607">5. Buenas prácticas</strong>
+    </p>
+    <ul data-start="2610" data-end="2749">
+        <li class="" data-start="2610" data-end="2749">
+            <p class="" data-start="2612" data-end="2749">Usa nombres únicos para tus nodos.<br data-start="2646"
+                    data-end="2649">Si necesitas ejecutar múltiples instancias del mismo nodo, usa distintos nombres o
+                <strong data-start="2734" data-end="2748">namespaces</strong>.</p>
+        </li>
+    </ul>
+    <p class="" data-start="2751" data-end="2814"><strong data-start="2751" data-end="2812">6. Comparación con POO
+            (Programación Orientada a Objetos)</strong></p>
+    <ul data-start="2815" data-end="2914">
+        <li class="" data-start="2815" data-end="2914">
+            <p class="" data-start="2817" data-end="2914">Así como una clase tiene una única responsabilidad, un nodo
+                también debe hacer <strong data-start="2896" data-end="2913">una sola cosa</strong>.</p>
+        </li>
+    </ul>
+    <p class="" data-start="2916" data-end="2939"><strong data-start="2916" data-end="2937">7. Próximos pasos</strong>
+    </p>
+    <ul data-start="2940" data-end="3097">
+        <li class="" data-start="2940" data-end="2991">
+            <p class="" data-start="2942" data-end="2991">Veremos cómo <strong data-start="2955" data-end="2972">crear
+                    un nodo</strong> en Python y C++.</p>
+        </li>
+        <li class="" data-start="2992" data-end="3097">
+            <p class="" data-start="2994" data-end="3097">Aprenderás a <strong data-start="3007"
+                    data-end="3021">ejecutarlo</strong> y <strong data-start="3024" data-end="3039">comunicarlo</strong>
+                con otros nodos usando herramientas de línea de comandos.</p>
+        </li>
+    </ul>
 
-  <!-- Bootstrap JS -->
-  <script
-    src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js">
-  </script>
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js">
+    </script>
 
 </body>
+
 </html>
