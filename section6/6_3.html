@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>6.3. Creación de un servidor de servicio en ROS 2 con C++ - ROS 2 Jazzy Notes</title>
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <style>
+        .back-link {
+            margin-bottom: 2rem;
+        }
+    </style>
+
+</head>
+
+<body class="container py-4">
+
+    <button class="btn btn-secondary back-link" onclick="history.back()">← Volver al inicio</button>
+
+    <h1 class="mb-4">6.3. Creación de un servidor de servicio en ROS 2 con C++</h1>
+
+    <p class="lead">Aprenderás a crear un servidor de servicio en ROS 2 utilizando C++, proporcionando una interfaz de
+        alto rendimiento para que otros nodos soliciten servicios.</p>
+
+    <p class="" data-start="522" data-end="546">📘 <strong data-start="525" data-end="546">Notas de la clase</strong>
+    </p>
+    <p class="" data-start="548" data-end="588"><strong data-start="548" data-end="588">🔹 Revisión de la interfaz
+            utilizada</strong></p>
+    <ul data-start="590" data-end="862">
+        <li class="" data-start="590" data-end="681">
+            <p class="" data-start="592" data-end="681">Comando para ver la interfaz:<br data-start="621"
+                    data-end="624"><code data-start="626"
+                    data-end="681">ros2 interface show example_interfaces/srv/AddTwoInts</code></p>
+        </li>
+        <li class="" data-start="682" data-end="793">
+            <p class="" data-start="684" data-end="694">Contenido:</p>
+            <ul data-start="697" data-end="793">
+                <li class="" data-start="697" data-end="750">
+                    <p class="" data-start="699" data-end="750"><strong data-start="699"
+                            data-end="710">Request</strong>: dos campos enteros <code data-start="731"
+                            data-end="734">a</code> y <code data-start="737" data-end="740">b</code> (<code
+                            data-start="742" data-end="749">int64</code>)</p>
+                </li>
+                <li class="" data-start="753" data-end="793">
+                    <p class="" data-start="755" data-end="793"><strong data-start="755"
+                            data-end="767">Response</strong>: un campo <code data-start="778" data-end="783">sum</code>
+                        (<code data-start="785" data-end="792">int64</code>)</p>
+                </li>
+            </ul>
+        </li>
+        <li class="" data-start="794" data-end="862">
+            <p class="" data-start="796" data-end="862">Los <code data-start="800" data-end="805">---</code> indican la
+                separación entre la solicitud y la respuesta.</p>
+        </li>
+    </ul>
+    <p class="" data-start="864" data-end="899"><strong data-start="864" data-end="899">🔹 Estructura del código en
+            C++</strong></p>
+    <ol data-start="901" data-end="1192">
+        <li class="" data-start="901" data-end="944">
+            <p class="" data-start="904" data-end="944">Crear archivo: <code data-start="919"
+                    data-end="944">add_two_ints_server.cpp</code></p>
+        </li>
+        <li class="" data-start="945" data-end="1027">
+            <p class="" data-start="948" data-end="969">Importar la interfaz:</p>
+            <ul data-start="973" data-end="1027">
+                <li class="" data-start="973" data-end="1027">
+                    <p class="" data-start="975" data-end="1027"><code data-start="975"
+                            data-end="1027">#include "example_interfaces/srv/add_two_ints.hpp"</code></p>
+                </li>
+            </ul>
+        </li>
+        <li class="" data-start="1028" data-end="1192">
+            <p class="" data-start="1031" data-end="1083">Declarar el servidor como atributo privado del nodo:</p>
+            <ul data-start="1087" data-end="1192">
+                <li class="" data-start="1087" data-end="1160">
+                    <p class="" data-start="1089" data-end="1160">Tipo: <code data-start="1095"
+                            data-end="1160">rclcpp::Service&lt;example_interfaces::srv::AddTwoInts&gt;::SharedPtr</code>
+                    </p>
+                </li>
+                <li class="" data-start="1164" data-end="1192">
+                    <p class="" data-start="1166" data-end="1192">Nombre sugerido: <code data-start="1183"
+                            data-end="1192">server_</code></p>
+                </li>
+            </ul>
+        </li>
+    </ol>
+    <p class="" data-start="1194" data-end="1240"><strong data-start="1194" data-end="1240">🔹 Creación del servidor en
+            el constructor</strong></p>
+    <p class="" data-start="1194" data-end="1240">
+        <code>server_ = this-&gt;create_service&lt;example_interfaces::srv::AddTwoInts&gt;(</code><br><code>  "add_two_ints",</code><br><code>  std::bind(&amp;AddTwoIntsServerNode::callback_add_two_ints, this, _1, _2)</code><br><code>);</code><strong
+            data-start="1194" data-end="1240"><br></strong></p>
+    <ul data-start="1416" data-end="1664">
+        <li class="" data-start="1416" data-end="1498">
+            <p class="" data-start="1418" data-end="1498">Se define el tipo de servicio, el nombre del servicio, y el
+                callback a ejecutar.</p>
+        </li>
+        <li class="" data-start="1499" data-end="1568">
+            <p class="" data-start="1501" data-end="1568">Se usa <code data-start="1508"
+                    data-end="1519">std::bind</code> con <code data-start="1524" data-end="1528">_1</code> y <code
+                    data-start="1531" data-end="1535">_2</code> como placeholders de argumentos.</p>
+        </li>
+        <li class="" data-start="1569" data-end="1664">
+            <p class="" data-start="1571" data-end="1623">Para simplificar el uso de placeholders, se incluye:</p>
+            <ul data-start="1626" data-end="1664">
+                <li class="" data-start="1626" data-end="1664">
+                    <p class="" data-start="1628" data-end="1664"><code data-start="1628"
+                            data-end="1664">using namespace std::placeholders;</code></p>
+                </li>
+            </ul>
+        </li>
+    </ul>
+    <p class="" data-start="1666" data-end="1694"><strong data-start="1666" data-end="1694">🔹 Callback del
+            servicio</strong></p>
+    <p class="" data-start="1666" data-end="1694">
+        <code>void callback_add_two_ints(</code><br><code>  const std::shared_ptr&lt;example_interfaces::srv::AddTwoInts::Request&gt; request,</code><br><code>  const std::shared_ptr&lt;example_interfaces::srv::AddTwoInts::Response&gt; response)</code><strong
+            data-start="1666" data-end="1694"><br></strong></p>
+    <ul data-start="1896" data-end="2052">
+        <li class="" data-start="1896" data-end="1961">
+            <p class="" data-start="1898" data-end="1914">Calcula la suma:</p>
+            <ul data-start="1917" data-end="1961">
+                <li class="" data-start="1917" data-end="1961">
+                    <p class="" data-start="1919" data-end="1961"><code data-start="1919"
+                            data-end="1961">response-&gt;sum = request-&gt;a + request-&gt;b;</code></p>
+                </li>
+            </ul>
+        </li>
+        <li class="" data-start="1962" data-end="2052">
+            <p class="" data-start="1964" data-end="2032">Muestra un mensaje informativo con los datos recibidos y
+                calculados:</p>
+            <ul data-start="2035" data-end="2052">
+                <li class="" data-start="2035" data-end="2052">
+                    <p class="" data-start="2037" data-end="2052"><code data-start="2037"
+                            data-end="2052">"a + b = sum"</code></p>
+                </li>
+            </ul>
+        </li>
+    </ul>
+    <p class="" data-start="2054" data-end="2087"><strong data-start="2054" data-end="2087">🔹 Configuración del
+            proyecto</strong></p>
+    <ol data-start="2089" data-end="2438">
+        <li class="" data-start="2089" data-end="2355">
+            <p class="" data-start="2092" data-end="2112">En <code data-start="2095"
+                    data-end="2111">CMakeLists.txt</code>:</p>
+            <ul data-start="2116" data-end="2355">
+                <li class="" data-start="2116" data-end="2212">
+                    <p class="" data-start="2118" data-end="2139">Añadir el ejecutable:</p>
+                    <ul data-start="2145" data-end="2212">
+                        <li class="" data-start="2145" data-end="2212">
+                            <p class="" data-start="2147" data-end="2212"><code data-start="2147"
+                                    data-end="2212">add_executable(add_two_ints_server src/add_two_ints_server.cpp)</code>
+                            </p>
+                        </li>
+                    </ul>
+                </li>
+                <li class="" data-start="2216" data-end="2279">
+                    <p class="" data-start="2218" data-end="2240">Declarar dependencias:</p>
+                    <ul data-start="2246" data-end="2279">
+                        <li class="" data-start="2246" data-end="2279">
+                            <p class="" data-start="2248" data-end="2279"><code data-start="2248"
+                                    data-end="2256">rclcpp</code> y <code data-start="2259"
+                                    data-end="2279">example_interfaces</code></p>
+                        </li>
+                    </ul>
+                </li>
+                <li class="" data-start="2283" data-end="2355">
+                    <p class="" data-start="2285" data-end="2305">Añadir al <code data-start="2295"
+                            data-end="2304">install</code>:</p>
+                    <ul data-start="2311" data-end="2355">
+                        <li class="" data-start="2311" data-end="2355">
+                            <p class="" data-start="2313" data-end="2355"><code data-start="2313"
+                                    data-end="2355">install(TARGETS add_two_ints_server ...)</code></p>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </li>
+        <li class="" data-start="2357" data-end="2438">
+            <p class="" data-start="2360" data-end="2380">Compilar el paquete:</p>
+            <ul data-start="2384" data-end="2438">
+                <li class="" data-start="2384" data-end="2438">
+                    <p class="" data-start="2386" data-end="2438">Utilizar <code data-start="2395"
+                            data-end="2438">colcon build --packages-select my_cpp_pkg</code></p>
+                </li>
+            </ul>
+        </li>
+    </ol>
+    <p class="" data-start="2440" data-end="2470"><strong data-start="2440" data-end="2470">🔹 Validación del
+            servicio</strong></p>
+    <ul data-start="2472" data-end="2697">
+        <li class="" data-start="2472" data-end="2546">
+            <p class="" data-start="2474" data-end="2500">Ejecutar el nodo servidor:</p>
+            <ul data-start="2503" data-end="2546">
+                <li class="" data-start="2503" data-end="2546">
+                    <p class="" data-start="2505" data-end="2546"><code data-start="2505"
+                            data-end="2546">ros2 run my_cpp_pkg add_two_ints_server</code></p>
+                </li>
+            </ul>
+        </li>
+        <li class="" data-start="2547" data-end="2623">
+            <p class="" data-start="2549" data-end="2563">Verificar con:</p>
+            <ul data-start="2566" data-end="2623">
+                <li class="" data-start="2566" data-end="2584">
+                    <p class="" data-start="2568" data-end="2584"><code data-start="2568"
+                            data-end="2584">ros2 node list</code></p>
+                </li>
+                <li class="" data-start="2587" data-end="2623">
+                    <p class="" data-start="2589" data-end="2623"><code data-start="2589"
+                            data-end="2623">ros2 node info [nombre del nodo]</code></p>
+                </li>
+            </ul>
+        </li>
+        <li class="" data-start="2624" data-end="2697">
+            <p class="" data-start="2626" data-end="2652">Probar con cliente Python:</p>
+            <ul data-start="2655" data-end="2697">
+                <li class="" data-start="2655" data-end="2697">
+                    <p class="" data-start="2657" data-end="2697"><code data-start="2657"
+                            data-end="2697">ros2 run my_py_pkg add_two_ints_client</code></p>
+                </li>
+            </ul>
+        </li>
+    </ul>
+    <p class="" data-start="2699" data-end="2735"><strong data-start="2699" data-end="2735">🔹 Compatibilidad
+            multi-lenguaje</strong></p>
+    <ul data-start="2737" data-end="2880">
+        <li class="" data-start="2737" data-end="2880">
+            <p class="" data-start="2739" data-end="2880">Puedes tener un <strong data-start="2755"
+                    data-end="2776">cliente en Python</strong> y un <strong data-start="2782" data-end="2801">servidor
+                    en C++</strong> (o viceversa), y ambos se comunicarán correctamente si usan la misma interfaz.</p>
+        </li>
+    </ul>
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js">
+    </script>
+
+</body>
+
+</html>

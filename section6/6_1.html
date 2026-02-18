@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>6.1. Creación de un servidor de servicio en ROS 2 con Python - ROS 2 Jazzy Notes</title>
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <style>
+        .back-link {
+            margin-bottom: 2rem;
+        }
+    </style>
+
+</head>
+
+<body class="container py-4">
+
+    <button class="btn btn-secondary back-link" onclick="history.back()">← Volver al inicio</button>
+
+    <h1 class="mb-4">6.1. Creación de un servidor de servicio en ROS 2 con Python</h1>
+
+    <p class="lead">Aprenderás a crear un servidor de servicio en ROS 2 utilizando Python, permitiendo que otros nodos
+        soliciten acciones a través de un patrón cliente-servidor.</p>
+
+    <p class="" data-start="547" data-end="571"><strong>Documentacion</strong><br><a
+            href="https://docs.ros.org/en/jazzy/Tutorials/Beginner-CLI-Tools/Understanding-ROS2-Services/Understanding-ROS2-Services.html">https://docs.ros.org/en/jazzy/Tutorials/Beginner-CLI-Tools/Understanding-ROS2-Services/Understanding-ROS2-Services.html</a>
+    </p>
+    <p class="" data-start="547" data-end="571"><br>📘 <strong data-start="550" data-end="571">Notas de la
+            clase<br></strong></p>
+    <p class="" data-start="573" data-end="595"><strong data-start="573" data-end="595">🔹 Conceptos clave</strong></p>
+    <ul data-start="597" data-end="872">
+        <li class="" data-start="597" data-end="672">
+            <p class="" data-start="599" data-end="672">Un <strong data-start="602" data-end="614">servicio</strong> en
+                ROS 2 está compuesto por un nombre y una <strong data-start="659" data-end="671">interfaz</strong>.</p>
+        </li>
+        <li class="" data-start="673" data-end="798">
+            <p class="" data-start="675" data-end="798">Las interfaces de servicios tienen dos partes: <strong
+                    data-start="722" data-end="733">request</strong> (solicitud del cliente) y <strong data-start="760"
+                    data-end="772">response</strong> (respuesta del servidor).</p>
+        </li>
+        <li class="" data-start="799" data-end="872">
+            <p class="" data-start="801" data-end="872">En este ejemplo se usa la interfaz <code data-start="836"
+                    data-end="871">example_interfaces/srv/AddTwoInts</code>.</p>
+        </li>
+    </ul>
+    <p class="" data-start="874" data-end="907"><strong data-start="874" data-end="907">🔹 Exploración de la
+            interfaz</strong></p>
+    <ul data-start="909" data-end="1154">
+        <li class="" data-start="909" data-end="1000">
+            <p class="" data-start="911" data-end="1000">Comando para ver la interfaz:<br data-start="940"
+                    data-end="943"><code data-start="945"
+                    data-end="1000">ros2 interface show example_interfaces/srv/AddTwoInts</code></p>
+        </li>
+        <li class="" data-start="1001" data-end="1089">
+            <p class="" data-start="1003" data-end="1024">La interfaz contiene:</p>
+            <ul data-start="1027" data-end="1089">
+                <li class="" data-start="1027" data-end="1059">
+                    <p class="" data-start="1029" data-end="1059">Request: dos enteros <code data-start="1050"
+                            data-end="1053">a</code> y <code data-start="1056" data-end="1059">b</code></p>
+                </li>
+                <li class="" data-start="1062" data-end="1089">
+                    <p class="" data-start="1064" data-end="1089">Response: un entero <code data-start="1084"
+                            data-end="1089">sum</code></p>
+                </li>
+            </ul>
+        </li>
+        <li class="" data-start="1090" data-end="1154">
+            <p class="" data-start="1092" data-end="1154">Los tres guiones (<code data-start="1110"
+                    data-end="1115">---</code>) separan la solicitud de la respuesta.</p>
+        </li>
+    </ul>
+    <p class="" data-start="1156" data-end="1197"><strong data-start="1156" data-end="1197">🔹 Estructura del código del
+            servidor</strong></p>
+    <ol data-start="1199" data-end="1836">
+        <li class="" data-start="1199" data-end="1250">
+            <p class="" data-start="1202" data-end="1250">Crear un nuevo archivo: <code data-start="1226"
+                    data-end="1250">add_two_ints_server.py</code></p>
+        </li>
+        <li class="" data-start="1251" data-end="1273">
+            <p class="" data-start="1254" data-end="1273">Hacerlo ejecutable.</p>
+        </li>
+        <li class="" data-start="1274" data-end="1570">
+            <p class="" data-start="1277" data-end="1290">En el código:</p>
+            <ul data-start="1294" data-end="1570">
+                <li class="" data-start="1294" data-end="1337">
+                    <p class="" data-start="1296" data-end="1337">Crear una clase nodo que herede de <code
+                            data-start="1331" data-end="1337">Node</code></p>
+                </li>
+                <li class="" data-start="1341" data-end="1429">
+                    <p class="" data-start="1343" data-end="1429">Importar la interfaz de servicio: <code
+                            data-start="1382" data-end="1429">from example_interfaces.srv import AddTwoInts</code></p>
+                </li>
+                <li class="" data-start="1433" data-end="1570">
+                    <p class="" data-start="1435" data-end="1570">Crear el servidor de servicio en el constructor con:
+                        <code data-start="1493"
+                            data-end="1570">self.create_service(AddTwoInts, 'add_two_ints', self.callback_add_two_ints)</code>
+                    </p>
+                </li>
+            </ul>
+        </li>
+        <li class="" data-start="1572" data-end="1836">
+            <p class="" data-start="1575" data-end="1595">Definir el callback:</p>
+            <ul data-start="1599" data-end="1836">
+                <li class="" data-start="1599" data-end="1630">
+                    <p class="" data-start="1601" data-end="1630">Recibe <code data-start="1608"
+                            data-end="1617">request</code> y <code data-start="1620" data-end="1630">response</code></p>
+                </li>
+                <li class="" data-start="1634" data-end="1698">
+                    <p class="" data-start="1636" data-end="1698">Realiza la suma:<br data-start="1652"
+                            data-end="1655"><code data-start="1660"
+                            data-end="1698">response.sum = request.a + request.b</code></p>
+                </li>
+                <li class="" data-start="1702" data-end="1783">
+                    <p class="" data-start="1704" data-end="1783">Registrar en el log lo que se está haciendo:<br
+                            data-start="1748" data-end="1751">Por ejemplo: <code data-start="1769"
+                            data-end="1783">"3 + 7 = 10"</code></p>
+                </li>
+                <li class="" data-start="1787" data-end="1836">
+                    <p class="" data-start="1789" data-end="1836">Retornar el objeto <code data-start="1808"
+                            data-end="1818">response</code> (¡no olvidarlo!).</p>
+                </li>
+            </ul>
+        </li>
+    </ol>
+    <p class="" data-start="1838" data-end="1861"><strong data-start="1838" data-end="1861">🔹 Buenas prácticas</strong>
+    </p>
+    <ul data-start="1863" data-end="2128">
+        <li class="" data-start="1863" data-end="1976">
+            <p class="" data-start="1865" data-end="1976">Nombrar los servicios con verbos (<code data-start="1899"
+                    data-end="1913">add_two_ints</code>, <code data-start="1915" data-end="1929">compute_area</code>,
+                <code data-start="1931" data-end="1945">enable_motor</code>, etc.) para reflejar acciones.</p>
+        </li>
+        <li class="" data-start="1977" data-end="2043">
+            <p class="" data-start="1979" data-end="2043">Dar nombres explícitos a los callbacks: <code
+                    data-start="2019" data-end="2042">callback_add_two_ints</code>.</p>
+        </li>
+        <li class="" data-start="2044" data-end="2128">
+            <p class="" data-start="2046" data-end="2128">Validar siempre que el <code data-start="2069"
+                    data-end="2082">package.xml</code> tenga la dependencia de <code data-start="2107"
+                    data-end="2127">example_interfaces</code>.</p>
+        </li>
+    </ul>
+    <p class="" data-start="2130" data-end="2186"><strong data-start="2130" data-end="2186">🔹 Prueba desde la terminal
+            (sin código cliente aún)</strong></p>
+    <ul>
+        <li data-start="2190" data-end="2198">
+            Comando:<br><code>ros2 service call /add_two_ints example_interfaces/srv/AddTwoInts "{a: 3, b: 7}"</code><br><br
+                data-mce-bogus="1"></li>
+        <li class="" data-start="2294" data-end="2394">
+            <p class="" data-start="2296" data-end="2315">Resultado esperado:</p>
+            <ul data-start="2318" data-end="2394">
+                <li class="" data-start="2318" data-end="2352">
+                    <p class="" data-start="2320" data-end="2352">En el servidor: log <code data-start="2340"
+                            data-end="2352">3 + 7 = 10</code></p>
+                </li>
+                <li class="" data-start="2355" data-end="2394">
+                    <p class="" data-start="2357" data-end="2394">En la terminal del cliente: <code data-start="2385"
+                            data-end="2394">sum: 10</code></p>
+                </li>
+            </ul>
+        </li>
+    </ul>
+    <p class="" data-start="2396" data-end="2418"><strong data-start="2396" data-end="2418">🔹 Consideraciones</strong>
+    </p>
+    <ul data-start="2420" data-end="2695">
+        <li class="" data-start="2420" data-end="2492">
+            <p class="" data-start="2422" data-end="2492">El servidor debe estar corriendo y en espera para recibir
+                solicitudes.</p>
+        </li>
+        <li class="" data-start="2493" data-end="2590">
+            <p class="" data-start="2495" data-end="2590">Para peticiones complejas se recomienda implementar un cliente
+                (se verá en la siguiente clase).</p>
+        </li>
+        <li class="" data-start="2591" data-end="2695">
+            <p class="" data-start="2593" data-end="2695">Olvidar retornar el objeto <code data-start="2620"
+                    data-end="2630">response</code> en el callback es un error común que causará fallos silenciosos.</p>
+        </li>
+    </ul>
+    <p class="" data-start="2190" data-end="2198"> </p>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js">
+    </script>
+
+</body>
+
+</html>

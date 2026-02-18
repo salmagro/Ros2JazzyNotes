@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>6.5. Introspección de servicios en ROS 2 con la línea de comandos - ROS 2 Jazzy Notes</title>
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <style>
+        .back-link {
+            margin-bottom: 2rem;
+        }
+    </style>
+
+</head>
+
+<body class="container py-4">
+
+    <button class="btn btn-secondary back-link" onclick="history.back()">← Volver al inicio</button>
+
+    <h1 class="mb-4">6.5. Introspección de servicios en ROS 2 con la línea de comandos</h1>
+
+    <p class="lead">Aprenderás a usar herramientas de línea de comandos en ROS 2 para inspeccionar, listar y analizar
+        servicios disponibles en tu sistema.</p>
+
+    <p class="" data-start="637" data-end="661">📘 <strong data-start="640" data-end="661">Notas de la clase</strong>
+    </p>
+    <p class="" data-start="663" data-end="716"><strong data-start="663" data-end="716">🔹 Comandos generales para
+            trabajar con servicios</strong></p>
+    <ul data-start="718" data-end="998">
+        <li class="" data-start="718" data-end="780">
+            <p class="" data-start="720" data-end="780">Ver todos los subcomandos disponibles:<br data-start="758"
+                    data-end="761"><code data-start="763" data-end="780">ros2 service -h</code></p>
+        </li>
+        <li class="" data-start="782" data-end="838">
+            <p class="" data-start="784" data-end="838">Ver los servicios disponibles:<br data-start="814"
+                    data-end="817"><code data-start="819" data-end="838">ros2 service list</code></p>
+        </li>
+        <li class="" data-start="840" data-end="889">
+            <p class="" data-start="842" data-end="889">Ver los nodos disponibles:<br data-start="868"
+                    data-end="871"><code data-start="873" data-end="889">ros2 node list</code></p>
+        </li>
+        <li class="" data-start="891" data-end="998">
+            <p class="" data-start="893" data-end="998">Obtener información de un nodo (incluye los servicios que
+                expone):<br data-start="959" data-end="962"><code data-start="964"
+                    data-end="998">ros2 node info [nombre_del_nodo]</code></p>
+        </li>
+    </ul>
+    <p class="" data-start="1000" data-end="1042"><strong data-start="1000" data-end="1042">🔹 Servicios generados
+            automáticamente</strong></p>
+    <ul data-start="1044" data-end="1299">
+        <li class="" data-start="1044" data-end="1212">
+            <p class="" data-start="1046" data-end="1131">Cada nodo en ROS 2 crea automáticamente varios servicios
+                relacionados con parámetros:</p>
+            <ul data-start="1134" data-end="1212">
+                <li class="" data-start="1134" data-end="1212">
+                    <p class="" data-start="1136" data-end="1212">Ejemplos: <code data-start="1146"
+                            data-end="1178">/node_name/describe_parameters</code>, <code data-start="1180"
+                            data-end="1212">/node_name/get_parameter_types</code></p>
+                </li>
+            </ul>
+        </li>
+        <li class="" data-start="1213" data-end="1299">
+            <p class="" data-start="1215" data-end="1299">Si tú no los creaste, son añadidos por ROS 2 para gestionar
+                los parámetros del nodo.</p>
+        </li>
+    </ul>
+    <hr class="" data-start="1301" data-end="1304">
+    <p class="" data-start="1306" data-end="1339"><strong data-start="1306" data-end="1339">🔹 Ver el tipo de un
+            servicio</strong></p>
+    <ul data-start="1341" data-end="1610">
+        <li class="" data-start="1341" data-end="1423">
+            <p class="" data-start="1343" data-end="1423">Obtener el tipo de un servicio específico:<br
+                    data-start="1385" data-end="1388"><code data-start="1390"
+                    data-end="1423">ros2 service type /add_two_ints</code></p>
+        </li>
+        <li class="" data-start="1425" data-end="1610">
+            <p class="" data-start="1427" data-end="1610">Ver el contenido de la interfaz:<br data-start="1459"
+                    data-end="1462"><code data-start="1464"
+                    data-end="1519">ros2 interface show example_interfaces/srv/AddTwoInts</code><br data-start="1519"
+                    data-end="1522">Muestra los campos de solicitud (request) y respuesta (response), separados por
+                <code data-start="1604" data-end="1609">---</code>.</p>
+        </li>
+    </ul>
+    <hr class="" data-start="1612" data-end="1615">
+    <p class="" data-start="1617" data-end="1662"><strong data-start="1617" data-end="1662">🔹 Llamar a un servicio
+            desde la terminal</strong></p>
+    <p class="" data-start="1664" data-end="1755">Comando general:<br data-start="1680" data-end="1683"><code
+            data-start="1683"
+            data-end="1755">ros2 service call [nombre_del_servicio] [tipo_de_interfaz] "[request]"</code></p>
+    <p class="" data-start="1757" data-end="1850">Ejemplo:<br data-start="1765" data-end="1768"><code data-start="1768"
+            data-end="1850">ros2 service call /add_two_ints example_interfaces/srv/AddTwoInts "{a: 3, b: 7}"</code></p>
+    <ul data-start="1852" data-end="2018">
+        <li class="" data-start="1852" data-end="2018">
+            <p class="" data-start="1854" data-end="1867">Asegúrate de:</p>
+            <ul data-start="1870" data-end="2018">
+                <li class="" data-start="1870" data-end="1925">
+                    <p class="" data-start="1872" data-end="1925">Usar comillas dobles <code data-start="1893"
+                            data-end="1896">"</code> para encapsular la solicitud</p>
+                </li>
+                <li class="" data-start="1928" data-end="2018">
+                    <p class="" data-start="1930" data-end="2018">Usar llaves <code data-start="1942"
+                            data-end="1946">{}</code> y colocar un espacio después de los <code data-start="1983"
+                            data-end="1986">:</code> para evitar errores de sintaxis</p>
+                </li>
+            </ul>
+        </li>
+    </ul>
+    <p class="" data-start="2020" data-end="2182">También puedes omitir campos del request (si son tipos primitivos), y
+        ROS 2 asignará valores por defecto (por ejemplo, 0 para enteros, cadena vacía para strings).</p>
+    <hr class="" data-start="2184" data-end="2187">
+    <p class="" data-start="2189" data-end="2224"><strong data-start="2189" data-end="2224">🔹 Llamar a un servicio con
+            RQt</strong></p>
+    <ol data-start="2226" data-end="2455">
+        <li class="" data-start="2226" data-end="2252">
+            <p class="" data-start="2229" data-end="2252">Iniciar RQt:<br data-start="2241" data-end="2244"><code
+                    data-start="2247" data-end="2252">rqt</code></p>
+        </li>
+        <li class="" data-start="2254" data-end="2301">
+            <p class="" data-start="2257" data-end="2301">Ir a <strong data-start="2262" data-end="2301">Plugins &gt;
+                    Services &gt; Service Caller</strong></p>
+        </li>
+        <li class="" data-start="2303" data-end="2358">
+            <p class="" data-start="2306" data-end="2358">Seleccionar el servicio, por ejemplo <code data-start="2343"
+                    data-end="2358">/add_two_ints</code></p>
+        </li>
+        <li class="" data-start="2360" data-end="2407">
+            <p class="" data-start="2363" data-end="2407">Ingresar los valores de los campos <code data-start="2398"
+                    data-end="2401">a</code> y <code data-start="2404" data-end="2407">b</code></p>
+        </li>
+        <li class="" data-start="2409" data-end="2455">
+            <p class="" data-start="2412" data-end="2455">Presionar <strong data-start="2422"
+                    data-end="2430">Call</strong> para enviar la solicitud</p>
+        </li>
+    </ol>
+    <p class="" data-start="2457" data-end="2466">Ventajas:</p>
+    <ul data-start="2467" data-end="2625">
+        <li class="" data-start="2467" data-end="2515">
+            <p class="" data-start="2469" data-end="2515">No necesitas recordar la sintaxis del terminal</p>
+        </li>
+        <li class="" data-start="2516" data-end="2569">
+            <p class="" data-start="2518" data-end="2569">Ideal para servicios con pocos y simples parámetros</p>
+        </li>
+        <li class="" data-start="2570" data-end="2625">
+            <p class="" data-start="2572" data-end="2625">Muestra el log en el servidor y la respuesta recibida</p>
+        </li>
+    </ul>
+    <hr class="" data-start="2627" data-end="2630">
+    <p class="" data-start="2632" data-end="2673"><strong data-start="2632" data-end="2673">🔹 Alternativas para probar
+            servicios</strong></p>
+    <ul data-start="2675" data-end="2845">
+        <li class="" data-start="2675" data-end="2722">
+            <p class="" data-start="2677" data-end="2722"><strong data-start="2677" data-end="2698">Desde la
+                    terminal</strong> con <code data-start="2703" data-end="2722">ros2 service call</code></p>
+        </li>
+        <li class="" data-start="2723" data-end="2769">
+            <p class="" data-start="2725" data-end="2769"><strong data-start="2725" data-end="2738">Desde RQt</strong>
+                con el plugin <code data-start="2753" data-end="2769">Service Caller</code></p>
+        </li>
+        <li class="" data-start="2770" data-end="2845">
+            <p class="" data-start="2772" data-end="2845"><strong data-start="2772" data-end="2789">Desde
+                    scripts</strong> en Python o C++ (como los creados en clases anteriores)</p>
+        </li>
+    </ul>
+    <hr class="" data-start="2847" data-end="2850">
+    <p class="" data-start="2852" data-end="2886">💾 <strong data-start="2855" data-end="2886">Código trabajado /
+            recursos</strong></p>
+    <ul data-start="2888" data-end="3126">
+        <li class="" data-start="2888" data-end="2956">
+            <p class="" data-start="2890" data-end="2956">Interfaz de ejemplo utilizada: <code data-start="2921"
+                    data-end="2956">example_interfaces/srv/AddTwoInts</code></p>
+        </li>
+        <li class="" data-start="2957" data-end="3050">
+            <p class="" data-start="2959" data-end="3050">Servidores compatibles: <code data-start="2983"
+                    data-end="3007">add_two_ints_server.py</code> (Python) y <code data-start="3019"
+                    data-end="3044">add_two_ints_server.cpp</code> (C++)</p>
+        </li>
+        <li class="" data-start="3051" data-end="3126">
+            <p class="" data-start="3053" data-end="3126">Clientes compatibles: <code data-start="3075"
+                    data-end="3099">add_two_ints_client.py</code>, <code data-start="3101"
+                    data-end="3126">add_two_ints_client.cpp</code></p>
+        </li>
+    </ul>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js">
+    </script>
+
+</body>
+
+</html>

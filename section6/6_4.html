@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>6.4. Creación de un cliente de servicio en ROS 2 con C++ con OOP - ROS 2 Jazzy Notes</title>
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <style>
+        .back-link {
+            margin-bottom: 2rem;
+        }
+    </style>
+
+</head>
+
+<body class="container py-4">
+
+    <button class="btn btn-secondary back-link" onclick="history.back()">← Volver al inicio</button>
+
+    <h1 class="mb-4">6.4. Creación de un cliente de servicio en ROS 2 con C++ con OOP</h1>
+
+    <p class="lead">Aprenderás a crear un cliente de servicio en ROS 2 utilizando C++ con programación orientada a
+        objetos (OOP), permitiendo una arquitectura robusta y mantenible para solicitar servicios.</p>
+
+    <p class="" data-start="602" data-end="626">📘 <strong data-start="605" data-end="626">Notas de la clase</strong>
+    </p>
+    <p class="" data-start="628" data-end="665"><strong data-start="628" data-end="665">🔹 Estructura general del
+            cliente</strong></p>
+    <ol data-start="667" data-end="879">
+        <li class="" data-start="667" data-end="712">
+            <p class="" data-start="670" data-end="712">Crear el archivo <code data-start="687"
+                    data-end="712">add_two_ints_client.cpp</code></p>
+        </li>
+        <li class="" data-start="713" data-end="794">
+            <p class="" data-start="716" data-end="794">Incluir la interfaz:<br data-start="736" data-end="739"><code
+                    data-start="742" data-end="794">#include "example_interfaces/srv/add_two_ints.hpp"</code></p>
+        </li>
+        <li class="" data-start="795" data-end="879">
+            <p class="" data-start="798" data-end="879">Crear una clase que herede de <code data-start="828"
+                    data-end="842">rclcpp::Node</code>, por ejemplo: <code data-start="857"
+                    data-end="879">AddTwoIntsClientNode</code></p>
+        </li>
+    </ol>
+    <hr class="" data-start="881" data-end="884">
+    <p class="" data-start="886" data-end="916"><strong data-start="886" data-end="916">🔹 Declaración del
+            cliente</strong></p>
+    <ul data-start="918" data-end="1153">
+        <li class="" data-start="918" data-end="1029">
+            <p class="" data-start="920" data-end="1029">Declarar como atributo privado:<br data-start="951"
+                    data-end="954"><code data-start="956"
+                    data-end="1029">rclcpp::Client&lt;example_interfaces::srv::AddTwoInts&gt;::SharedPtr client_;</code>
+            </p>
+        </li>
+        <li class="" data-start="1031" data-end="1153">
+            <p class="" data-start="1033" data-end="1153">Inicializar en el constructor:<br data-start="1063"
+                    data-end="1066"><code data-start="1068"
+                    data-end="1153">client_ = this-&gt;create_client&lt;example_interfaces::srv::AddTwoInts&gt;("add_two_ints");</code>
+            </p>
+        </li>
+    </ul>
+    <hr class="" data-start="1155" data-end="1158">
+    <p class="" data-start="1160" data-end="1197"><strong data-start="1160" data-end="1197">🔹 Método para enviar
+            solicitudes</strong></p>
+    <p class="" data-start="1199" data-end="1249">Nombre sugerido: <code data-start="1216"
+            data-end="1249">call_add_two_ints(int a, int b)</code></p>
+    <p class="" data-start="1251" data-end="1257">Pasos:</p>
+    <ol data-start="1259" data-end="1898">
+        <li class="" data-start="1259" data-end="1517">
+            <p class="" data-start="1262" data-end="1517">Esperar a que el servicio esté disponible:<br
+                    data-start="1304" data-end="1307">Utiliza un bucle con <code data-start="1331"
+                    data-end="1362">client_-&gt;wait_for_service(1s)</code><br data-start="1362" data-end="1365">Imprime
+                un mensaje cada segundo hasta que el servidor esté disponible.<br data-start="1438" data-end="1441">Usa
+                <code data-start="1448" data-end="1487">using namespace std::chrono_literals;</code> para los literales
+                de tiempo.</p>
+        </li>
+        <li class="" data-start="1519" data-end="1694">
+            <p class="" data-start="1522" data-end="1694">Crear y llenar el objeto de solicitud:<br data-start="1560"
+                    data-end="1563"><code data-start="1566"
+                    data-end="1648">auto request = std::make_shared&lt;example_interfaces::srv::AddTwoInts::Request&gt;();</code><br
+                    data-start="1648" data-end="1651"><code data-start="1654"
+                    data-end="1671">request-&gt;a = a;</code><br data-start="1671" data-end="1674"><code
+                    data-start="1677" data-end="1694">request-&gt;b = b;</code></p>
+        </li>
+        <li class="" data-start="1696" data-end="1898">
+            <p class="" data-start="1699" data-end="1898">Enviar la solicitud de forma asíncrona y registrar un
+                callback:<br data-start="1762" data-end="1765"><code data-start="1768"
+                    data-end="1898">client_-&gt;async_send_request(request, std::bind(&amp;AddTwoIntsClientNode::callback_call_add_two_ints, this, std::placeholders::_1));</code>
+            </p>
+        </li>
+    </ol>
+    <hr class="" data-start="1900" data-end="1903">
+    <p class="" data-start="1905" data-end="1946"><strong data-start="1905" data-end="1946">🔹 Callback para manejar la
+            respuesta</strong></p>
+    <p class="" data-start="1948" data-end="1993">Nombre sugerido: <code data-start="1965"
+            data-end="1993">callback_call_add_two_ints</code></p>
+    <p class="" data-start="1995" data-end="2111">Firma:<br data-start="2001" data-end="2004"><code data-start="2004"
+            data-end="2111">void callback_call_add_two_ints(rclcpp::Client&lt;example_interfaces::srv::AddTwoInts&gt;::SharedFuture future)</code>
+    </p>
+    <p class="" data-start="2113" data-end="2133">Dentro del callback:</p>
+    <ul data-start="2135" data-end="2303">
+        <li class="" data-start="2135" data-end="2194">
+            <p class="" data-start="2137" data-end="2194">Obtener la respuesta:<br data-start="2158"
+                    data-end="2161"><code data-start="2163" data-end="2194">auto response = future.get();</code></p>
+        </li>
+        <li class="" data-start="2196" data-end="2303">
+            <p class="" data-start="2198" data-end="2303">Imprimir resultado:<br data-start="2217" data-end="2220"><code
+                    data-start="2222"
+                    data-end="2303">RCLCPP_INFO(this-&gt;get_logger(), "Result: %d", static_cast&lt;int&gt;(response-&gt;sum));</code>
+            </p>
+        </li>
+    </ul>
+    <hr class="" data-start="2305" data-end="2308">
+    <p class="" data-start="2310" data-end="2342"><strong data-start="2310" data-end="2342">🔹 Llamada desde el <code
+                data-start="2332" data-end="2340">main()</code></strong></p>
+    <ul data-start="2344" data-end="2603">
+        <li class="" data-start="2344" data-end="2420">
+            <p class="" data-start="2346" data-end="2420">Crear el nodo:<br data-start="2360" data-end="2363"><code
+                    data-start="2365" data-end="2420">auto node = std::make_shared&lt;AddTwoIntsClientNode&gt;();</code>
+            </p>
+        </li>
+        <li class="" data-start="2422" data-end="2556">
+            <p class="" data-start="2424" data-end="2556">Enviar solicitudes:<br data-start="2443" data-end="2446"><code
+                    data-start="2448" data-end="2481">node-&gt;call_add_two_ints(10, 5);</code><br data-start="2481"
+                    data-end="2484"><code data-start="2486" data-end="2519">node-&gt;call_add_two_ints(12, 7);</code><br
+                    data-start="2519" data-end="2522"><code data-start="2524"
+                    data-end="2556">node-&gt;call_add_two_ints(1, 2);</code></p>
+        </li>
+        <li class="" data-start="2558" data-end="2603">
+            <p class="" data-start="2560" data-end="2603">Ejecutar el nodo:<br data-start="2577" data-end="2580"><code
+                    data-start="2582" data-end="2603">rclcpp::spin(node);</code></p>
+        </li>
+    </ul>
+    <hr class="" data-start="2605" data-end="2608">
+    <p class="" data-start="2610" data-end="2650"><strong data-start="2610" data-end="2650">🔹 Configuración en <code
+                data-start="2632" data-end="2648">CMakeLists.txt</code></strong></p>
+    <ol data-start="2652" data-end="2929">
+        <li class="" data-start="2652" data-end="2748">
+            <p class="" data-start="2655" data-end="2748">Agregar el ejecutable:<br data-start="2677"
+                    data-end="2680"><code data-start="2683"
+                    data-end="2748">add_executable(add_two_ints_client src/add_two_ints_client.cpp)</code></p>
+        </li>
+        <li class="" data-start="2750" data-end="2853">
+            <p class="" data-start="2753" data-end="2853">Añadir dependencias:<br data-start="2773"
+                    data-end="2776"><code data-start="2779"
+                    data-end="2853">ament_target_dependencies(add_two_ints_client rclcpp example_interfaces)</code></p>
+        </li>
+        <li class="" data-start="2855" data-end="2929">
+            <p class="" data-start="2858" data-end="2929">Instalar el ejecutable:<br data-start="2881"
+                    data-end="2884"><code data-start="2887"
+                    data-end="2929">install(TARGETS add_two_ints_client ...)</code></p>
+        </li>
+    </ol>
+    <hr class="" data-start="2931" data-end="2934">
+    <p class="" data-start="2936" data-end="2966"><strong data-start="2936" data-end="2966">🔹 Compilación y
+            ejecución</strong></p>
+    <ol data-start="2968" data-end="3174">
+        <li class="" data-start="2968" data-end="3029">
+            <p class="" data-start="2971" data-end="3029">Compilar:<br data-start="2980" data-end="2983"><code
+                    data-start="2986" data-end="3029">colcon build --packages-select my_cpp_pkg</code></p>
+        </li>
+        <li class="" data-start="3031" data-end="3102">
+            <p class="" data-start="3034" data-end="3102">Ejecutar el servidor:<br data-start="3055"
+                    data-end="3058"><code data-start="3061"
+                    data-end="3102">ros2 run my_cpp_pkg add_two_ints_server</code></p>
+        </li>
+        <li class="" data-start="3104" data-end="3174">
+            <p class="" data-start="3107" data-end="3174">Ejecutar el cliente:<br data-start="3127"
+                    data-end="3130"><code data-start="3133"
+                    data-end="3174">ros2 run my_cpp_pkg add_two_ints_client</code></p>
+        </li>
+    </ol>
+    <hr class="" data-start="3176" data-end="3179">
+    <p class="" data-start="3181" data-end="3203"><strong data-start="3181" data-end="3203">🔹 Consideraciones</strong>
+    </p>
+    <ul data-start="3205" data-end="3556">
+        <li class="" data-start="3205" data-end="3271">
+            <p class="" data-start="3207" data-end="3271">El cliente puede enviar múltiples solicitudes al mismo
+                servidor.</p>
+        </li>
+        <li class="" data-start="3272" data-end="3351">
+            <p class="" data-start="3274" data-end="3351">El nodo debe estar en ejecución (<code data-start="3307"
+                    data-end="3321">rclcpp::spin</code>) para recibir las respuestas.</p>
+        </li>
+        <li class="" data-start="3352" data-end="3448">
+            <p class="" data-start="3354" data-end="3448">Puedes integrar este cliente en nodos más complejos con otros
+                publicadores, suscriptores, etc.</p>
+        </li>
+        <li class="" data-start="3449" data-end="3556">
+            <p class="" data-start="3451" data-end="3556">Si necesitas acceder a los datos del request en el callback,
+                puedes almacenarlos como atributos del nodo.</p>
+        </li>
+    </ul>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js">
+    </script>
+
+</body>
+
+</html>

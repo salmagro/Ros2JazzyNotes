@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>6.2. Creación de un cliente de servicio en ROS 2 con Python con OOP - ROS 2 Jazzy Notes</title>
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <style>
+        .back-link {
+            margin-bottom: 2rem;
+        }
+    </style>
+
+</head>
+
+<body class="container py-4">
+
+    <button class="btn btn-secondary back-link" onclick="history.back()">← Volver al inicio</button>
+
+    <h1 class="mb-4">6.2. Creación de un cliente de servicio en ROS 2 con Python con OOP</h1>
+
+    <p class="lead">Aprenderás a crear un cliente de servicio en ROS 2 utilizando Python con programación orientada a
+        objetos (OOP), permitiendo que tu nodo solicite servicios de forma estructurada y escalable.</p>
+
+    <p class="" data-start="590" data-end="614">📘 <strong data-start="593" data-end="614">Notas de la clase</strong>
+    </p>
+    <p class="" data-start="616" data-end="665"><strong data-start="616" data-end="665">🔹 Introducción al cliente de
+            servicio en OOP</strong></p>
+    <ul data-start="667" data-end="976">
+        <li class="" data-start="667" data-end="752">
+            <p class="" data-start="669" data-end="752">El cliente de servicio se integra dentro de un nodo ROS 2 que
+                sigue el enfoque OOP.</p>
+        </li>
+        <li class="" data-start="753" data-end="890">
+            <p class="" data-start="755" data-end="890">Se evita el uso de <code data-start="774"
+                    data-end="810">rclpy.spin_until_future_complete()</code> ya que haría "spin dentro del spin", lo
+                cual genera comportamientos indeseados.</p>
+        </li>
+        <li class="" data-start="891" data-end="976">
+            <p class="" data-start="893" data-end="976">Se usa <code data-start="900"
+                    data-end="921">add_done_callback()</code> para manejar la respuesta cuando el servidor responde.</p>
+        </li>
+    </ul>
+    <p class="" data-start="978" data-end="1007"><strong data-start="978" data-end="1007">🔹 Estructura del
+            archivo</strong></p>
+    <ol data-start="1009" data-end="1151">
+        <li class="" data-start="1009" data-end="1054">
+            <p class="" data-start="1012" data-end="1054">Crear el archivo: <code data-start="1030"
+                    data-end="1054">add_two_ints_client.py</code></p>
+        </li>
+        <li class="" data-start="1055" data-end="1077">
+            <p class="" data-start="1058" data-end="1077">Hacerlo ejecutable.</p>
+        </li>
+        <li class="" data-start="1078" data-end="1151">
+            <p class="" data-start="1081" data-end="1151">Crear una clase que herede de <code data-start="1111"
+                    data-end="1117">Node</code>, por ejemplo: <code data-start="1132"
+                    data-end="1150">AddTwoIntsClient</code>.</p>
+        </li>
+    </ol>
+    <p class="" data-start="1153" data-end="1180"><strong data-start="1153" data-end="1180">🔹 Creación del
+            cliente</strong></p>
+    <ul data-start="1182" data-end="1398">
+        <li class="" data-start="1182" data-end="1398">
+            <p class="" data-start="1184" data-end="1215">En el constructor (<code data-start="1203"
+                    data-end="1213">__init__</code>):</p>
+            <ul data-start="1218" data-end="1398">
+                <li class="" data-start="1218" data-end="1295">
+                    <p class="" data-start="1220" data-end="1295">Importar la interfaz:<br data-start="1241"
+                            data-end="1244"><code data-start="1248"
+                            data-end="1295">from example_interfaces.srv import AddTwoInts</code></p>
+                </li>
+                <li class="" data-start="1298" data-end="1398">
+                    <p class="" data-start="1300" data-end="1398">Crear el cliente de servicio:<br data-start="1329"
+                            data-end="1332"><code data-start="1336"
+                            data-end="1398">self.client = self.create_client(AddTwoInts, 'add_two_ints')</code></p>
+                </li>
+            </ul>
+        </li>
+    </ul>
+    <p class="" data-start="1400" data-end="1437"><strong data-start="1400" data-end="1437">🔹 Método para enviar
+            solicitudes</strong></p>
+    <ul data-start="1439" data-end="1782">
+        <li class="" data-start="1439" data-end="1782">
+            <p class="" data-start="1441" data-end="1494">Crear un método como <code data-start="1462"
+                    data-end="1493">call_add_two_ints(self, a, b)</code>:</p>
+            <ol data-start="1497" data-end="1782">
+                <li class="" data-start="1497" data-end="1577">
+                    <p class="" data-start="1500" data-end="1577">Espera a que el servicio esté disponible con <code
+                            data-start="1545" data-end="1577">self.client.wait_for_service()</code></p>
+                </li>
+                <li class="" data-start="1580" data-end="1634">
+                    <p class="" data-start="1583" data-end="1634">Crea el objeto <code data-start="1598"
+                            data-end="1607">request</code> con los valores <code data-start="1624"
+                            data-end="1627">a</code> y <code data-start="1630" data-end="1633">b</code>.</p>
+                </li>
+                <li class="" data-start="1637" data-end="1723">
+                    <p class="" data-start="1640" data-end="1723">Enviar la solicitud con <code data-start="1664"
+                            data-end="1697">self.client.call_async(request)</code> que devuelve un <code
+                            data-start="1714" data-end="1722">future</code>.</p>
+                </li>
+                <li class="" data-start="1726" data-end="1782">
+                    <p class="" data-start="1729" data-end="1782">Asociar un callback con <code data-start="1753"
+                            data-end="1781">future.add_done_callback()</code>.</p>
+                </li>
+            </ol>
+        </li>
+    </ul>
+    <p class="" data-start="1784" data-end="1825"><strong data-start="1784" data-end="1825">🔹 Callback para manejar la
+            respuesta</strong></p>
+    <ul data-start="1827" data-end="2154">
+        <li class="" data-start="1827" data-end="2154">
+            <p class="" data-start="1829" data-end="1902">Crear un método como <code data-start="1850"
+                    data-end="1901">callback_call_add_two_ints(self, future, request)</code>:</p>
+            <ul data-start="1905" data-end="2154">
+                <li class="" data-start="1905" data-end="1949">
+                    <p class="" data-start="1907" data-end="1949">Obtener la respuesta con <code data-start="1932"
+                            data-end="1949">future.result()</code></p>
+                </li>
+                <li class="" data-start="1952" data-end="2008">
+                    <p class="" data-start="1954" data-end="2008">Mostrar en el log la operación completa: <code
+                            data-start="1995" data-end="2008">a + b = sum</code></p>
+                </li>
+                <li class="" data-start="2011" data-end="2154">
+                    <p class="" data-start="2013" data-end="2154">Para poder acceder a los valores del <code
+                            data-start="2050" data-end="2059">request</code> dentro del callback, se pasa el <code
+                            data-start="2092" data-end="2101">request</code> como argumento adicional usando <code
+                            data-start="2134" data-end="2153">functools.partial</code>.</p>
+                </li>
+            </ul>
+        </li>
+    </ul>
+    <p class="" data-start="2156" data-end="2189"><strong data-start="2156" data-end="2189">🔹 Uso de <code
+                data-start="2168" data-end="2187">functools.partial</code></strong></p>
+    <ul data-start="2191" data-end="2502">
+        <li class="" data-start="2191" data-end="2242">
+            <p class="" data-start="2193" data-end="2242">Importar con:<br data-start="2206" data-end="2209"><code
+                    data-start="2211" data-end="2242">from functools import partial</code></p>
+        </li>
+        <li class="" data-start="2243" data-end="2401">
+            <p class="" data-start="2245" data-end="2401">Para pasar argumentos adicionales a un callback de un <code
+                    data-start="2299" data-end="2307">future</code>, se debe usar <code data-start="2322"
+                    data-end="2331">partial</code>, ya que <code data-start="2340"
+                    data-end="2361">add_done_callback()</code> solo acepta un argumento (el <code data-start="2391"
+                    data-end="2399">future</code>).</p>
+        </li>
+        <li class="" data-start="2402" data-end="2502">
+            <p class="" data-start="2404" data-end="2502">Ejemplo:<br data-start="2412" data-end="2415"><code
+                    data-start="2417"
+                    data-end="2502">future.add_done_callback(partial(self.callback_call_add_two_ints, request=request))</code>
+            </p>
+        </li>
+    </ul>
+    <p class="" data-start="2504" data-end="2534"><strong data-start="2504" data-end="2534">🔹 Ejecución desde el
+            main</strong></p>
+    <ul data-start="2536" data-end="2698">
+        <li class="" data-start="2536" data-end="2626">
+            <p class="" data-start="2538" data-end="2626">Crear el nodo y luego llamar al método <code data-start="2577"
+                    data-end="2598">call_add_two_ints()</code> pasando diferentes valores.</p>
+        </li>
+        <li class="" data-start="2627" data-end="2698">
+            <p class="" data-start="2629" data-end="2698">Hacer que el nodo "spin" para permitir que los callbacks se
+                ejecuten.</p>
+        </li>
+    </ul>
+    <p class="" data-start="2700" data-end="2737"><strong data-start="2700" data-end="2737">🔹 Envío de múltiples
+            solicitudes</strong></p>
+    <ul data-start="2739" data-end="2948">
+        <li class="" data-start="2739" data-end="2911">
+            <p class="" data-start="2741" data-end="2819">El mismo cliente puede enviar múltiples solicitudes
+                consecutivas, por ejemplo:</p>
+            <ul data-start="2822" data-end="2911">
+                <li class="" data-start="2822" data-end="2849">
+                    <p class="" data-start="2824" data-end="2849"><code data-start="2824"
+                            data-end="2849">call_add_two_ints(2, 7)</code></p>
+                </li>
+                <li class="" data-start="2852" data-end="2879">
+                    <p class="" data-start="2854" data-end="2879"><code data-start="2854"
+                            data-end="2879">call_add_two_ints(1, 4)</code></p>
+                </li>
+                <li class="" data-start="2882" data-end="2911">
+                    <p class="" data-start="2884" data-end="2911"><code data-start="2884"
+                            data-end="2911">call_add_two_ints(10, 20)</code></p>
+                </li>
+            </ul>
+        </li>
+        <li class="" data-start="2912" data-end="2948">
+            <p class="" data-start="2914" data-end="2948">El servidor responderá a cada una.</p>
+        </li>
+    </ul>
+    <p class="" data-start="2950" data-end="2969"><strong data-start="2950" data-end="2969">🔹 Validaciones</strong></p>
+    <ul data-start="2971" data-end="3137">
+        <li class="" data-start="2971" data-end="3068">
+            <p class="" data-start="2973" data-end="3068">El nodo debe estar corriendo (<code data-start="3003"
+                    data-end="3021">rclpy.spin(node)</code>) para que las respuestas puedan ser recibidas.</p>
+        </li>
+        <li class="" data-start="3069" data-end="3137">
+            <p class="" data-start="3071" data-end="3137">Se debe registrar correctamente el nuevo ejecutable en <code
+                    data-start="3126" data-end="3136">setup.py</code>.</p>
+        </li>
+    </ul>
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js">
+    </script>
+
+</body>
+
+</html>
