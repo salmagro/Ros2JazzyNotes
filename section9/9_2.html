@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>9.2. Entender el árbol TF y las relaciones entre transformaciones - ROS 2 Jazzy Notes</title>
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <style>
+        .back-link {
+            margin-bottom: 2rem;
+        }
+    </style>
+
+</head>
+
+<body class="container py-4">
+
+    <button class="btn btn-secondary back-link" onclick="history.back()">← Volver al inicio</button>
+
+    <h1 class="mb-4">9.2. Entender el árbol TF y las relaciones entre transformaciones</h1>
+
+    <p class="lead">Comprenderás cómo funciona el árbol de transformaciones (TF tree) en ROS 2 y cómo se relacionan las
+        diferentes transformaciones entre componentes del robot.</p>
+
+    <p class="" data-start="647" data-end="671">📘 <strong data-start="650" data-end="671">Notas de la clase</strong>
+    </p>
+    <h3 class="" data-start="673" data-end="700">🌐 ¿Qué es el árbol TF?</h3>
+    <ul data-start="702" data-end="978">
+        <li class="" data-start="702" data-end="818">
+            <p class="" data-start="704" data-end="818">Es la estructura que describe <strong data-start="734"
+                    data-end="817">cómo están conectados espacialmente los distintos <code data-start="786"
+                        data-end="794">frames</code> (o partes) del robot</strong>.</p>
+        </li>
+        <li class="" data-start="819" data-end="978">
+            <p class="" data-start="821" data-end="876">Cada <code data-start="826" data-end="832">link</code> está
+                conectado mediante un <code data-start="860" data-end="864">TF</code> que indica:</p>
+            <ul data-start="879" data-end="978">
+                <li class="" data-start="879" data-end="905">
+                    <p class="" data-start="881" data-end="905">Su <strong data-start="884"
+                            data-end="896">posición</strong> relativa</p>
+                </li>
+                <li class="" data-start="908" data-end="928">
+                    <p class="" data-start="910" data-end="928">Su <strong data-start="913"
+                            data-end="928">orientación</strong></p>
+                </li>
+                <li class="" data-start="931" data-end="978">
+                    <p class="" data-start="933" data-end="978">Su <strong data-start="936" data-end="958">tipo de
+                            movimiento</strong> (fijo o articulado)</p>
+                </li>
+            </ul>
+        </li>
+    </ul>
+    <hr class="" data-start="980" data-end="983">
+    <h3 class="" data-start="985" data-end="1013">🔁 Relaciones entre <code data-start="1009" data-end="1013">TF</code>
+    </h3>
+    <ul data-start="1015" data-end="1272">
+        <li class="" data-start="1015" data-end="1119">
+            <p class="" data-start="1017" data-end="1119">Si el <code data-start="1023" data-end="1034">right_leg</code>
+                es hijo del <code data-start="1047" data-end="1058">base_link</code>, cualquier movimiento del <code
+                    data-start="1085" data-end="1096">base_link</code> afecta al <code data-start="1107"
+                    data-end="1118">right_leg</code>.</p>
+        </li>
+        <li class="" data-start="1120" data-end="1214">
+            <p class="" data-start="1122" data-end="1214">Es una estructura <strong data-start="1140"
+                    data-end="1154">jerárquica</strong>: si mueves un nodo padre, todos sus hijos se mueven con él.</p>
+        </li>
+        <li class="" data-start="1215" data-end="1272">
+            <p class="" data-start="1217" data-end="1272">Similar a cómo tu codo afecta el movimiento de tu mano.</p>
+        </li>
+    </ul>
+    <hr class="" data-start="1274" data-end="1277">
+    <h3 class="" data-start="1279" data-end="1316">📡 Visualizar el árbol TF en RViz</h3>
+    <ol data-start="1318" data-end="1608">
+        <li class="" data-start="1318" data-end="1486">
+            <p class="" data-start="1321" data-end="1329">En RViz:</p>
+            <ul data-start="1333" data-end="1486">
+                <li class="" data-start="1333" data-end="1356">
+                    <p class="" data-start="1335" data-end="1356">Activa el plugin <code data-start="1352"
+                            data-end="1356">TF</code></p>
+                </li>
+                <li class="" data-start="1360" data-end="1416">
+                    <p class="" data-start="1362" data-end="1416">Desactiva el <code data-start="1375"
+                            data-end="1387">RobotModel</code> si quieres ver solo los ejes</p>
+                </li>
+                <li class="" data-start="1420" data-end="1486">
+                    <p class="" data-start="1422" data-end="1486">Puedes ver flechas entre frames indicando la relación
+                        padre-hijo</p>
+                </li>
+            </ul>
+        </li>
+        <li class="" data-start="1487" data-end="1608">
+            <p class="" data-start="1490" data-end="1520">Activar solo ciertos <code data-start="1511"
+                    data-end="1519">frames</code>:</p>
+            <ul data-start="1524" data-end="1608">
+                <li class="" data-start="1524" data-end="1571">
+                    <p class="" data-start="1526" data-end="1571">Por ejemplo: activa <code data-start="1546"
+                            data-end="1557">base_link</code> y <code data-start="1560" data-end="1571">right_leg</code>
+                    </p>
+                </li>
+                <li class="" data-start="1575" data-end="1608">
+                    <p class="" data-start="1577" data-end="1608">Verás la flecha que los conecta</p>
+                </li>
+            </ul>
+        </li>
+    </ol>
+    <hr class="" data-start="1610" data-end="1613">
+    <h3 class="" data-start="1615" data-end="1654">🧪 Observar comportamiento dinámico</h3>
+    <ol data-start="1656" data-end="1895">
+        <li class="" data-start="1656" data-end="1727">
+            <p class="" data-start="1659" data-end="1727">Mueve el <code data-start="1668"
+                    data-end="1687">gripper_extension</code> con el panel de <code data-start="1704"
+                    data-end="1727">Joint State Publisher</code></p>
+        </li>
+        <li class="" data-start="1728" data-end="1804">
+            <p class="" data-start="1731" data-end="1804">Verás que no solo se mueve el <code data-start="1761"
+                    data-end="1770">gripper</code>, sino también sus elementos hijos</p>
+        </li>
+        <li class="" data-start="1805" data-end="1895">
+            <p class="" data-start="1808" data-end="1895">Esto confirma que el árbol TF <strong data-start="1838"
+                    data-end="1875">propaga los cambios de movimiento</strong> desde un nodo padre</p>
+        </li>
+    </ol>
+    <hr class="" data-start="1897" data-end="1900">
+    <h3 class="" data-start="1902" data-end="1940">📄 Ver el tópico <code data-start="1923" data-end="1928">/tf</code>
+        manualmente</h3>
+    <ol data-start="1942" data-end="1969">
+        <li class="" data-start="1942" data-end="1969">
+            <p class="" data-start="1945" data-end="1969">Abre una terminal nueva:</p>
+        </li>
+    </ol>
+    <p class="" data-start="1971" data-end="1988"><code data-start="1971" data-end="1988">ros2 topic list</code></p>
+    <ol start="2" data-start="1990" data-end="2019">
+        <li class="" data-start="1990" data-end="2019">
+            <p class="" data-start="1993" data-end="2019">Verifica que existe <code data-start="2013"
+                    data-end="2018">/tf</code>:</p>
+        </li>
+    </ol>
+    <p class="" data-start="2021" data-end="2042"><code data-start="2021" data-end="2042">ros2 topic echo /tf</code></p>
+    <ol start="3" data-start="2044" data-end="2089">
+        <li class="" data-start="2044" data-end="2089">
+            <p class="" data-start="2047" data-end="2089">Verás mensajes con transformaciones, como:</p>
+        </li>
+    </ol>
+    <ul data-start="2091" data-end="2201">
+        <li class="" data-start="2091" data-end="2117">
+            <p class="" data-start="2093" data-end="2117"><code data-start="2093"
+                    data-end="2117">frame_id: gripper_pole</code></p>
+        </li>
+        <li class="" data-start="2118" data-end="2151">
+            <p class="" data-start="2120" data-end="2151"><code data-start="2120"
+                    data-end="2151">child_frame_id: right_gripper</code></p>
+        </li>
+        <li class="" data-start="2152" data-end="2176">
+            <p class="" data-start="2154" data-end="2176"><code data-start="2154"
+                    data-end="2176">translation: x, y, z</code></p>
+        </li>
+        <li class="" data-start="2177" data-end="2201">
+            <p class="" data-start="2179" data-end="2201"><code data-start="2179"
+                    data-end="2201">rotation: quaternion</code></p>
+        </li>
+    </ul>
+    <p class="" data-start="2203" data-end="2295">📌 Cada mensaje indica <strong data-start="2226" data-end="2256">cómo
+            ir de un frame a otro</strong> (posición y orientación en el espacio)</p>
+    <hr class="" data-start="2297" data-end="2300">
+    <h3 class="" data-start="2302" data-end="2358">📤 Visualizar el árbol TF completo como imagen (PDF)</h3>
+    <ol data-start="2360" data-end="2402">
+        <li class="" data-start="2360" data-end="2402">
+            <p class="" data-start="2363" data-end="2402">Instala la herramienta si no la tienes:</p>
+        </li>
+    </ol>
+    <p class="" data-start="2404" data-end="2443"><code data-start="2404"
+            data-end="2443">sudo apt install ros-humble-tf2-tools</code></p>
+    <ol start="2" data-start="2445" data-end="2477">
+        <li class="" data-start="2445" data-end="2477">
+            <p class="" data-start="2448" data-end="2477">Ejecuta el siguiente comando:</p>
+        </li>
+    </ol>
+    <p class="" data-start="2479" data-end="2511"><code data-start="2479"
+            data-end="2511">ros2 run tf2_tools view_frames</code></p>
+    <ol start="3" data-start="2513" data-end="2661">
+        <li class="" data-start="2513" data-end="2631">
+            <p class="" data-start="2516" data-end="2529">Este comando:</p>
+            <ul data-start="2533" data-end="2631">
+                <li class="" data-start="2533" data-end="2567">
+                    <p class="" data-start="2535" data-end="2567">Escucha <code data-start="2543"
+                            data-end="2548">/tf</code> durante 5 segundos</p>
+                </li>
+                <li class="" data-start="2571" data-end="2631">
+                    <p class="" data-start="2573" data-end="2631">Crea dos archivos: <code data-start="2592"
+                            data-end="2598">.pdf</code> y <code data-start="2601" data-end="2607">.dot</code> en el
+                        directorio actual</p>
+                </li>
+            </ul>
+        </li>
+        <li class="" data-start="2633" data-end="2661">
+            <p class="" data-start="2636" data-end="2661">Abre el archivo generado:</p>
+        </li>
+    </ol>
+    <p class="" data-start="2663" data-end="2712"><code data-start="2663" data-end="2682">evince frames.pdf</code> (o tu
+        visor de PDF preferido)</p>
+    <p class="" data-start="2714" data-end="2827">✅ El PDF muestra el árbol completo: cada nodo representa un <code
+            data-start="2774" data-end="2780">link</code>, y cada flecha representa una <code data-start="2811"
+            data-end="2827">transformación</code></p>
+    <hr class="" data-start="2829" data-end="2832">
+    <h3 class="" data-start="2834" data-end="2865">🌍 Uso con múltiples robots</h3>
+    <ul data-start="2867" data-end="2924">
+        <li class="" data-start="2867" data-end="2913">
+            <p class="" data-start="2869" data-end="2913">Un <code data-start="2872" data-end="2881">TF tree</code>
+                puede manejar múltiples robots.</p>
+        </li>
+        <li class="" data-start="2914" data-end="2924">
+            <p class="" data-start="2916" data-end="2924">
+                Ejemplo:<br><code>world</code><br><code> ├── base_link_1</code><br><code> ├── base_link_2</code><br><code> └── base_link_3</code><br><br>
+            </p>
+        </li>
+    </ul>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js">
+    </script>
+
+</body>
+
+</html>

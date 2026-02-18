@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>9.1. Visualización de un robot y uso de TF en ROS 2 con RViz - ROS 2 Jazzy Notes</title>
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <style>
+        .back-link {
+            margin-bottom: 2rem;
+        }
+    </style>
+
+</head>
+
+<body class="container py-4">
+
+    <button class="btn btn-secondary back-link" onclick="history.back()">← Volver al inicio</button>
+
+    <h1 class="mb-4">9.1. Visualización de un robot y uso de TF en ROS 2 con RViz</h1>
+
+    <p class="lead">Aprenderás a visualizar un robot en RViz y a utilizar el sistema de transformaciones (TF) para
+        entender cómo se relacionan los diferentes componentes del robot en el espacio.</p>
+
+    <p class="" data-start="586" data-end="610">📘 <strong data-start="589" data-end="610">Notas de la clase</strong>
+    </p>
+    <h3 class="" data-start="612" data-end="658">🔧 Instalación del paquete <code data-start="643"
+            data-end="658">urdf_tutorial</code></h3>
+    <ol data-start="660" data-end="689">
+        <li class="" data-start="660" data-end="689">
+            <p class="" data-start="663" data-end="689">Abrir terminal y ejecutar:</p>
+        </li>
+    </ol>
+    <p class="" data-start="691" data-end="734"><code data-start="691"
+            data-end="734">sudo apt install ros-jazzy-urdf-tutorial</code></p>
+    <ol start="2" data-start="736" data-end="786">
+        <li class="" data-start="736" data-end="786">
+            <p class="" data-start="739" data-end="786">Luego, asegúrate de hacer <code data-start="765"
+                    data-end="773">source</code> del entorno:</p>
+        </li>
+    </ol>
+    <p class="" data-start="788" data-end="823"><code data-start="788"
+            data-end="823">source /opt/ros/jazzy/setup.bash</code></p>
+    <ol start="3" data-start="825" data-end="893">
+        <li class="" data-start="825" data-end="893">
+            <p class="" data-start="828" data-end="893">También puedes automatizarlo agregando esta línea en <code
+                    data-start="881" data-end="892">~/.bashrc</code>:</p>
+        </li>
+    </ol>
+    <p class="" data-start="895" data-end="930"><code data-start="895"
+            data-end="930">source /opt/ros/<code data-start="788" data-end="823">jazzy</code>/setup.bash</code></p>
+    <hr class="" data-start="932" data-end="935">
+    <h3 class="" data-start="937" data-end="965">📂 Ubicación del ejemplo</h3>
+    <ol data-start="967" data-end="1028">
+        <li class="" data-start="967" data-end="1028">
+            <p class="" data-start="970" data-end="1028">Navegar al directorio donde están instalados los paquetes:</p>
+        </li>
+    </ol>
+    <p class="" data-start="1030" data-end="1056"><code data-start="1030"
+            data-end="1056">cd /opt/ros/<code data-start="788" data-end="823">jazzy</code>/share</code></p>
+    <ol start="2" data-start="1058" data-end="1075">
+        <li class="" data-start="1058" data-end="1075">
+            <p class="" data-start="1061" data-end="1075">Ir al paquete:</p>
+        </li>
+    </ol>
+    <p class="" data-start="1077" data-end="1100"><code data-start="1077" data-end="1100">cd urdf_tutorial/urdf</code>
+    </p>
+    <hr class="" data-start="1102" data-end="1105">
+    <h3 class="" data-start="1107" data-end="1148">🚀 Lanzar el robot de ejemplo en RViz</h3>
+    <ol data-start="1150" data-end="1208">
+        <li class="" data-start="1150" data-end="1208">
+            <p class="" data-start="1153" data-end="1208">Ejecutar el siguiente comando desde cualquier terminal:</p>
+        </li>
+    </ol>
+    <p class="" data-start="1210" data-end="1276"><code data-start="1210"
+            data-end="1276">ros2 launch urdf_tutorial display.launch.py model:=08-urdf.xacro</code></p>
+    <ul data-start="1278" data-end="1347">
+        <li class="" data-start="1278" data-end="1347">
+            <p class="" data-start="1280" data-end="1347">El archivo <code data-start="1291"
+                    data-end="1306">08-urdf.xacro</code> se encuentra en el subdirectorio <code data-start="1340"
+                    data-end="1346">urdf</code>.</p>
+        </li>
+    </ul>
+    <hr class="" data-start="1349" data-end="1352">
+    <h3 class="" data-start="1354" data-end="1374">👀 ¿Qué es RViz?</h3>
+    <ul data-start="1376" data-end="1535">
+        <li class="" data-start="1376" data-end="1417">
+            <p class="" data-start="1378" data-end="1417">Herramienta de visualización 3D en ROS.</p>
+        </li>
+        <li class="" data-start="1418" data-end="1478">
+            <p class="" data-start="1420" data-end="1478">Muestra robots, sensores, tópicos, transformaciones y más.</p>
+        </li>
+        <li class="" data-start="1479" data-end="1535">
+            <p class="" data-start="1481" data-end="1535">Es distinta de <strong data-start="1496"
+                    data-end="1506">Gazebo</strong>, que es un simulador físico.</p>
+        </li>
+    </ul>
+    <h4 class="" data-start="1537" data-end="1566">Controles de navegación:</h4>
+    <ul data-start="1568" data-end="1718">
+        <li class="" data-start="1568" data-end="1594">
+            <p class="" data-start="1570" data-end="1594">Click izquierdo: rotar</p>
+        </li>
+        <li class="" data-start="1595" data-end="1618">
+            <p class="" data-start="1597" data-end="1618">Click derecho: zoom</p>
+        </li>
+        <li class="" data-start="1619" data-end="1647">
+            <p class="" data-start="1621" data-end="1647">Click en la rueda: mover</p>
+        </li>
+        <li class="" data-start="1648" data-end="1664">
+            <p class="" data-start="1650" data-end="1664">Scroll: zoom</p>
+        </li>
+        <li class="" data-start="1665" data-end="1718">
+            <p class="" data-start="1667" data-end="1718">Puedes mover el punto de rotación (esfera amarilla)</p>
+        </li>
+    </ul>
+    <hr class="" data-start="1720" data-end="1723">
+    <h3 class="" data-start="1725" data-end="1743">🧱 Robot Model</h3>
+    <ul data-start="1745" data-end="1965">
+        <li class="" data-start="1745" data-end="1828">
+            <p class="" data-start="1747" data-end="1828">El plugin <code data-start="1757"
+                    data-end="1769">RobotModel</code> muestra las <strong data-start="1782" data-end="1800">partes
+                    rígidas</strong> del robot llamadas <em data-start="1820" data-end="1827">links</em>.</p>
+        </li>
+        <li class="" data-start="1829" data-end="1896">
+            <p class="" data-start="1831" data-end="1896">Puedes activarlos o desactivarlos individualmente desde la
+                lista.</p>
+        </li>
+        <li class="" data-start="1897" data-end="1965">
+            <p class="" data-start="1899" data-end="1965">El atributo <code data-start="1911"
+                    data-end="1918">alpha</code> controla la transparencia (por defecto <code data-start="1958"
+                    data-end="1963">0.8</code>).</p>
+        </li>
+    </ul>
+    <hr class="" data-start="1967" data-end="1970">
+    <h3 class="" data-start="1972" data-end="1990">🔁 ¿Qué es TF?</h3>
+    <ul data-start="1992" data-end="2205">
+        <li class="" data-start="1992" data-end="2038">
+            <p class="" data-start="1994" data-end="2038">TF significa <em data-start="2007"
+                    data-end="2018">Transform</em> o <em data-start="2021" data-end="2037">Transformación</em>.</p>
+        </li>
+        <li class="" data-start="2039" data-end="2125">
+            <p class="" data-start="2041" data-end="2125">Define <strong data-start="2048" data-end="2099">la relación
+                    espacial entre cada parte del robot</strong> (posición y orientación).</p>
+        </li>
+        <li class="" data-start="2126" data-end="2205">
+            <p class="" data-start="2128" data-end="2205">Cada <code data-start="2133" data-end="2139">link</code> está
+                relacionado mediante un <code data-start="2169" data-end="2176">joint</code>, que a su vez tiene un
+                <code data-start="2200" data-end="2204">TF</code>.</p>
+        </li>
+    </ul>
+    <h4 class="" data-start="2207" data-end="2238">Convención de ejes en ROS:</h4>
+    <ul data-start="2240" data-end="2333">
+        <li class="" data-start="2240" data-end="2270">
+            <p class="" data-start="2242" data-end="2270"><code data-start="2242" data-end="2245">x</code> (rojo): hacia
+                adelante</p>
+        </li>
+        <li class="" data-start="2271" data-end="2306">
+            <p class="" data-start="2273" data-end="2306"><code data-start="2273" data-end="2276">y</code> (verde):
+                hacia la izquierda</p>
+        </li>
+        <li class="" data-start="2307" data-end="2333">
+            <p class="" data-start="2309" data-end="2333"><code data-start="2309" data-end="2312">z</code> (azul): hacia
+                arriba</p>
+        </li>
+    </ul>
+    <hr class="" data-start="2335" data-end="2338">
+    <h3 class="" data-start="2340" data-end="2367">🦾 Ejemplos en el robot</h3>
+    <ul data-start="2369" data-end="2511">
+        <li class="" data-start="2369" data-end="2430">
+            <p class="" data-start="2371" data-end="2430">Puedes activar/desactivar el plugin <code data-start="2407"
+                    data-end="2411">TF</code> para ver los ejes.</p>
+        </li>
+        <li class="" data-start="2431" data-end="2511">
+            <p class="" data-start="2433" data-end="2511">Cada <code data-start="2438" data-end="2445">joint</code>
+                tiene un eje que puede representar <strong data-start="2481" data-end="2493">rotación</strong> o <strong
+                    data-start="2496" data-end="2510">traslación</strong>.</p>
+        </li>
+    </ul>
+    <h4 class="" data-start="2513" data-end="2567">Usando el Joint State Publisher (panel flotante):</h4>
+    <ul data-start="2569" data-end="2779">
+        <li class="" data-start="2569" data-end="2644">
+            <p class="" data-start="2571" data-end="2644">Mueve <code data-start="2577"
+                    data-end="2602">right_front_wheel_joint</code> → verás una <strong data-start="2615"
+                    data-end="2627">rotación</strong> sobre el eje <code data-start="2641" data-end="2644">y</code></p>
+        </li>
+        <li class="" data-start="2645" data-end="2716">
+            <p class="" data-start="2647" data-end="2716">Mueve <code data-start="2653"
+                    data-end="2672">gripper_extension</code> → verás una <strong data-start="2685"
+                    data-end="2699">traslación</strong> sobre el eje <code data-start="2713" data-end="2716">x</code>
+            </p>
+        </li>
+        <li class="" data-start="2717" data-end="2779">
+            <p class="" data-start="2719" data-end="2779">Mueve <code data-start="2725"
+                    data-end="2737">head_joint</code> → verás una <strong data-start="2750"
+                    data-end="2762">rotación</strong> sobre el eje <code data-start="2776" data-end="2779">z</code></p>
+        </li>
+    </ul>
+    <hr class="" data-start="2781" data-end="2784">
+    <h3 class="" data-start="2786" data-end="2822">💡 Analogía con el cuerpo humano</h3>
+    <ul data-start="2824" data-end="2979">
+        <li class="" data-start="2824" data-end="2861">
+            <p class="" data-start="2826" data-end="2861"><code data-start="2826" data-end="2833">Links</code> → huesos
+                (partes rígidas)</p>
+        </li>
+        <li class="" data-start="2862" data-end="2915">
+            <p class="" data-start="2864" data-end="2915"><code data-start="2864" data-end="2872">Joints</code> →
+                articulaciones (elbow, shoulder, etc.)</p>
+        </li>
+        <li class="" data-start="2916" data-end="2979">
+            <p class="" data-start="2918" data-end="2979"><code data-start="2918" data-end="2923">TFs</code> → definen
+                cómo se conectan e interactúan esos elementos</p>
+        </li>
+    </ul>
+    <hr class="" data-start="2981" data-end="2984">
+    <h3 class="" data-start="2986" data-end="3018">✅ Lo más importante sobre TF</h3>
+    <ul data-start="3020" data-end="3203">
+        <li class="" data-start="3020" data-end="3073">
+            <p class="" data-start="3022" data-end="3073">Es el <strong data-start="3028" data-end="3065">núcleo de la
+                    estructura del robot</strong> en ROS.</p>
+        </li>
+        <li class="" data-start="3074" data-end="3133">
+            <p class="" data-start="3076" data-end="3133">Define dónde están y cómo se mueven las partes del robot.</p>
+        </li>
+        <li class="" data-start="3134" data-end="3203">
+            <p class="" data-start="3136" data-end="3203">Sin TFs bien definidos, ROS no puede operar correctamente el
+                robot.</p>
+        </li>
+    </ul>
+    <hr class="" data-start="3205" data-end="3208">
+    <p class="" data-start="3210" data-end="3244">💾 <strong data-start="3213" data-end="3244">Código trabajado /
+            recursos</strong></p>
+    <ul data-start="3246" data-end="3401">
+        <li class="" data-start="3246" data-end="3274">
+            <p class="" data-start="3248" data-end="3274">Paquete: <code data-start="3257"
+                    data-end="3272">urdf_tutorial</code></p>
+        </li>
+        <li class="" data-start="3275" data-end="3354">
+            <p class="" data-start="3277" data-end="3354">Comando: <code data-start="3286"
+                    data-end="3352">ros2 launch urdf_tutorial display.launch.py model:=08-urdf.xacro</code></p>
+        </li>
+        <li class="" data-start="3355" data-end="3401">
+            <p class="" data-start="3357" data-end="3401">Visualizador: RViz (se abre automáticamente)</p>
+        </li>
+    </ul>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js">
+    </script>
+
+</body>
+
+</html>
