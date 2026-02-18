@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>8.4. Carga de parámetros desde archivos Launch en ROS 2 (directo y desde YAML) - ROS 2 Jazzy Notes</title>
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <style>
+        .back-link {
+            margin-bottom: 2rem;
+        }
+    </style>
+
+</head>
+
+<body class="container py-4">
+
+    <button class="btn btn-secondary back-link" onclick="history.back()">← Volver al inicio</button>
+
+    <h1 class="mb-4">8.4. Carga de parámetros desde archivos Launch en ROS 2 (directo y desde YAML)</h1>
+
+    <p class="lead">Aprenderás a cargar parámetros en tus nodos directamente desde archivos Launch o desde archivos YAML
+        externos.</p>
+
+    <p class="" data-start="526" data-end="550">📘 <strong data-start="529" data-end="550">Notas de la clase</strong>
+    </p>
+    <h3 class="" data-start="552" data-end="597">⚙️ Asignar parámetros directamente en XML</h3>
+    <ol data-start="599" data-end="758">
+        <li class="" data-start="599" data-end="677">
+            <p class="" data-start="602" data-end="677">Asegúrate de que el <code data-start="622"
+                    data-end="630">&lt;node&gt;</code> esté abierto con etiquetas de inicio y cierre.</p>
+        </li>
+        <li class="" data-start="679" data-end="758">
+            <p class="" data-start="682" data-end="758">Usa etiquetas <code data-start="696"
+                    data-end="705">&lt;param&gt;</code> dentro del nodo, con los atributos <code data-start="741"
+                    data-end="747">name</code> y <code data-start="750" data-end="757">value</code>:</p>
+        </li>
+    </ol>
+    <p class="" data-start="760" data-end="977"><code data-start="760"
+            data-end="835">&lt;node pkg="my_py_pkg" exec="number_publisher" name="my_number_publisher"&gt;</code><br
+            data-start="835" data-end="838"> <code data-start="839"
+            data-end="879">&lt;remap from="number" to="my_number" /&gt;</code><br data-start="879" data-end="882"> <code
+            data-start="883" data-end="918">&lt;param name="number" value="6" /&gt;</code><br data-start="918"
+            data-end="921"> <code data-start="922"
+            data-end="965">&lt;param name="timer_period" value="1.5" /&gt;</code><br data-start="965"
+            data-end="968"><code data-start="968" data-end="977">&lt;/node&gt;</code></p>
+    <p class="" data-start="979" data-end="1057">✅ Los valores deben coincidir con los nombres definidos en el código
+        del nodo.</p>
+    <hr class="" data-start="1059" data-end="1062">
+    <h3 class="" data-start="1064" data-end="1100">📂 Organización del archivo YAML</h3>
+    <ol data-start="1102" data-end="1221">
+        <li class="" data-start="1102" data-end="1173">
+            <p class="" data-start="1105" data-end="1173">Crea un directorio <code data-start="1124"
+                    data-end="1133">config/</code> dentro del paquete <code data-start="1153"
+                    data-end="1172">my_robot_bring_up</code>.</p>
+        </li>
+        <li class="" data-start="1175" data-end="1221">
+            <p class="" data-start="1178" data-end="1221">Declara su instalación en <code data-start="1204"
+                    data-end="1220">CMakeLists.txt</code>:</p>
+        </li>
+    </ol>
+    <p class="" data-start="1223" data-end="1308"><code data-start="1223" data-end="1233">install(</code><br
+            data-start="1233" data-end="1236"> <code data-start="1237" data-end="1262">DIRECTORY launch config</code><br
+            data-start="1262" data-end="1265"> <code data-start="1266"
+            data-end="1302">DESTINATION share/${PROJECT_NAME}/</code><br data-start="1302" data-end="1305"><code
+            data-start="1305" data-end="1308">)</code></p>
+    <ol start="3" data-start="1310" data-end="1385">
+        <li class="" data-start="1310" data-end="1385">
+            <p class="" data-start="1313" data-end="1385">Crea un archivo YAML, por ejemplo <code data-start="1347"
+                    data-end="1364">number_app.yaml</code>, con este contenido:</p>
+        </li>
+    </ol>
+    <p class="" data-start="1387" data-end="1471"><code data-start="1387" data-end="1409">my_number_publisher:</code><br
+            data-start="1409" data-end="1412"> <code data-start="1413" data-end="1431">ros__parameters:</code><br
+            data-start="1431" data-end="1434">  <code data-start="1436" data-end="1447">number: 6</code><br
+            data-start="1447" data-end="1450">  <code data-start="1452" data-end="1471">timer_period: 1.5</code></p>
+    <hr class="" data-start="1473" data-end="1476">
+    <h3 class="" data-start="1478" data-end="1526">📥 Cargar YAML desde el archivo Launch (XML)</h3>
+    <p class="" data-start="1528" data-end="1612">En lugar de definir cada parámetro con <code data-start="1567"
+            data-end="1576">&lt;param&gt;</code>, puedes cargar el archivo completo:</p>
+    <p class="" data-start="1614" data-end="1691"><code data-start="1614"
+            data-end="1691">&lt;param from="$(find-pkg-share my_robot_bring_up)/config/number_app.yaml" /&gt;</code></p>
+    <p class="" data-start="1693" data-end="1757">✅ Esta línea debe ir dentro del nodo correspondiente (<code
+            data-start="1747" data-end="1755">&lt;node&gt;</code>).</p>
+    <hr class="" data-start="1759" data-end="1762">
+    <h3 class="" data-start="1764" data-end="1782">✅ Verificación</h3>
+    <ul data-start="1784" data-end="2034">
+        <li class="" data-start="1784" data-end="1880">
+            <p class="" data-start="1786" data-end="1880"><code data-start="1786"
+                    data-end="1814">ros2 topic echo /my_number</code> → Muestra el valor publicado (<code
+                    data-start="1845" data-end="1848">6</code>) con el intervalo especificado.</p>
+        </li>
+        <li class="" data-start="1881" data-end="1953">
+            <p class="" data-start="1883" data-end="1953"><code data-start="1883"
+                    data-end="1927">ros2 param get /my_number_publisher number</code> → Confirma el valor (<code
+                    data-start="1949" data-end="1952">6</code>)</p>
+        </li>
+        <li class="" data-start="1954" data-end="2034">
+            <p class="" data-start="1956" data-end="2034"><code data-start="1956"
+                    data-end="2006">ros2 param get /my_number_publisher timer_period</code> → Confirma el valor (<code
+                    data-start="2028" data-end="2033">1.5</code>)</p>
+        </li>
+    </ul>
+    <hr class="" data-start="2036" data-end="2039">
+    <h3 class="" data-start="2041" data-end="2091">🐍 Equivalente en archivo Python (<code data-start="2079"
+            data-end="2090">launch.py</code>)</h3>
+    <ol data-start="2093" data-end="2153">
+        <li class="" data-start="2093" data-end="2153">
+            <p class="" data-start="2096" data-end="2153">Parámetros manuales como diccionario (dentro del <code
+                    data-start="2145" data-end="2151">Node</code>):</p>
+        </li>
+    </ol>
+    <p class="" data-start="2155" data-end="2318"><code data-start="2155" data-end="2162">Node(</code><br
+            data-start="2162" data-end="2165"> <code data-start="2166" data-end="2188">package='my_py_pkg',</code><br
+            data-start="2188" data-end="2191"> <code data-start="2192"
+            data-end="2224">executable='number_publisher',</code><br data-start="2224" data-end="2227"> <code
+            data-start="2228" data-end="2257">name='my_number_publisher',</code><br data-start="2257"
+            data-end="2260"> <code data-start="2261"
+            data-end="2312">parameters=[{ 'number': 6, 'timer_period': 1.5 }]</code><br data-start="2312"
+            data-end="2315"><code data-start="2315" data-end="2318">)</code></p>
+    <ol start="2" data-start="2320" data-end="2349">
+        <li class="" data-start="2320" data-end="2349">
+            <p class="" data-start="2323" data-end="2349">Para cargar desde un YAML:</p>
+        </li>
+    </ol>
+    <ul data-start="2351" data-end="2374">
+        <li class="" data-start="2351" data-end="2374">
+            <p class="" data-start="2353" data-end="2374">Importa lo necesario:</p>
+        </li>
+    </ul>
+    <p class="" data-start="2376" data-end="2459"><code data-start="2376"
+            data-end="2445">from ament_index_python.packages import get_package_share_directory</code><br
+            data-start="2445" data-end="2448"><code data-start="2448" data-end="2459">import os</code></p>
+    <ul data-start="2461" data-end="2494">
+        <li class="" data-start="2461" data-end="2494">
+            <p class="" data-start="2463" data-end="2494">Define la ruta al archivo YAML:</p>
+        </li>
+    </ul>
+    <p class="" data-start="2496" data-end="2624"><code data-start="2496"
+            data-end="2525">config_path = os.path.join(</code><br data-start="2525" data-end="2528"> <code
+            data-start="2529" data-end="2580">get_package_share_directory('my_robot_bring_up'),</code><br
+            data-start="2580" data-end="2583"> <code data-start="2584" data-end="2595">'config',</code><br
+            data-start="2595" data-end="2598"> <code data-start="2599" data-end="2618">'number_app.yaml'</code><br
+            data-start="2618" data-end="2621"><code data-start="2621" data-end="2624">)</code></p>
+    <ul data-start="2626" data-end="2653">
+        <li class="" data-start="2626" data-end="2653">
+            <p class="" data-start="2628" data-end="2653">Y pásalo en el parámetro:</p>
+        </li>
+    </ul>
+    <p class="" data-start="2655" data-end="2793"><code data-start="2655" data-end="2662">Node(</code><br
+            data-start="2662" data-end="2665"> <code data-start="2666" data-end="2688">package='my_py_pkg',</code><br
+            data-start="2688" data-end="2691"> <code data-start="2692"
+            data-end="2724">executable='number_publisher',</code><br data-start="2724" data-end="2727"> <code
+            data-start="2728" data-end="2757">name='my_number_publisher',</code><br data-start="2757"
+            data-end="2760"> <code data-start="2761" data-end="2787">parameters=[config_path]</code><br
+            data-start="2787" data-end="2790"><code data-start="2790" data-end="2793">)</code></p>
+    <hr class="" data-start="2795" data-end="2798">
+    <p class="" data-start="2800" data-end="2834">💾 <strong data-start="2803" data-end="2834">Código trabajado /
+            recursos</strong></p>
+    <ul data-start="2836" data-end="3082">
+        <li class="" data-start="2836" data-end="2923">
+            <p class="" data-start="2838" data-end="2923"><code data-start="2838"
+                    data-end="2861">number_app.launch.xml</code>: parámetros definidos directamente y mediante archivo
+                YAML.</p>
+        </li>
+        <li class="" data-start="2924" data-end="2993">
+            <p class="" data-start="2926" data-end="2993"><code data-start="2926"
+                    data-end="2950">config/number_app.yaml</code>: archivo de configuración de parámetros.</p>
+        </li>
+        <li class="" data-start="2994" data-end="3082">
+            <p class="" data-start="2996" data-end="3082"><code data-start="2996"
+                    data-end="3018">number_app.launch.py</code>: versiones equivalentes usando diccionarios y carga
+                desde YAML.</p>
+        </li>
+    </ul>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js">
+    </script>
+
+</body>
+
+</html>

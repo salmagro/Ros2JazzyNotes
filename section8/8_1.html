@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>8.1. Creación de un archivo Launch en ROS 2 (formato XML) - ROS 2 Jazzy Notes</title>
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <style>
+        .back-link {
+            margin-bottom: 2rem;
+        }
+    </style>
+
+</head>
+
+<body class="container py-4">
+
+    <button class="btn btn-secondary back-link" onclick="history.back()">← Volver al inicio</button>
+
+    <h1 class="mb-4">8.1. Creación de un archivo Launch en ROS 2 (formato XML)</h1>
+
+    <p class="lead">Aprenderás a crear tu primer archivo Launch en ROS 2 usando el formato XML, automatizando la
+        ejecución de múltiples nodos.</p>
+
+    <p class="" data-start="590" data-end="614">📘 <strong data-start="593" data-end="614">Notas de la clase</strong>
+    </p>
+    <h3 class="" data-start="616" data-end="648">📦 Organización del proyecto</h3>
+    <ul data-start="650" data-end="898">
+        <li class="" data-start="650" data-end="773">
+            <p class="" data-start="652" data-end="773">Es buena práctica crear un paquete separado para los archivos de
+                lanzamiento, comúnmente llamado <code data-start="749" data-end="772">nombre_robot_bring_up</code>.</p>
+        </li>
+        <li class="" data-start="774" data-end="898">
+            <p class="" data-start="776" data-end="898">Esto ayuda a mantener una estructura limpia y modular,
+                especialmente al trabajar con múltiples paquetes y configuraciones.</p>
+        </li>
+    </ul>
+    <h3 class="" data-start="900" data-end="938">📁 Creación del paquete <code data-start="928"
+            data-end="938">bring_up</code></h3>
+    <ol data-start="940" data-end="1353">
+        <li class="" data-start="940" data-end="1091">
+            <p class="" data-start="943" data-end="986">Desde el directorio <code data-start="963"
+                    data-end="969">src/</code> de tu workspace:</p>
+            <ul data-start="990" data-end="1091">
+                <li class="" data-start="990" data-end="1040">
+                    <p class="" data-start="992" data-end="1040">Ejecuta <code data-start="1000"
+                            data-end="1039">ros2 pkg create nombre_robot_bring_up</code>.</p>
+                </li>
+                <li class="" data-start="1044" data-end="1091">
+                    <p class="" data-start="1046" data-end="1091">Ejemplo: <code data-start="1055"
+                            data-end="1090">ros2 pkg create my_robot_bring_up</code>.</p>
+                </li>
+            </ul>
+        </li>
+        <li class="" data-start="1093" data-end="1256">
+            <p class="" data-start="1096" data-end="1123">Archivos/folders generados:</p>
+            <ul data-start="1127" data-end="1256">
+                <li class="" data-start="1127" data-end="1173">
+                    <p class="" data-start="1129" data-end="1173"><code data-start="1129"
+                            data-end="1145">CMakeLists.txt</code> y <code data-start="1148"
+                            data-end="1161">package.xml</code> → mantener.</p>
+                </li>
+                <li class="" data-start="1177" data-end="1256">
+                    <p class="" data-start="1179" data-end="1256"><code data-start="1179"
+                            data-end="1189">include/</code> y <code data-start="1192" data-end="1198">src/</code> →
+                        eliminar si no se van a compilar nodos en este paquete.</p>
+                </li>
+            </ul>
+        </li>
+        <li class="" data-start="1258" data-end="1353">
+            <p class="" data-start="1261" data-end="1304">Crear carpeta <code data-start="1275"
+                    data-end="1284">launch/</code> dentro del paquete:</p>
+            <ul data-start="1308" data-end="1353">
+                <li class="" data-start="1308" data-end="1353">
+                    <p class="" data-start="1310" data-end="1353">Aquí irán todos los archivos <code data-start="1339"
+                            data-end="1352">.launch.xml</code>.</p>
+                </li>
+            </ul>
+        </li>
+    </ol>
+    <h3 class="" data-start="1355" data-end="1393">⚙️ Configuración en CMakeLists.txt</h3>
+    <ul data-start="1395" data-end="1495">
+        <li class="" data-start="1395" data-end="1495">
+            <p class="" data-start="1397" data-end="1495">El archivo <code data-start="1408"
+                    data-end="1424">CMakeLists.txt</code> debe incluir la instrucción para instalar los archivos de
+                lanzamiento:</p>
+        </li>
+    </ul>
+    <p class="" data-start="1497" data-end="1565"><code data-start="1497"
+            data-end="1565">install(   DIRECTORY launch   DESTINATION share/${PROJECT_NAME}/ )</code></p>
+    <ul data-start="1567" data-end="1672">
+        <li class="" data-start="1567" data-end="1672">
+            <p class="" data-start="1569" data-end="1672">No es necesario modificar <code data-start="1595"
+                    data-end="1608">package.xml</code> para el build, pero sí para declarar dependencias de ejecución.
+            </p>
+        </li>
+    </ul>
+    <h3 class="" data-start="1674" data-end="1717">🔧 Añadir dependencias en <code data-start="1704"
+            data-end="1717">package.xml</code></h3>
+    <ul data-start="1719" data-end="1804">
+        <li class="" data-start="1719" data-end="1804">
+            <p class="" data-start="1721" data-end="1804">Si los launch files utilizan nodos de otros paquetes, declara
+                las dependencias con:</p>
+        </li>
+    </ul>
+    <p class="" data-start="1806" data-end="1853"><code data-start="1806"
+            data-end="1853">&lt;exec_depend&gt;nombre_del_paquete&lt;/exec_depend&gt;</code></p>
+    <p class="" data-start="1855" data-end="1863">Ejemplo:</p>
+    <p class="" data-start="1865" data-end="1945"><code data-start="1865"
+            data-end="1903">&lt;exec_depend&gt;my_py_pkg&lt;/exec_depend&gt;</code><br data-start="1903"
+            data-end="1906"><code data-start="1906"
+            data-end="1945">&lt;exec_depend&gt;my_cpp_pkg&lt;/exec_depend&gt;</code></p>
+    <h3 class="" data-start="1947" data-end="1994">🛠️ Creación del archivo XML de lanzamiento</h3>
+    <ol data-start="1996" data-end="2101">
+        <li class="" data-start="1996" data-end="2066">
+            <p class="" data-start="1999" data-end="2066">Crear un archivo en <code data-start="2019"
+                    data-end="2028">launch/</code>, por ejemplo: <code data-start="2043"
+                    data-end="2066">number_app.launch.xml</code></p>
+        </li>
+        <li class="" data-start="2068" data-end="2101">
+            <p class="" data-start="2071" data-end="2101">Estructura mínima del archivo:</p>
+        </li>
+    </ol>
+    <p class="" data-start="2103" data-end="2234"><code data-start="2103" data-end="2113">&lt;launch&gt;</code><br
+            data-start="2113" data-end="2116"> <code data-start="2117"
+            data-end="2167">&lt;node pkg="my_py_pkg" exec="number_publisher" /&gt;</code><br data-start="2167"
+            data-end="2170"> <code data-start="2171"
+            data-end="2220">&lt;node pkg="my_cpp_pkg" exec="number_counter" /&gt;</code><br data-start="2220"
+            data-end="2223"><code data-start="2223" data-end="2234">&lt;/launch&gt;</code></p>
+    <ol start="3" data-start="2236" data-end="2394">
+        <li class="" data-start="2236" data-end="2394">
+            <p class="" data-start="2239" data-end="2301">Cada nodo se lanza usando una etiqueta <code data-start="2278"
+                    data-end="2286">&lt;node&gt;</code> con atributos:</p>
+            <ul data-start="2305" data-end="2394">
+                <li class="" data-start="2305" data-end="2358">
+                    <p class="" data-start="2307" data-end="2358"><code data-start="2307" data-end="2312">pkg</code>:
+                        nombre del paquete donde está el ejecutable.</p>
+                </li>
+                <li class="" data-start="2362" data-end="2394">
+                    <p class="" data-start="2364" data-end="2394"><code data-start="2364" data-end="2370">exec</code>:
+                        nombre del ejecutable.</p>
+                </li>
+            </ul>
+        </li>
+    </ol>
+    <h3 class="" data-start="2396" data-end="2437">▶️ Ejecutar el archivo de lanzamiento</h3>
+    <ol data-start="2439" data-end="2462">
+        <li class="" data-start="2439" data-end="2462">
+            <p class="" data-start="2442" data-end="2462">Compilar el paquete:</p>
+        </li>
+    </ol>
+    <p class="" data-start="2464" data-end="2514"><code data-start="2464"
+            data-end="2514">colcon build --packages-select my_robot_bring_up</code></p>
+    <ol start="2" data-start="2516" data-end="2538">
+        <li class="" data-start="2516" data-end="2538">
+            <p class="" data-start="2519" data-end="2538">Source del entorno:</p>
+        </li>
+    </ol>
+    <p class="" data-start="2540" data-end="2567"><code data-start="2540"
+            data-end="2567">source install/setup.bash</code></p>
+    <ol start="3" data-start="2569" data-end="2593">
+        <li class="" data-start="2569" data-end="2593">
+            <p class="" data-start="2572" data-end="2593">Lanzar la aplicación:</p>
+        </li>
+    </ol>
+    <p class="" data-start="2595" data-end="2648"><code data-start="2595"
+            data-end="2648">ros2 launch my_robot_bring_up number_app.launch.xml</code></p>
+    <ol start="4" data-start="2650" data-end="2687">
+        <li class="" data-start="2650" data-end="2687">
+            <p class="" data-start="2653" data-end="2687">Verificar nodos y tópicos activos:</p>
+        </li>
+    </ol>
+    <p class="" data-start="2689" data-end="2759"><code data-start="2689" data-end="2705">ros2 node list</code><br
+            data-start="2705" data-end="2708"><code data-start="2708" data-end="2725">ros2 topic list</code><br
+            data-start="2725" data-end="2728"><code data-start="2728"
+            data-end="2759">ros2 topic echo /number_count</code></p>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js">
+    </script>
+
+</body>
+
+</html>

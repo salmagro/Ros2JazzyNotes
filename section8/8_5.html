@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>8.5. Uso de Namespaces en ROS 2 y archivos Launch - ROS 2 Jazzy Notes</title>
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <style>
+        .back-link {
+            margin-bottom: 2rem;
+        }
+    </style>
+
+</head>
+
+<body class="container py-4">
+
+    <button class="btn btn-secondary back-link" onclick="history.back()">← Volver al inicio</button>
+
+    <h1 class="mb-4">8.5. Uso de Namespaces en ROS 2 y archivos Launch</h1>
+
+    <p class="lead">Aprenderás a organizar nodos usando Namespaces en tus archivos Launch para una jerarquía clara y
+        evitar conflictos de nombres.</p>
+
+    <p class="" data-start="639" data-end="663">📘 <strong data-start="642" data-end="663">Notas de la clase</strong>
+    </p>
+    <h3 class="" data-start="665" data-end="693">🧠 ¿Qué es un Namespace?</h3>
+    <ul data-start="695" data-end="956">
+        <li class="" data-start="695" data-end="783">
+            <p class="" data-start="697" data-end="783">Un <em data-start="700" data-end="711">namespace</em> es un
+                prefijo que se añade a los nombres de nodos, tópicos o servicios.</p>
+        </li>
+        <li class="" data-start="784" data-end="856">
+            <p class="" data-start="786" data-end="856">Ayuda a organizar y aislar componentes dentro de una aplicación
+                ROS 2.</p>
+        </li>
+        <li class="" data-start="857" data-end="956">
+            <p class="" data-start="859" data-end="956">Muy útil para trabajar con múltiples robots o sistemas
+                similares, evitando colisiones de nombres.</p>
+        </li>
+    </ul>
+    <hr class="" data-start="958" data-end="961">
+    <h3 class="" data-start="963" data-end="1001">🖥️ Uso desde la línea de comandos</h3>
+    <ol data-start="1003" data-end="1039">
+        <li class="" data-start="1003" data-end="1039">
+            <p class="" data-start="1006" data-end="1039">Ejecutar un nodo con <em data-start="1027"
+                    data-end="1038">namespace</em>:</p>
+        </li>
+    </ol>
+    <p class="" data-start="1041" data-end="1105"><code data-start="1041"
+            data-end="1105">ros2 run my_cpp_pkg number_publisher --ros-args -r __ns:=/test</code></p>
+    <ol start="2" data-start="1107" data-end="1123">
+        <li class="" data-start="1107" data-end="1123">
+            <p class="" data-start="1110" data-end="1123">Verifica con:</p>
+        </li>
+    </ol>
+    <p class="" data-start="1125" data-end="1252"><code data-start="1125" data-end="1141">ros2 node list</code> → Verás
+        <code data-start="1150" data-end="1174">/test/number_publisher</code><br data-start="1174" data-end="1177"><code
+            data-start="1177" data-end="1194">ros2 topic list</code> → Verás <code data-start="1203"
+            data-end="1217">/test/number</code> (el tópico también se ve afectado)</p>
+    <hr class="" data-start="1254" data-end="1257">
+    <h3 class="" data-start="1259" data-end="1304">⚠️ Importante sobre el uso de <code data-start="1293"
+            data-end="1296">/</code> (barra)</h3>
+    <ul data-start="1306" data-end="1491">
+        <li class="" data-start="1306" data-end="1405">
+            <p class="" data-start="1308" data-end="1405">Si en el código defines un tópico con <code data-start="1346"
+                    data-end="1349">/</code> al inicio (<code data-start="1361" data-end="1370">/number</code>), el
+                namespace <strong data-start="1386" data-end="1392">no</strong> se aplicará.</p>
+        </li>
+        <li class="" data-start="1406" data-end="1491">
+            <p class="" data-start="1408" data-end="1491">Si defines el nombre sin <code data-start="1433"
+                    data-end="1436">/</code> (<code data-start="1438" data-end="1446">number</code>), ROS aplicará
+                automáticamente el namespace.</p>
+        </li>
+    </ul>
+    <p class="" data-start="1493" data-end="1618">📌 Recomendación: <strong data-start="1511" data-end="1539">evita usar
+            <code data-start="1524" data-end="1527">/</code> al inicio</strong> de nombres en tu código si quieres que
+        los namespaces funcionen correctamente.</p>
+    <hr class="" data-start="1620" data-end="1623">
+    <h3 class="" data-start="1625" data-end="1648">🧪 Ejemplo práctico</h3>
+    <p class="" data-start="1650" data-end="1676">Si defines el tópico como:</p>
+    <p class="" data-start="1678" data-end="1740"><code data-start="1678"
+            data-end="1740">self.publisher_ = self.create_publisher(Int64, 'number', 10)</code></p>
+    <p class="" data-start="1742" data-end="1806">...y ejecutas con namespace <code data-start="1770"
+            data-end="1777">/test</code>, ROS convertirá el tópico a:</p>
+    <p class="" data-start="1808" data-end="1822"><code data-start="1808" data-end="1822">/test/number</code></p>
+    <p class="" data-start="1824" data-end="1848">Pero si lo defines como:</p>
+    <p class="" data-start="1850" data-end="1933"><code data-start="1850" data-end="1866">'/' + 'number'</code> →
+        entonces el resultado será simplemente <code data-start="1908" data-end="1917">/number</code>, sin namespace.
+    </p>
+    <hr class="" data-start="1935" data-end="1938">
+    <h3 class="" data-start="1940" data-end="1988">🛠️ Uso de Namespace en archivo Launch (XML)</h3>
+    <ol data-start="1990" data-end="2040">
+        <li class="" data-start="1990" data-end="2040">
+            <p class="" data-start="1993" data-end="2040">Añadir el atributo <code data-start="2012"
+                    data-end="2023">namespace</code> dentro del nodo:</p>
+        </li>
+    </ol>
+    <p class="" data-start="2042" data-end="2270"><code data-start="2042"
+            data-end="2133">&lt;node pkg="my_py_pkg" exec="number_publisher" name="my_number_publisher" namespace="ABC"&gt;</code><br
+            data-start="2133" data-end="2136"> <code data-start="2137"
+            data-end="2177">&lt;remap from="number" to="my_number" /&gt;</code><br data-start="2177"
+            data-end="2180"> <code data-start="2181"
+            data-end="2258">&lt;param from="$(find-pkg-share my_robot_bring_up)/config/number_app.yaml" /&gt;</code><br
+            data-start="2258" data-end="2261"><code data-start="2261" data-end="2270">&lt;/node&gt;</code></p>
+    <ol start="2" data-start="2272" data-end="2343">
+        <li class="" data-start="2272" data-end="2343">
+            <p class="" data-start="2275" data-end="2343">Aplicar también a otros nodos para que compartan el mismo
+                namespace:</p>
+        </li>
+    </ol>
+    <p class="" data-start="2345" data-end="2489"><code data-start="2345"
+            data-end="2433">&lt;node pkg="my_cpp_pkg" exec="number_counter" name="my_number_counter" namespace="ABC"&gt;</code><br
+            data-start="2433" data-end="2436"> <code data-start="2437"
+            data-end="2477">&lt;remap from="number" to="my_number" /&gt;</code><br data-start="2477"
+            data-end="2480"><code data-start="2480" data-end="2489">&lt;/node&gt;</code></p>
+    <hr class="" data-start="2491" data-end="2494">
+    <h3 class="" data-start="2496" data-end="2537">📉 Evitar errores comunes con <code data-start="2530"
+            data-end="2537">remap</code></h3>
+    <ul data-start="2539" data-end="2648">
+        <li class="" data-start="2539" data-end="2627">
+            <p class="" data-start="2541" data-end="2627">Si usas <code data-start="2549" data-end="2558">/number</code>
+                (con slash) en el atributo <code data-start="2586" data-end="2592">from</code>, <strong
+                    data-start="2594" data-end="2626">no funcionará con namespaces</strong>.</p>
+        </li>
+        <li class="" data-start="2628" data-end="2648">
+            <p class="" data-start="2630" data-end="2648">Usa solo <code data-start="2639"
+                    data-end="2647">number</code>:</p>
+        </li>
+    </ul>
+    <p class="" data-start="2650" data-end="2779"><code data-start="2650"
+            data-end="2690">&lt;remap from="number" to="my_number" /&gt;</code> → correcto<br data-start="2701"
+            data-end="2704"><code data-start="2704"
+            data-end="2746">&lt;remap from="/number" to="/my_number" /&gt;</code> → puede fallar si hay namespaces</p>
+    <hr class="" data-start="2781" data-end="2784">
+    <h3 class="" data-start="2786" data-end="2828">🧪 Verificación con herramientas ROS 2</h3>
+    <ul data-start="2830" data-end="3067">
+        <li class="" data-start="2830" data-end="2906">
+            <p class="" data-start="2832" data-end="2906"><code data-start="2832" data-end="2848">ros2 node list</code>
+                → Verifica que los nodos están bajo el namespace <code data-start="2898" data-end="2904">/ABC</code></p>
+        </li>
+        <li class="" data-start="2907" data-end="2988">
+            <p class="" data-start="2909" data-end="2988"><code data-start="2909" data-end="2926">ros2 topic list</code>
+                → Verifica que el tópico se ha remapeado a <code data-start="2970" data-end="2986">/ABC/my_number</code>
+            </p>
+        </li>
+        <li class="" data-start="2989" data-end="3067">
+            <p class="" data-start="2991" data-end="3067"><code data-start="2991" data-end="3002">rqt_graph</code> →
+                Puedes agrupar por namespaces para una visualización más clara</p>
+        </li>
+    </ul>
+    <hr class="" data-start="3069" data-end="3072">
+    <h3 class="" data-start="3074" data-end="3124">🐍 Equivalente en archivo Python (<code data-start="3112"
+            data-end="3123">launch.py</code>)</h3>
+    <ol data-start="3126" data-end="3173">
+        <li class="" data-start="3126" data-end="3173">
+            <p class="" data-start="3129" data-end="3173">Añade el argumento <code data-start="3148"
+                    data-end="3159">namespace</code> directamente:</p>
+        </li>
+    </ol>
+    <p class="" data-start="3175" data-end="3378"><code data-start="3175" data-end="3182">Node(</code><br
+            data-start="3182" data-end="3185"> <code data-start="3186" data-end="3208">package='my_py_pkg',</code><br
+            data-start="3208" data-end="3211"> <code data-start="3212"
+            data-end="3244">executable='number_publisher',</code><br data-start="3244" data-end="3247"> <code
+            data-start="3248" data-end="3277">name='my_number_publisher',</code><br data-start="3277"
+            data-end="3280"> <code data-start="3281" data-end="3299">namespace='ABC',</code><br data-start="3299"
+            data-end="3302"> <code data-start="3303" data-end="3342">remappings=[('number', 'my_number')],</code><br
+            data-start="3342" data-end="3345"> <code data-start="3346"
+            data-end="3372">parameters=[config_path]</code><br data-start="3372" data-end="3375"><code data-start="3375"
+            data-end="3378">)</code></p>
+    <p class="" data-start="3380" data-end="3487">📌 Recuerda también <strong data-start="3400" data-end="3447">no usar
+            <code data-start="3410" data-end="3413">/</code> al inicio del nombre del tópico</strong> si quieres que el
+        namespace se aplique.</p>
+    <hr class="" data-start="3489" data-end="3492">
+    <p class="" data-start="3494" data-end="3528">💡 <strong data-start="3497" data-end="3528">Ventajas de usar
+            namespaces</strong></p>
+    <ul data-start="3530" data-end="3699">
+        <li class="" data-start="3530" data-end="3583">
+            <p class="" data-start="3532" data-end="3583">Aisla lógicamente los nodos de cada robot o módulo.</p>
+        </li>
+        <li class="" data-start="3584" data-end="3641">
+            <p class="" data-start="3586" data-end="3641">Facilita el uso de múltiples instancias del mismo nodo.</p>
+        </li>
+        <li class="" data-start="3642" data-end="3699">
+            <p class="" data-start="3644" data-end="3699">Mejora la escalabilidad y el mantenimiento del sistema.</p>
+        </li>
+    </ul>
+    <hr class="" data-start="3701" data-end="3704">
+    <p class="" data-start="3706" data-end="3740">💾 <strong data-start="3709" data-end="3740">Código trabajado /
+            recursos</strong></p>
+    <ul data-start="3742" data-end="3891">
+        <li class="" data-start="3742" data-end="3805">
+            <p class="" data-start="3744" data-end="3805"><code data-start="3744"
+                    data-end="3767">number_app.launch.xml</code>: ejemplo con namespaces y remapeos.</p>
+        </li>
+        <li class="" data-start="3806" data-end="3891">
+            <p class="" data-start="3808" data-end="3891"><code data-start="3808"
+                    data-end="3830">number_app.launch.py</code>: versión en Python con el uso de <code data-start="3864"
+                    data-end="3875">namespace</code> como argumento.</p>
+        </li>
+    </ul>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js">
+    </script>
+
+</body>
+
+</html>

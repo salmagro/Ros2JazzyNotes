@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>8.2. Comparación y uso de archivos Launch en ROS 2 (XML vs Python) - ROS 2 Jazzy Notes</title>
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <style>
+        .back-link {
+            margin-bottom: 2rem;
+        }
+    </style>
+
+</head>
+
+<body class="container py-4">
+
+    <button class="btn btn-secondary back-link" onclick="history.back()">← Volver al inicio</button>
+
+    <h1 class="mb-4">8.2. Comparación y uso de archivos Launch en ROS 2 (XML vs Python)</h1>
+
+    <p class="lead">Conocerás las diferencias entre archivos Launch en formato XML y Python, y aprenderás cuándo usar
+        cada uno.</p>
+
+    <p class="" data-start="497" data-end="521">📘 <strong data-start="500" data-end="521">Notas de la clase</strong>
+    </p>
+    <h3 class="" data-start="523" data-end="573">🗂️ Lenguajes disponibles para archivos launch</h3>
+    <p class="" data-start="575" data-end="634">ROS 2 permite escribir archivos <code data-start="607"
+            data-end="615">launch</code> en tres lenguajes:</p>
+    <ul data-start="636" data-end="783">
+        <li class="" data-start="636" data-end="677">
+            <p class="" data-start="638" data-end="677"><strong data-start="638" data-end="645">XML</strong> ✅ (más
+                utilizado y recomendado)</p>
+        </li>
+        <li class="" data-start="678" data-end="734">
+            <p class="" data-start="680" data-end="734"><strong data-start="680" data-end="688">YAML</strong> ❌ (poco
+                usado y propenso a errores, se omite)</p>
+        </li>
+        <li class="" data-start="735" data-end="783">
+            <p class="" data-start="737" data-end="783"><strong data-start="737" data-end="747">Python</strong> ✅ (más
+                flexible, pero más complejo)</p>
+        </li>
+    </ul>
+    <h3 class="" data-start="785" data-end="813">🧠 Recomendación general</h3>
+    <ul data-start="815" data-end="995">
+        <li class="" data-start="815" data-end="911">
+            <p class="" data-start="817" data-end="911">Usar XML siempre que sea posible: más simple, claro y suficiente
+                para la mayoría de los casos.</p>
+        </li>
+        <li class="" data-start="912" data-end="995">
+            <p class="" data-start="914" data-end="995">Python se puede usar si se requiere lógica avanzada o se desea
+                reutilizar código.</p>
+        </li>
+    </ul>
+    <hr class="" data-start="997" data-end="1000">
+    <h3 class="" data-start="1002" data-end="1050">🐍 Creación de un archivo <code data-start="1032"
+            data-end="1040">launch</code> en Python</h3>
+    <ol data-start="1052" data-end="1284">
+        <li class="" data-start="1052" data-end="1167">
+            <p class="" data-start="1055" data-end="1167">Asegúrate de tener un paquete de lanzamiento creado (<code
+                    data-start="1108" data-end="1127">my_robot_bring_up</code>) y con el folder <code data-start="1145"
+                    data-end="1154">launch/</code> configurado.</p>
+        </li>
+        <li class="" data-start="1169" data-end="1242">
+            <p class="" data-start="1172" data-end="1242">Crea un archivo <code data-start="1188"
+                    data-end="1210">number_app.launch.py</code> dentro de la carpeta <code data-start="1232"
+                    data-end="1241">launch/</code>.</p>
+        </li>
+        <li class="" data-start="1244" data-end="1284">
+            <p class="" data-start="1247" data-end="1284">Estructura básica del archivo Python:</p>
+        </li>
+    </ol>
+    <p class="" data-start="1286" data-end="1364"><code data-start="1286"
+            data-end="1324">from launch import LaunchDescription</code><br data-start="1324" data-end="1327"><code
+            data-start="1327" data-end="1364">from launch_ros.actions import Node</code></p>
+    <p class="" data-start="1366" data-end="1716"><code data-start="1366"
+            data-end="1402">def generate_launch_description():</code><br data-start="1402" data-end="1405"> <code
+            data-start="1406" data-end="1432">number_publisher = Node(</code><br data-start="1432"
+            data-end="1435">  <code data-start="1437" data-end="1459">package='my_py_pkg',</code><br data-start="1459"
+            data-end="1462">  <code data-start="1464" data-end="1495">executable='number_publisher'</code><br
+            data-start="1495" data-end="1498"> <code data-start="1499" data-end="1502">)</code><br data-start="1502"
+            data-end="1505"> <code data-start="1506" data-end="1530">number_counter = Node(</code><br data-start="1530"
+            data-end="1533">  <code data-start="1535" data-end="1558">package='my_cpp_pkg',</code><br data-start="1558"
+            data-end="1561">  <code data-start="1563" data-end="1592">executable='number_counter'</code><br
+            data-start="1592" data-end="1595"> <code data-start="1596" data-end="1599">)</code><br data-start="1599"
+            data-end="1602"> <code data-start="1603" data-end="1629">ld = LaunchDescription()</code><br
+            data-start="1629" data-end="1632"> <code data-start="1633"
+            data-end="1666">ld.add_action(number_publisher)</code><br data-start="1666" data-end="1669"> <code
+            data-start="1670" data-end="1701">ld.add_action(number_counter)</code><br data-start="1701"
+            data-end="1704"> <code data-start="1705" data-end="1716">return ld</code></p>
+    <p class="" data-start="1718" data-end="1827">✅ Este archivo inicia los mismos nodos que el XML, pero con mayor
+        cantidad de líneas y sintaxis más compleja.</p>
+    <hr class="" data-start="1829" data-end="1832">
+    <h3 class="" data-start="1834" data-end="1874">🔁 Incluir archivos Python desde XML</h3>
+    <p class="" data-start="1876" data-end="2015">Si necesitas aprovechar una funcionalidad escrita en un archivo Python
+        (<code data-start="1948" data-end="1959">launch.py</code>) pero quieres mantener el control desde un archivo
+        XML:</p>
+    <ol data-start="2017" data-end="2153">
+        <li class="" data-start="2017" data-end="2089">
+            <p class="" data-start="2020" data-end="2089">Crea un archivo XML, por ejemplo: <code data-start="2054"
+                    data-end="2089">number_app_from_python.launch.xml</code></p>
+        </li>
+        <li class="" data-start="2091" data-end="2153">
+            <p class="" data-start="2094" data-end="2153">Usa la siguiente estructura para incluir el archivo Python:
+            </p>
+        </li>
+    </ol>
+    <p class="" data-start="2155" data-end="2267"><code data-start="2155" data-end="2165">&lt;launch&gt;</code><br
+            data-start="2165" data-end="2168"> <code data-start="2169"
+            data-end="2253">&lt;include file="$(find-pkg-share my_robot_bring_up)/launch/number_app.launch.py" /&gt;</code><br
+            data-start="2253" data-end="2256"><code data-start="2256" data-end="2267">&lt;/launch&gt;</code></p>
+    <p class="" data-start="2269" data-end="2378">✔️ Esto permite mantener la simplicidad del XML, pero incluir
+        funcionalidades específicas escritas en Python.</p>
+    <hr class="" data-start="2380" data-end="2383">
+    <h3 class="" data-start="2385" data-end="2407">▶️ Comandos útiles</h3>
+    <ul data-start="2409" data-end="2737">
+        <li class="" data-start="2409" data-end="2486">
+            <p class="" data-start="2411" data-end="2486">Compilar el paquete:<br data-start="2431"
+                    data-end="2434"><code data-start="2436"
+                    data-end="2486">colcon build --packages-select my_robot_bring_up</code></p>
+        </li>
+        <li class="" data-start="2488" data-end="2538">
+            <p class="" data-start="2490" data-end="2538">Activar entorno:<br data-start="2506" data-end="2509"><code
+                    data-start="2511" data-end="2538">source install/setup.bash</code></p>
+        </li>
+        <li class="" data-start="2540" data-end="2621">
+            <p class="" data-start="2542" data-end="2621">Lanzar archivo Python:<br data-start="2564"
+                    data-end="2567"><code data-start="2569"
+                    data-end="2621">ros2 launch my_robot_bring_up number_app.launch.py</code></p>
+        </li>
+        <li class="" data-start="2623" data-end="2737">
+            <p class="" data-start="2625" data-end="2737">Lanzar archivo XML que incluye uno Python:<br
+                    data-start="2667" data-end="2670"><code data-start="2672"
+                    data-end="2737">ros2 launch my_robot_bring_up number_app_from_python.launch.xml</code></p>
+        </li>
+    </ul>
+    <hr class="" data-start="2739" data-end="2742">
+    <p class="" data-start="2744" data-end="2778">💾 <strong data-start="2747" data-end="2778">Código trabajado /
+            recursos</strong></p>
+    <ul data-start="2780" data-end="2933">
+        <li class="" data-start="2780" data-end="2852">
+            <p class="" data-start="2782" data-end="2852"><code data-start="2782"
+                    data-end="2804">number_app.launch.py</code>: archivo launch en Python que inicia dos nodos.</p>
+        </li>
+        <li class="" data-start="2853" data-end="2933">
+            <p class="" data-start="2855" data-end="2933"><code data-start="2855"
+                    data-end="2890">number_app_from_python.launch.xml</code>: archivo XML que incluye un launch Python.
+            </p>
+        </li>
+    </ul>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js">
+    </script>
+
+</body>
+
+</html>
