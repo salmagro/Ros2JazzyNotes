@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>7.3. Práctica con parámetros en ROS 2 usando TurtleSim - ROS 2 Jazzy Notes</title>
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <style>
+        .back-link {
+            margin-bottom: 2rem;
+        }
+    </style>
+
+</head>
+
+<body class="container py-4">
+
+    <button class="btn btn-secondary back-link" onclick="history.back()">← Volver al inicio</button>
+
+    <h1 class="mb-4">7.3. Práctica con parámetros en ROS 2 usando TurtleSim</h1>
+
+    <p class="lead">Aplicarás tus conocimientos de parámetros en una práctica interactiva usando TurtleSim para
+        modificar el comportamiento de la simulación.</p>
+
+    <p class="" data-start="539" data-end="563">📘 <strong data-start="542" data-end="563">Notas de la clase</strong>
+    </p>
+    <p class="" data-start="565" data-end="589"><strong data-start="565" data-end="589">🔹 Iniciar TurtleSim</strong>
+    </p>
+    <p class="" data-start="591" data-end="617">Ejecuta el nodo principal:</p>
+    <p class="" data-start="619" data-end="654"><code data-start="619"
+            data-end="654">ros2 run turtlesim turtlesim_node</code></p>
+    <p class="" data-start="656" data-end="683"><strong data-start="656" data-end="683">🔹 Listar nodos activos</strong>
+    </p>
+    <p class="" data-start="685" data-end="701"><code data-start="685" data-end="701">ros2 node list</code></p>
+    <p class="" data-start="703" data-end="722">Resultado esperado:</p>
+    <ul data-start="724" data-end="738">
+        <li class="" data-start="724" data-end="738">
+            <p class="" data-start="726" data-end="738"><code data-start="726" data-end="738">/turtlesim</code></p>
+        </li>
+    </ul>
+    <p class="" data-start="740" data-end="770"><strong data-start="740" data-end="770">🔹 Ver parámetros del
+            nodo</strong></p>
+    <p class="" data-start="772" data-end="789"><code data-start="772" data-end="789">ros2 param list</code></p>
+    <p class="" data-start="791" data-end="810">Resultado esperado:</p>
+    <ul data-start="812" data-end="937">
+        <li class="" data-start="812" data-end="937">
+            <p class="" data-start="814" data-end="827"><code data-start="814" data-end="826">/turtlesim</code>:</p>
+            <ul data-start="830" data-end="937">
+                <li class="" data-start="830" data-end="846">
+                    <p class="" data-start="832" data-end="846"><code data-start="832"
+                            data-end="846">background_r</code></p>
+                </li>
+                <li class="" data-start="849" data-end="865">
+                    <p class="" data-start="851" data-end="865"><code data-start="851"
+                            data-end="865">background_g</code></p>
+                </li>
+                <li class="" data-start="868" data-end="884">
+                    <p class="" data-start="870" data-end="884"><code data-start="870"
+                            data-end="884">background_b</code></p>
+                </li>
+                <li class="" data-start="887" data-end="903">
+                    <p class="" data-start="889" data-end="903"><code data-start="889"
+                            data-end="903">use_sim_time</code></p>
+                </li>
+                <li class="" data-start="906" data-end="937">
+                    <p class="" data-start="908" data-end="937"><code data-start="908"
+                            data-end="937">parameter_events_queue_size</code></p>
+                </li>
+            </ul>
+        </li>
+    </ul>
+    <hr class="" data-start="939" data-end="942">
+    <p class="" data-start="944" data-end="983"><strong data-start="944" data-end="983">🔹 Obtener el valor de un
+            parámetro</strong></p>
+    <p class="" data-start="985" data-end="1025"><code data-start="985"
+            data-end="1025">ros2 param get /turtlesim background_b</code></p>
+    <p class="" data-start="1027" data-end="1037">Resultado:</p>
+    <ul data-start="1039" data-end="1091">
+        <li class="" data-start="1039" data-end="1091">
+            <p class="" data-start="1041" data-end="1091">Muestra el tipo (<code data-start="1058"
+                    data-end="1067">Integer</code>) y el valor (ej. <code data-start="1085" data-end="1090">255</code>)
+            </p>
+        </li>
+    </ul>
+    <p class="" data-start="1093" data-end="1144">Puedes repetir con <code data-start="1112"
+            data-end="1126">background_r</code> y <code data-start="1129" data-end="1143">background_g</code>.</p>
+    <hr class="" data-start="1146" data-end="1149">
+    <p class="" data-start="1151" data-end="1205"><strong data-start="1151" data-end="1205">🔹 Cambiar valores de
+            parámetros al lanzar el nodo</strong></p>
+    <p class="" data-start="1207" data-end="1268">Usa <code data-start="1211" data-end="1223">--ros-args</code> seguido
+        de <code data-start="1235" data-end="1239">-p</code> para asignar nuevos valores.</p>
+    <p class="" data-start="1270" data-end="1278">Ejemplo:</p>
+    <p class="" data-start="1280" data-end="1345"><code data-start="1280"
+            data-end="1345">ros2 run turtlesim turtlesim_node --ros-args -p background_b:=0</code></p>
+    <p class="" data-start="1347" data-end="1416">Resultado: se elimina la componente azul del fondo → cambio de color.
+    </p>
+    <p class="" data-start="1418" data-end="1459">Puedes modificar varios valores a la vez:</p>
+    <p class="" data-start="1461" data-end="1569"><code data-start="1461"
+            data-end="1569">ros2 run turtlesim turtlesim_node --ros-args -p background_r:=200 -p background_g:=100 -p background_b:=50</code>
+    </p>
+    <hr class="" data-start="1571" data-end="1574">
+    <p class="" data-start="1576" data-end="1606"><strong data-start="1576" data-end="1606">🔹 ¿Por qué funciona
+            esto?</strong></p>
+    <ul data-start="1608" data-end="1879">
+        <li class="" data-start="1608" data-end="1698">
+            <p class="" data-start="1610" data-end="1698">Los parámetros están <strong data-start="1631"
+                    data-end="1669">declarados con valores por defecto</strong> en el código de <code data-start="1686"
+                    data-end="1697">turtlesim</code>.</p>
+        </li>
+        <li class="" data-start="1699" data-end="1813">
+            <p class="" data-start="1701" data-end="1813">Al usar <code data-start="1709"
+                    data-end="1724">--ros-args -p</code>, se sobrescriben esos valores en tiempo de ejecución <strong
+                    data-start="1778" data-end="1812">sin modificar el código fuente</strong>.</p>
+        </li>
+        <li class="" data-start="1814" data-end="1879">
+            <p class="" data-start="1816" data-end="1879">Es una manera muy práctica de personalizar nodos
+                reutilizables.</p>
+        </li>
+    </ul>
+    <hr class="" data-start="1881" data-end="1884">
+    <p class="" data-start="1886" data-end="1933"><strong data-start="1886" data-end="1933">🔹 Usar servicios para
+            consultar parámetros</strong></p>
+    <p class="" data-start="1935" data-end="1961">Listar servicios del nodo:</p>
+    <p class="" data-start="1963" data-end="1982"><code data-start="1963" data-end="1982">ros2 service list</code></p>
+    <p class="" data-start="1984" data-end="2016">Ejemplo de servicios relevantes:</p>
+    <ul data-start="2018" data-end="2118">
+        <li class="" data-start="2018" data-end="2052">
+            <p class="" data-start="2020" data-end="2052"><code data-start="2020"
+                    data-end="2052">/turtlesim/describe_parameters</code></p>
+        </li>
+        <li class="" data-start="2053" data-end="2087">
+            <p class="" data-start="2055" data-end="2087"><code data-start="2055"
+                    data-end="2087">/turtlesim/get_parameter_types</code></p>
+        </li>
+        <li class="" data-start="2088" data-end="2118">
+            <p class="" data-start="2090" data-end="2118"><code data-start="2090"
+                    data-end="2118">/turtlesim/list_parameters</code></p>
+        </li>
+    </ul>
+    <p class="" data-start="2120" data-end="2148">Obtener tipo de un servicio:</p>
+    <p class="" data-start="2150" data-end="2196"><code data-start="2150"
+            data-end="2196">ros2 service type /turtlesim/list_parameters</code></p>
+    <p class="" data-start="2198" data-end="2246">Resultado:<br data-start="2208" data-end="2211"><code
+            data-start="2211" data-end="2246">rcl_interfaces/srv/ListParameters</code></p>
+    <p class="" data-start="2248" data-end="2277">Ver contenido de la interfaz:</p>
+    <p class="" data-start="2279" data-end="2334"><code data-start="2279"
+            data-end="2334">ros2 interface show rcl_interfaces/srv/ListParameters</code></p>
+    <hr class="" data-start="2336" data-end="2339">
+    <p class="" data-start="2341" data-end="2391"><strong data-start="2341" data-end="2391">🔹 Llamar a un servicio para
+            listar parámetros</strong></p>
+    <p class="" data-start="2393" data-end="2401">Comando:</p>
+    <p class="" data-start="2403" data-end="2488"><code data-start="2403"
+            data-end="2488">ros2 service call /turtlesim/list_parameters rcl_interfaces/srv/ListParameters "{}"</code>
+    </p>
+    <p class="" data-start="2490" data-end="2500">Resultado:</p>
+    <ul data-start="2502" data-end="2593">
+        <li class="" data-start="2502" data-end="2593">
+            <p class="" data-start="2504" data-end="2593">Devuelve una lista con todos los nombres de parámetros
+                declarados en el nodo <code data-start="2581" data-end="2593">/turtlesim</code></p>
+        </li>
+    </ul>
+    <hr class="" data-start="2595" data-end="2598">
+    <p class="" data-start="2600" data-end="2655"><strong data-start="2600" data-end="2655">🔹 ¿Cuándo usar servicios en
+            lugar de comandos CLI?</strong></p>
+    <ul data-start="2657" data-end="2987">
+        <li class="" data-start="2657" data-end="2749">
+            <p class="" data-start="2659" data-end="2749">La CLI (<code data-start="2667"
+                    data-end="2684">ros2 param list</code>, <code data-start="2686"
+                    data-end="2702">ros2 param get</code>, etc.) es más fácil para pruebas interactivas.</p>
+        </li>
+        <li class="" data-start="2750" data-end="2912">
+            <p class="" data-start="2752" data-end="2846">Los <strong data-start="2756"
+                    data-end="2769">servicios</strong> son útiles cuando quieres <strong data-start="2796"
+                    data-end="2827">interactuar desde otro nodo</strong> programáticamente.</p>
+            <ul data-start="2849" data-end="2912">
+                <li class="" data-start="2849" data-end="2912">
+                    <p class="" data-start="2851" data-end="2912">Ejemplo: un nodo cliente que obtiene parámetros de
+                        otro nodo.</p>
+                </li>
+            </ul>
+        </li>
+        <li class="" data-start="2913" data-end="2987">
+            <p class="" data-start="2915" data-end="2987">No es algo común para principiantes, pero es bueno saber que
+                es posible.</p>
+        </li>
+    </ul>
+    <hr class="" data-start="2989" data-end="2992">
+    <p class="" data-start="2994" data-end="3028">💾 <strong data-start="2997" data-end="3028">Código trabajado /
+            recursos</strong></p>
+    <ul data-start="3030" data-end="3247">
+        <li class="" data-start="3030" data-end="3088">
+            <p class="" data-start="3032" data-end="3088">Nodo usado: <code data-start="3044"
+                    data-end="3060">turtlesim_node</code> (ya implementado por ROS 2)</p>
+        </li>
+        <li class="" data-start="3089" data-end="3247">
+            <p class="" data-start="3091" data-end="3115">Herramientas utilizadas:</p>
+            <ul data-start="3118" data-end="3247">
+                <li class="" data-start="3118" data-end="3137">
+                    <p class="" data-start="3120" data-end="3137"><code data-start="3120"
+                            data-end="3137">ros2 param list</code></p>
+                </li>
+                <li class="" data-start="3140" data-end="3158">
+                    <p class="" data-start="3142" data-end="3158"><code data-start="3142"
+                            data-end="3158">ros2 param get</code></p>
+                </li>
+                <li class="" data-start="3161" data-end="3195">
+                    <p class="" data-start="3163" data-end="3195"><code data-start="3163"
+                            data-end="3195">ros2 run ... --ros-args -p ...</code></p>
+                </li>
+                <li class="" data-start="3198" data-end="3219">
+                    <p class="" data-start="3200" data-end="3219"><code data-start="3200"
+                            data-end="3219">ros2 service list</code></p>
+                </li>
+                <li class="" data-start="3222" data-end="3247">
+                    <p class="" data-start="3224" data-end="3247"><code data-start="3224"
+                            data-end="3247">ros2 service call ...</code></p>
+                </li>
+            </ul>
+        </li>
+    </ul>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js">
+    </script>
+
+</body>
+
+</html>

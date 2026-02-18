@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>7.4. Uso de archivos YAML para configurar parámetros en ROS 2 - ROS 2 Jazzy Notes</title>
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <style>
+        .back-link {
+            margin-bottom: 2rem;
+        }
+    </style>
+
+</head>
+
+<body class="container py-4">
+
+    <button class="btn btn-secondary back-link" onclick="history.back()">← Volver al inicio</button>
+
+    <h1 class="mb-4">7.4. Uso de archivos YAML para configurar parámetros en ROS 2</h1>
+
+    <p class="lead">Aprenderás a usar archivos YAML para configurar parámetros de forma centralizada y reutilizable en
+        tus nodos ROS 2.</p>
+
+    <p class="" data-start="547" data-end="571">📘 <strong data-start="550" data-end="571">Notas de la clase</strong>
+    </p>
+    <p class="" data-start="573" data-end="615"><strong data-start="573" data-end="615">🔹 ¿Por qué usar YAML para
+            parámetros?</strong></p>
+    <ul data-start="617" data-end="824">
+        <li class="" data-start="617" data-end="673">
+            <p class="" data-start="619" data-end="673">Evita escribir múltiples <code data-start="644"
+                    data-end="648">-p</code> en la línea de comandos.</p>
+        </li>
+        <li class="" data-start="674" data-end="747">
+            <p class="" data-start="676" data-end="747">Permite mantener configuraciones reutilizables para distintos
+                entornos.</p>
+        </li>
+        <li class="" data-start="748" data-end="824">
+            <p class="" data-start="750" data-end="824">Puedes definir parámetros para <strong data-start="781"
+                    data-end="797">varios nodos</strong> dentro de un solo archivo.</p>
+        </li>
+    </ul>
+    <hr class="" data-start="826" data-end="829">
+    <p class="" data-start="831" data-end="867"><strong data-start="831" data-end="867">🔹 Estructura de un archivo
+            YAML</strong></p>
+    <ol data-start="869" data-end="1063">
+        <li class="" data-start="869" data-end="960">
+            <p class="" data-start="872" data-end="960">Crea una carpeta para tus configuraciones si lo deseas
+                (opcional):<br data-start="938" data-end="941"><code data-start="944"
+                    data-end="960">~/yaml_params/</code></p>
+        </li>
+        <li class="" data-start="962" data-end="1029">
+            <p class="" data-start="965" data-end="1029">Crea un archivo con extensión <code data-start="995"
+                    data-end="1002">.yaml</code>:<br data-start="1003" data-end="1006"><code data-start="1009"
+                    data-end="1029">number_params.yaml</code></p>
+        </li>
+        <li class="" data-start="1031" data-end="1063">
+            <p class="" data-start="1034" data-end="1063">Contenido básico del archivo:</p>
+        </li>
+    </ol>
+    <p class="" data-start="1065" data-end="1123">Nombre del nodo → <code data-start="1083"
+            data-end="1100">ros__parameters</code> → lista de parámetros:</p>
+    <p class="" data-start="1125" data-end="1133">Ejemplo:</p>
+    <p class="" data-start="1135" data-end="1271"><code data-start="1135" data-end="1154">number_publisher:</code><br
+            data-start="1154" data-end="1157">  <code data-start="1169" data-end="1187">ros__parameters:</code><br
+            data-start="1187" data-end="1190">    <code data-start="1214" data-end="1225">number: 5</code><br
+            data-start="1225" data-end="1228">    <code data-start="1252" data-end="1271">timer_period: 0.7</code></p>
+    <p class="" data-start="1273" data-end="1296"><strong data-start="1273" data-end="1296">Reglas importantes:</strong>
+    </p>
+    <ul data-start="1297" data-end="1497">
+        <li class="" data-start="1297" data-end="1343">
+            <p class="" data-start="1299" data-end="1343">Usa <strong data-start="1303" data-end="1317">2
+                    espacios</strong> por nivel de indentación.</p>
+        </li>
+        <li class="" data-start="1344" data-end="1411">
+            <p class="" data-start="1346" data-end="1411">Escribe <code data-start="1354"
+                    data-end="1371">ros__parameters</code> exactamente así (con doble guion bajo).</p>
+        </li>
+        <li class="" data-start="1412" data-end="1497">
+            <p class="" data-start="1414" data-end="1497">Los nombres deben coincidir con los <strong data-start="1450"
+                    data-end="1496">nombres internos de los nodos y parámetros</strong>.</p>
+        </li>
+    </ul>
+    <hr class="" data-start="1499" data-end="1502">
+    <p class="" data-start="1504" data-end="1544"><strong data-start="1504" data-end="1544">🔹 Ejecutar un nodo con
+            archivo YAML</strong></p>
+    <p class="" data-start="1546" data-end="1600">Usa la opción <code data-start="1560"
+            data-end="1572">--ros-args</code> seguida de <code data-start="1584" data-end="1599">--params-file</code>:
+    </p>
+    <p class="" data-start="1602" data-end="1697"><code data-start="1602"
+            data-end="1697">ros2 run my_py_pkg number_publisher --ros-args --params-file ~/yaml_params/number_params.yaml</code>
+    </p>
+    <p class="" data-start="1699" data-end="1733">Puedes verificar el resultado con:</p>
+    <p class="" data-start="1735" data-end="1786"><code data-start="1735"
+            data-end="1760">ros2 topic echo /number</code><br data-start="1760" data-end="1763"><code data-start="1763"
+            data-end="1786">ros2 topic hz /number</code></p>
+    <hr class="" data-start="1788" data-end="1791">
+    <p class="" data-start="1793" data-end="1842"><strong data-start="1793" data-end="1842">🔹 Configurar múltiples
+            nodos en un solo YAML</strong></p>
+    <p class="" data-start="1844" data-end="1895">Puedes definir varias configuraciones de nodos así:</p>
+    <p class="" data-start="1897" data-end="2035"><code data-start="1897" data-end="1918">number_publisher_1:</code><br
+            data-start="1918" data-end="1921">  <code data-start="1933" data-end="1951">ros__parameters:</code><br
+            data-start="1951" data-end="1954">    <code data-start="1978" data-end="1989">number: 5</code><br
+            data-start="1989" data-end="1992">    <code data-start="2016" data-end="2035">timer_period: 0.7</code></p>
+    <p class="" data-start="2037" data-end="2175"><code data-start="2037" data-end="2058">number_publisher_2:</code><br
+            data-start="2058" data-end="2061">  <code data-start="2073" data-end="2091">ros__parameters:</code><br
+            data-start="2091" data-end="2094">    <code data-start="2118" data-end="2129">number: 3</code><br
+            data-start="2129" data-end="2132">    <code data-start="2156" data-end="2175">timer_period: 1.0</code></p>
+    <hr class="" data-start="2177" data-end="2180">
+    <p class="" data-start="2182" data-end="2223"><strong data-start="2182" data-end="2223">🔹 Hacer coincidir el nombre
+            del nodo</strong></p>
+    <p class="" data-start="2225" data-end="2338">Para que un nodo use la configuración correcta, debe <strong
+            data-start="2278" data-end="2303">coincidir exactamente</strong> con el nombre definido en el YAML.</p>
+    <p class="" data-start="2340" data-end="2364">Ejecutar el primer nodo:</p>
+    <p class="" data-start="2366" data-end="2491"><code data-start="2366"
+            data-end="2491">ros2 run my_py_pkg number_publisher --ros-args -r __node:=number_publisher_1 --params-file ~/yaml_params/number_params.yaml</code>
+    </p>
+    <p class="" data-start="2493" data-end="2518">Ejecutar el segundo nodo:</p>
+    <p class="" data-start="2520" data-end="2645"><code data-start="2520"
+            data-end="2645">ros2 run my_py_pkg number_publisher --ros-args -r __node:=number_publisher_2 --params-file ~/yaml_params/number_params.yaml</code>
+    </p>
+    <hr class="" data-start="2647" data-end="2650">
+    <p class="" data-start="2652" data-end="2696"><strong data-start="2652" data-end="2696">🔹 ¿Qué sucede si el nombre
+            no coincide?</strong></p>
+    <ul data-start="2698" data-end="2934">
+        <li class="" data-start="2698" data-end="2934">
+            <p class="" data-start="2700" data-end="2759">Si el nodo no se llama como una de las entradas en el YAML:
+            </p>
+            <ul data-start="2762" data-end="2934">
+                <li class="" data-start="2762" data-end="2797">
+                    <p class="" data-start="2764" data-end="2797">Los parámetros <strong data-start="2779"
+                            data-end="2796">no se aplican</strong>.</p>
+                </li>
+                <li class="" data-start="2800" data-end="2867">
+                    <p class="" data-start="2802" data-end="2867">El nodo usará los <strong data-start="2820"
+                            data-end="2843">valores por defecto</strong> definidos en el código.</p>
+                </li>
+                <li class="" data-start="2870" data-end="2934">
+                    <p class="" data-start="2872" data-end="2934"><code data-start="2872"
+                            data-end="2889">ros2 param list</code> no mostrará los parámetros desde el archivo.</p>
+                </li>
+            </ul>
+        </li>
+    </ul>
+    <hr class="" data-start="2936" data-end="2939">
+    <p class="" data-start="2941" data-end="2972"><strong data-start="2941" data-end="2972">🔹 Ventajas del uso de
+            YAML</strong></p>
+    <ul data-start="2974" data-end="3213">
+        <li class="" data-start="2974" data-end="3102">
+            <p class="" data-start="2976" data-end="3031">Puedes tener múltiples archivos YAML según el contexto:</p>
+            <ul data-start="3034" data-end="3102">
+                <li class="" data-start="3034" data-end="3102">
+                    <p class="" data-start="3036" data-end="3102">Ejemplo: <code data-start="3045"
+                            data-end="3063">config_test.yaml</code>, <code data-start="3065"
+                            data-end="3082">config_sim.yaml</code>, <code data-start="3084"
+                            data-end="3102">config_real.yaml</code></p>
+                </li>
+            </ul>
+        </li>
+        <li class="" data-start="3103" data-end="3163">
+            <p class="" data-start="3105" data-end="3163">Es compatible con <code data-start="3123"
+                    data-end="3136">ros2 launch</code> (lo veremos más adelante).</p>
+        </li>
+        <li class="" data-start="3164" data-end="3213">
+            <p class="" data-start="3166" data-end="3213">Muy útil en simulación o pruebas automatizadas.</p>
+        </li>
+    </ul>
+    <hr class="" data-start="3215" data-end="3218">
+    <p class="" data-start="3220" data-end="3254">💾 <strong data-start="3223" data-end="3254">Código trabajado /
+            recursos</strong></p>
+    <ul data-start="3256" data-end="3451">
+        <li class="" data-start="3256" data-end="3310">
+            <p class="" data-start="3258" data-end="3310">Nodo: <code data-start="3264"
+                    data-end="3285">number_publisher.py</code> o <code data-start="3288"
+                    data-end="3310">number_publisher.cpp</code></p>
+        </li>
+        <li class="" data-start="3311" data-end="3370">
+            <p class="" data-start="3313" data-end="3370">Archivo de parámetros: <code data-start="3336"
+                    data-end="3370">~/yaml_params/number_params.yaml</code></p>
+        </li>
+        <li class="" data-start="3371" data-end="3451">
+            <p class="" data-start="3373" data-end="3393">Comandos utilizados:</p>
+            <ul data-start="3396" data-end="3451">
+                <li class="" data-start="3396" data-end="3410">
+                    <p class="" data-start="3398" data-end="3410"><code data-start="3398"
+                            data-end="3410">--ros-args</code></p>
+                </li>
+                <li class="" data-start="3413" data-end="3430">
+                    <p class="" data-start="3415" data-end="3430"><code data-start="3415"
+                            data-end="3430">--params-file</code></p>
+                </li>
+                <li class="" data-start="3433" data-end="3451">
+                    <p class="" data-start="3435" data-end="3451"><code data-start="3435"
+                            data-end="3451">-r __node:=...</code></p>
+                </li>
+            </ul>
+        </li>
+    </ul>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js">
+    </script>
+
+</body>
+
+</html>

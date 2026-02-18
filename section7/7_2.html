@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>7.2. Uso de parámetros en nodos ROS 2 con C++ - ROS 2 Jazzy Notes</title>
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <style>
+        .back-link {
+            margin-bottom: 2rem;
+        }
+    </style>
+
+</head>
+
+<body class="container py-4">
+
+    <button class="btn btn-secondary back-link" onclick="history.back()">← Volver al inicio</button>
+
+    <h1 class="mb-4">7.2. Uso de parámetros en nodos ROS 2 con C++</h1>
+
+    <p class="lead">Aprenderás cómo declarar, leer y modificar parámetros en nodos C++ de ROS 2 durante la ejecución.
+    </p>
+
+    <p class="" data-start="507" data-end="531">📘 <strong data-start="510" data-end="531">Notas de la clase</strong>
+    </p>
+    <p class="" data-start="533" data-end="561"><strong data-start="533" data-end="561">🔹 Nodo base
+            reutilizado</strong></p>
+    <ul data-start="563" data-end="672">
+        <li class="" data-start="563" data-end="595">
+            <p class="" data-start="565" data-end="595">Nodo: <code data-start="571"
+                    data-end="593">number_publisher.cpp</code></p>
+        </li>
+        <li class="" data-start="596" data-end="672">
+            <p class="" data-start="598" data-end="672">Publica el número <code data-start="616" data-end="619">2</code>
+                cada <code data-start="625" data-end="628">1</code> segundo usando un <code data-start="647"
+                    data-end="658">publisher</code> y un <code data-start="664" data-end="671">timer</code>.</p>
+        </li>
+    </ul>
+    <hr class="" data-start="674" data-end="677">
+    <p class="" data-start="679" data-end="711"><strong data-start="679" data-end="711">🔹 Declaración de
+            parámetros</strong></p>
+    <p class="" data-start="713" data-end="753">Dentro del constructor de la clase nodo:</p>
+    <ul data-start="755" data-end="945">
+        <li class="" data-start="755" data-end="841">
+            <p class="" data-start="757" data-end="841">Declarar el parámetro <code data-start="779"
+                    data-end="787">number</code> (entero):<br data-start="797" data-end="800"><code data-start="802"
+                    data-end="841">this-&gt;declare_parameter("number", 2);</code></p>
+        </li>
+        <li class="" data-start="843" data-end="945">
+            <p class="" data-start="845" data-end="945">Declarar el parámetro <code data-start="867"
+                    data-end="881">timer_period</code> (flotante):<br data-start="893" data-end="896"><code
+                    data-start="898" data-end="945">this-&gt;declare_parameter("timer_period", 1.0);</code></p>
+        </li>
+    </ul>
+    <p class="" data-start="947" data-end="952">Esto:</p>
+    <ul data-start="953" data-end="1047">
+        <li class="" data-start="953" data-end="989">
+            <p class="" data-start="955" data-end="989">Crea el parámetro dentro del nodo.</p>
+        </li>
+        <li class="" data-start="990" data-end="1047">
+            <p class="" data-start="992" data-end="1047">Establece el tipo de dato (según el valor por defecto).</p>
+        </li>
+    </ul>
+    <hr class="" data-start="1049" data-end="1052">
+    <p class="" data-start="1054" data-end="1091"><strong data-start="1054" data-end="1091">🔹 Obtener el valor del
+            parámetro</strong></p>
+    <ul data-start="1093" data-end="1298">
+        <li class="" data-start="1093" data-end="1181">
+            <p class="" data-start="1095" data-end="1181">Obtener el parámetro <code data-start="1116"
+                    data-end="1124">number</code>:<br data-start="1125" data-end="1128"><code data-start="1130"
+                    data-end="1181">number_ = this-&gt;get_parameter("number").as_int();</code></p>
+        </li>
+        <li class="" data-start="1183" data-end="1298">
+            <p class="" data-start="1185" data-end="1298">Obtener el parámetro <code data-start="1206"
+                    data-end="1220">timer_period</code>:<br data-start="1221" data-end="1224"><code data-start="1226"
+                    data-end="1298">double timer_period = this-&gt;get_parameter("timer_period").as_double();</code></p>
+        </li>
+    </ul>
+    <p class="" data-start="1300" data-end="1399">Nota: en C++ debes usar <code data-start="1324"
+            data-end="1335">.as_int()</code> o <code data-start="1338" data-end="1352">.as_double()</code> para obtener
+        el valor según el tipo declarado.</p>
+    <hr class="" data-start="1401" data-end="1404">
+    <p class="" data-start="1406" data-end="1440"><strong data-start="1406" data-end="1440">🔹 Uso del valor del
+            parámetro</strong></p>
+    <ul data-start="1442" data-end="1614">
+        <li class="" data-start="1442" data-end="1485">
+            <p class="" data-start="1444" data-end="1485"><code data-start="1444" data-end="1453">number_</code> se usa
+                para publicar el número.</p>
+        </li>
+        <li class="" data-start="1486" data-end="1614">
+            <p class="" data-start="1488" data-end="1614"><code data-start="1488" data-end="1502">timer_period</code> se
+                usa al crear el timer:<br data-start="1528" data-end="1531"><code data-start="1533"
+                    data-end="1614">this-&gt;create_wall_timer(std::chrono::duration&lt;double&gt;(timer_period), callback);</code>
+            </p>
+        </li>
+    </ul>
+    <hr class="" data-start="1616" data-end="1619">
+    <p class="" data-start="1621" data-end="1684"><strong data-start="1621" data-end="1684">🔹 Ejecución del nodo con
+            parámetros en tiempo de ejecución</strong></p>
+    <p class="" data-start="1686" data-end="1694">Ejemplo:</p>
+    <p class="" data-start="1696" data-end="1780"><code data-start="1696"
+            data-end="1780">ros2 run my_cpp_pkg number_publisher --ros-args -p number:=20 -p timer_period:=3.4</code>
+    </p>
+    <ul data-start="1782" data-end="1829">
+        <li class="" data-start="1782" data-end="1829">
+            <p class="" data-start="1784" data-end="1829">Publicará el número <code data-start="1804"
+                    data-end="1808">20</code> cada <code data-start="1814" data-end="1819">3.4</code> segundos.</p>
+        </li>
+    </ul>
+    <hr class="" data-start="1831" data-end="1834">
+    <p class="" data-start="1836" data-end="1877"><strong data-start="1836" data-end="1877">🔹 Comprobación de
+            parámetros activos</strong></p>
+    <p class="" data-start="1879" data-end="1916">Ver parámetros del nodo en ejecución:</p>
+    <p class="" data-start="1918" data-end="1935"><code data-start="1918" data-end="1935">ros2 param list</code></p>
+    <p class="" data-start="1937" data-end="1964">Ejemplo de salida esperada:</p>
+    <ul data-start="1966" data-end="2023">
+        <li class="" data-start="1966" data-end="2023">
+            <p class="" data-start="1968" data-end="1989"><code data-start="1968"
+                    data-end="1987">/number_publisher</code></p>
+            <ul data-start="1992" data-end="2023">
+                <li class="" data-start="1992" data-end="2004">
+                    <p class="" data-start="1994" data-end="2004"><code data-start="1994" data-end="2002">number</code>
+                    </p>
+                </li>
+                <li class="" data-start="2007" data-end="2023">
+                    <p class="" data-start="2009" data-end="2023"><code data-start="2009"
+                            data-end="2023">timer_period</code></p>
+                </li>
+            </ul>
+        </li>
+    </ul>
+    <hr class="" data-start="2025" data-end="2028">
+    <p class="" data-start="2030" data-end="2089"><strong data-start="2030" data-end="2089">🔹 Comportamiento al omitir
+            o escribir mal un parámetro</strong></p>
+    <ul data-start="2091" data-end="2356">
+        <li class="" data-start="2091" data-end="2166">
+            <p class="" data-start="2093" data-end="2166">Si <strong data-start="2096" data-end="2130">no se proporciona
+                    un parámetro</strong>, se usará su <strong data-start="2144" data-end="2165">valor por
+                    defecto</strong>.</p>
+        </li>
+        <li class="" data-start="2167" data-end="2275">
+            <p class="" data-start="2169" data-end="2275">Si se <strong data-start="2175" data-end="2216">proporciona un
+                    parámetro no declarado</strong>, será <strong data-start="2223" data-end="2235">ignorado</strong>
+                (no aparece en la lista de parámetros).</p>
+        </li>
+        <li class="" data-start="2276" data-end="2356">
+            <p class="" data-start="2278" data-end="2356">Si se <strong data-start="2284" data-end="2318">proporciona un
+                    tipo incorrecto</strong>, ROS 2 mostrará un <strong data-start="2338" data-end="2355">error de
+                    tipo</strong>.</p>
+        </li>
+    </ul>
+    <p class="" data-start="2358" data-end="2516">Ejemplo de error:<br data-start="2375" data-end="2378">Si declaras
+        <code data-start="2390" data-end="2398">number</code> como <code data-start="2404" data-end="2409">int</code> y
+        usas <code data-start="2417" data-end="2433">-p number:=3.5</code>, obtendrás:<br data-start="2445"
+            data-end="2448"><code data-start="2448"
+            data-end="2516">Invalid parameter: parameter of type double, expected type integer</code></p>
+    <hr class="" data-start="2518" data-end="2521">
+    <p class="" data-start="2523" data-end="2546"><strong data-start="2523" data-end="2546">🔹 Buenas prácticas</strong>
+    </p>
+    <ul data-start="2548" data-end="2765">
+        <li class="" data-start="2548" data-end="2617">
+            <p class="" data-start="2550" data-end="2617">Declarar todos los parámetros necesarios al inicio del
+                constructor.</p>
+        </li>
+        <li class="" data-start="2618" data-end="2697">
+            <p class="" data-start="2620" data-end="2697">Obtener y usar sus valores de forma segura (<code
+                    data-start="2664" data-end="2674">as_int()</code>, <code data-start="2676"
+                    data-end="2689">as_double()</code>, etc.).</p>
+        </li>
+        <li class="" data-start="2698" data-end="2765">
+            <p class="" data-start="2700" data-end="2765">Verificar los nombres y tipos al pasarlos en tiempo de
+                ejecución.</p>
+        </li>
+    </ul>
+    <hr class="" data-start="2767" data-end="2770">
+    <p class="" data-start="2772" data-end="2806">💾 <strong data-start="2775" data-end="2806">Código trabajado /
+            recursos</strong></p>
+    <ul data-start="2808" data-end="2936">
+        <li class="" data-start="2808" data-end="2852">
+            <p class="" data-start="2810" data-end="2852">Nodo reutilizado: <code data-start="2828"
+                    data-end="2850">number_publisher.cpp</code></p>
+        </li>
+        <li class="" data-start="2853" data-end="2886">
+            <p class="" data-start="2855" data-end="2886">Paquete ejemplo: <code data-start="2872"
+                    data-end="2884">my_cpp_pkg</code></p>
+        </li>
+        <li class="" data-start="2887" data-end="2936">
+            <p class="" data-start="2889" data-end="2936">Parámetros utilizados: <code data-start="2912"
+                    data-end="2920">number</code>, <code data-start="2922" data-end="2936">timer_period</code></p>
+        </li>
+    </ul>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js">
+    </script>
+
+</body>
+
+</html>

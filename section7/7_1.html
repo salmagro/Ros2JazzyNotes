@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>7.1. Uso de parámetros en nodos ROS 2 con Python - ROS 2 Jazzy Notes</title>
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <style>
+        .back-link {
+            margin-bottom: 2rem;
+        }
+    </style>
+
+</head>
+
+<body class="container py-4">
+
+    <button class="btn btn-secondary back-link" onclick="history.back()">← Volver al inicio</button>
+
+    <h1 class="mb-4">7.1. Uso de parámetros en nodos ROS 2 con Python</h1>
+
+    <p class="lead">Aprenderás cómo declarar, leer y modificar parámetros en nodos Python de ROS 2 durante la ejecución.
+    </p>
+
+    <p class="" data-start="488" data-end="512">📘 <strong data-start="491" data-end="512">Notas de la clase</strong>
+    </p>
+    <p class="" data-start="514" data-end="540"><strong data-start="514" data-end="540">🔹 Nodo base utilizado</strong>
+    </p>
+    <ul data-start="542" data-end="730">
+        <li class="" data-start="542" data-end="647">
+            <p class="" data-start="544" data-end="647">El nodo reutilizado es <code data-start="567"
+                    data-end="588">number_publisher.py</code>, que originalmente publica el número <code
+                    data-start="626" data-end="629">2</code> cada <code data-start="635" data-end="638">1</code>
+                segundo.</p>
+        </li>
+        <li class="" data-start="648" data-end="730">
+            <p class="" data-start="650" data-end="730">El objetivo ahora es reemplazar esos valores fijos por
+                parámetros configurables.</p>
+        </li>
+    </ul>
+    <hr class="" data-start="732" data-end="735">
+    <p class="" data-start="737" data-end="769"><strong data-start="737" data-end="769">🔹 Declaración de
+            parámetros</strong></p>
+    <p class="" data-start="771" data-end="890">Dentro del constructor del nodo (<code data-start="804"
+            data-end="814">__init__</code>), antes de crear el publisher o el timer, se agregan las siguientes líneas:
+    </p>
+    <ul data-start="892" data-end="1076">
+        <li class="" data-start="892" data-end="975">
+            <p class="" data-start="894" data-end="934">Declarar el parámetro <code data-start="916"
+                    data-end="924">number</code> (entero):</p>
+            <p class="" data-start="938" data-end="975"><code data-start="938"
+                    data-end="975">self.declare_parameter("number", 2)</code></p>
+        </li>
+        <li class="" data-start="977" data-end="1076">
+            <p class="" data-start="979" data-end="1027">Declarar el parámetro <code data-start="1001"
+                    data-end="1015">timer_period</code> (flotante):</p>
+            <p class="" data-start="1031" data-end="1076"><code data-start="1031"
+                    data-end="1076">self.declare_parameter("timer_period", 1.0)</code></p>
+        </li>
+    </ul>
+    <p class="" data-start="1078" data-end="1083">Esto:</p>
+    <ul data-start="1084" data-end="1180">
+        <li class="" data-start="1084" data-end="1124">
+            <p class="" data-start="1086" data-end="1124">Registra el parámetro dentro del nodo.</p>
+        </li>
+        <li class="" data-start="1125" data-end="1180">
+            <p class="" data-start="1127" data-end="1180">Establece el tipo de dato según el valor por defecto.</p>
+        </li>
+    </ul>
+    <hr class="" data-start="1182" data-end="1185">
+    <p class="" data-start="1187" data-end="1228"><strong data-start="1187" data-end="1228">🔹 Obtención de valores de
+            parámetros</strong></p>
+    <p class="" data-start="1230" data-end="1279">Después de declarar, hay que obtener sus valores:</p>
+    <ul data-start="1281" data-end="1493">
+        <li class="" data-start="1281" data-end="1377">
+            <p class="" data-start="1283" data-end="1323">Obtener el valor del parámetro <code data-start="1314"
+                    data-end="1322">number</code>:</p>
+            <p class="" data-start="1327" data-end="1377"><code data-start="1327"
+                    data-end="1377">self.number = self.get_parameter("number").value</code></p>
+        </li>
+        <li class="" data-start="1379" data-end="1493">
+            <p class="" data-start="1381" data-end="1427">Obtener el valor del parámetro <code data-start="1412"
+                    data-end="1426">timer_period</code>:</p>
+            <p class="" data-start="1431" data-end="1493"><code data-start="1431"
+                    data-end="1493">self.timer_period = self.get_parameter("timer_period").value</code></p>
+        </li>
+    </ul>
+    <p class="" data-start="1495" data-end="1569">Nota: <code data-start="1501" data-end="1509">.value</code> es un
+        atributo, <strong data-start="1526" data-end="1532">no</strong> una función → <strong data-start="1547"
+            data-end="1569">no uses paréntesis</strong></p>
+    <hr class="" data-start="1571" data-end="1574">
+    <p class="" data-start="1576" data-end="1597"><strong data-start="1576" data-end="1597">🔹 Uso en el nodo</strong>
+    </p>
+    <ul data-start="1599" data-end="1758">
+        <li class="" data-start="1599" data-end="1647">
+            <p class="" data-start="1601" data-end="1647"><code data-start="1601" data-end="1614">self.number</code> se
+                usa como el valor a publicar.</p>
+        </li>
+        <li class="" data-start="1648" data-end="1758">
+            <p class="" data-start="1650" data-end="1695"><code data-start="1650"
+                    data-end="1669">self.timer_period</code> se usa al crear el timer:</p>
+            <p class="" data-start="1699" data-end="1758"><code data-start="1699"
+                    data-end="1758">self.create_timer(self.timer_period, self.timer_callback)</code></p>
+        </li>
+    </ul>
+    <hr class="" data-start="1760" data-end="1763">
+    <p class="" data-start="1765" data-end="1819"><strong data-start="1765" data-end="1819">🔹 Ejecución con parámetros
+            en tiempo de ejecución</strong></p>
+    <p class="" data-start="1821" data-end="1875">Ejemplo 1: ejecutar el nodo con valores personalizados</p>
+    <p class="" data-start="1877" data-end="1959"><code data-start="1877"
+            data-end="1959">ros2 run my_py_pkg number_publisher --ros-args -p number:=3 -p timer_period:=0.5</code></p>
+    <ul data-start="1961" data-end="2026">
+        <li class="" data-start="1961" data-end="1991">
+            <p class="" data-start="1963" data-end="1991">El número publicado será <code data-start="1988"
+                    data-end="1991">3</code></p>
+        </li>
+        <li class="" data-start="1992" data-end="2026">
+            <p class="" data-start="1994" data-end="2026">Se publicará cada <code data-start="2012"
+                    data-end="2017">0.5</code> segundos</p>
+        </li>
+    </ul>
+    <p class="" data-start="2028" data-end="2073">Ejemplo 2: solo cambiar uno de los parámetros</p>
+    <p class="" data-start="2075" data-end="2136"><code data-start="2075"
+            data-end="2136">ros2 run my_py_pkg number_publisher --ros-args -p number:=7</code></p>
+    <ul data-start="2138" data-end="2212">
+        <li class="" data-start="2138" data-end="2212">
+            <p class="" data-start="2140" data-end="2212">Se publicará <code data-start="2153" data-end="2156">7</code>
+                cada <code data-start="2162" data-end="2165">1</code> segundo (valor por defecto del <code
+                    data-start="2197" data-end="2211">timer_period</code>)</p>
+        </li>
+    </ul>
+    <hr class="" data-start="2214" data-end="2217">
+    <p class="" data-start="2219" data-end="2260"><strong data-start="2219" data-end="2260">🔹 Comprobación de
+            parámetros activos</strong></p>
+    <p class="" data-start="2262" data-end="2309">Para ver los parámetros registrados en un nodo:</p>
+    <p class="" data-start="2311" data-end="2328"><code data-start="2311" data-end="2328">ros2 param list</code></p>
+    <p class="" data-start="2330" data-end="2348">Ejemplo de salida:</p>
+    <ul data-start="2350" data-end="2457">
+        <li class="" data-start="2350" data-end="2457">
+            <p class="" data-start="2352" data-end="2373"><code data-start="2352"
+                    data-end="2371">/number_publisher</code></p>
+            <ul data-start="2376" data-end="2457">
+                <li class="" data-start="2376" data-end="2386">
+                    <p class="" data-start="2378" data-end="2386"><code data-start="2378" data-end="2386">number</code>
+                    </p>
+                </li>
+                <li class="" data-start="2389" data-end="2405">
+                    <p class="" data-start="2391" data-end="2405"><code data-start="2391"
+                            data-end="2405">timer_period</code></p>
+                </li>
+                <li class="" data-start="2408" data-end="2438">
+                    <p class="" data-start="2410" data-end="2438"><code data-start="2410"
+                            data-end="2438">_parameter_event_publisher</code></p>
+                </li>
+                <li class="" data-start="2441" data-end="2457">
+                    <p class="" data-start="2443" data-end="2457"><code data-start="2443"
+                            data-end="2457">use_sim_time</code></p>
+                </li>
+            </ul>
+        </li>
+    </ul>
+    <hr class="" data-start="2459" data-end="2462">
+    <p class="" data-start="2464" data-end="2490"><strong data-start="2464" data-end="2490">🔹 Validación de
+            tipos</strong></p>
+    <p class="" data-start="2492" data-end="2577">El tipo del parámetro está definido por el valor por defecto al
+        declararlo. Ejemplos:</p>
+    <ul data-start="2579" data-end="2739">
+        <li class="" data-start="2579" data-end="2739">
+            <p class="" data-start="2581" data-end="2607">Si se declaró como entero:</p>
+            <p class="" data-start="2611" data-end="2648"><code data-start="2611"
+                    data-end="2648">self.declare_parameter("number", 2)</code></p>
+            <p class="" data-start="2652" data-end="2661">Entonces:</p>
+            <ul data-start="2665" data-end="2739">
+                <li class="" data-start="2665" data-end="2685">
+                    <p class="" data-start="2667" data-end="2685"><code data-start="2667"
+                            data-end="2681">-p number:=5</code> → ✅</p>
+                </li>
+                <li class="" data-start="2688" data-end="2739">
+                    <p class="" data-start="2690" data-end="2739"><code data-start="2690"
+                            data-end="2706">-p number:=3.5</code> → ❌ Error: se esperaba un entero</p>
+                </li>
+            </ul>
+        </li>
+    </ul>
+    <p class="" data-start="2741" data-end="2765">Mensaje de error típico:</p>
+    <p class="" data-start="2767" data-end="2835"><code data-start="2767"
+            data-end="2835">Invalid parameter: parameter of type double, expected type integer</code></p>
+    <hr class="" data-start="2837" data-end="2840">
+    <p class="" data-start="2842" data-end="2878"><strong data-start="2842" data-end="2878">🔹 Resumen del uso de
+            parámetros</strong></p>
+    <ol data-start="2880" data-end="3114">
+        <li class="" data-start="2880" data-end="2957">
+            <p class="" data-start="2883" data-end="2957">Declarar el parámetro con <code data-start="2909"
+                    data-end="2957">declare_parameter("nombre", valor_por_defecto)</code></p>
+        </li>
+        <li class="" data-start="2958" data-end="3013">
+            <p class="" data-start="2961" data-end="3013">Obtener su valor con <code data-start="2982"
+                    data-end="3013">get_parameter("nombre").value</code></p>
+        </li>
+        <li class="" data-start="3014" data-end="3041">
+            <p class="" data-start="3017" data-end="3041">Usarlo dentro de tu nodo</p>
+        </li>
+        <li class="" data-start="3042" data-end="3114">
+            <p class="" data-start="3045" data-end="3114">En tiempo de ejecución, modificarlo con <code
+                    data-start="3085" data-end="3114">--ros-args -p name:=value</code></p>
+        </li>
+    </ol>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js">
+    </script>
+
+</body>
+
+</html>
