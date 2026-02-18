@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>10.3. Añadir un segundo link y primer joint en URDF - ROS 2 Jazzy Notes</title>
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <style>
+        .back-link {
+            margin-bottom: 2rem;
+        }
+    </style>
+
+</head>
+
+<body class="container py-4">
+
+    <button class="btn btn-secondary back-link" onclick="history.back()">← Volver al inicio</button>
+
+    <h1 class="mb-4">10.3. Añadir un segundo link y primer joint en URDF</h1>
+
+    <p class="lead">Aprenderás a crear múltiples links y conectarlos con joints para construir una cadena cinemática en
+        tu URDF.</p>
+
+    <p class="" data-start="353" data-end="377">📘 <strong data-start="356" data-end="377">Notas de la clase</strong>
+    </p>
+    <h3 class="" data-start="379" data-end="411">🔗 1. Añadir un segundo link</h3>
+    <ul data-start="413" data-end="917">
+        <li class="" data-start="413" data-end="496">
+            <p class="" data-start="415" data-end="496">Añadir un nuevo <code data-start="431"
+                    data-end="439">&lt;link&gt;</code> con su respectivo <code data-start="458"
+                    data-end="468">&lt;visual&gt;</code>, <code data-start="470" data-end="482">&lt;geometry&gt;</code>
+                y <code data-start="485" data-end="495">&lt;origin&gt;</code>.</p>
+        </li>
+        <li class="" data-start="497" data-end="637">
+            <p class="" data-start="499" data-end="555">En lugar de una caja, esta vez se usará un <strong
+                    data-start="542" data-end="554">cilindro</strong>:</p>
+            <p class="" data-start="559" data-end="637"><code data-start="559" data-end="571">&lt;geometry&gt;</code><br
+                    data-start="571" data-end="574"><code data-start="576"
+                    data-end="619">&lt;cylinder radius="0.1" length="0.2"/&gt;</code><br data-start="619"
+                    data-end="622"><code data-start="624" data-end="637">&lt;/geometry&gt;</code></p>
+        </li>
+        <li class="" data-start="639" data-end="729">
+            <p class="" data-start="641" data-end="690">Al igual que antes, se incluye el tag <code data-start="679"
+                    data-end="689">&lt;origin&gt;</code>:</p>
+            <p class="" data-start="694" data-end="729"><code data-start="694"
+                    data-end="729">&lt;origin xyz="0 0 0" rpy="0 0 0"/&gt;</code></p>
+        </li>
+        <li class="" data-start="731" data-end="855">
+            <p class="" data-start="733" data-end="769">También se define un nuevo material:</p>
+            <p class="" data-start="773" data-end="855"><code data-start="773"
+                    data-end="797">&lt;material name="gray"&gt;</code><br data-start="797" data-end="800"><code
+                    data-start="802" data-end="837">&lt;color rgba="0.5 0.5 0.5 1"/&gt;</code><br data-start="837"
+                    data-end="840"><code data-start="842" data-end="855">&lt;/material&gt;</code></p>
+        </li>
+        <li class="" data-start="857" data-end="917">
+            <p class="" data-start="859" data-end="888">Y se referencia en el visual:</p>
+            <p class="" data-start="892" data-end="917"><code data-start="892"
+                    data-end="917">&lt;material name="gray"/&gt;</code></p>
+        </li>
+    </ul>
+    <hr class="" data-start="919" data-end="922">
+    <h3 class="" data-start="924" data-end="976">⚙️ 2. Importancia de los joints y el error común</h3>
+    <ul data-start="978" data-end="1155">
+        <li class="" data-start="978" data-end="1155">
+            <p class="" data-start="980" data-end="1069">Si tienes <strong data-start="990" data-end="1013">dos links
+                    sin joint</strong>, ROS no puede determinar la jerarquía y lanza un error:</p>
+            <p class="" data-start="1073" data-end="1155"><code data-start="1073"
+                    data-end="1155">Error: failed to find root link. Two root links found: base_link and second_link</code>
+            </p>
+        </li>
+    </ul>
+    <hr class="" data-start="1157" data-end="1160">
+    <h3 class="" data-start="1162" data-end="1202">🧩 3. Crear un joint entre los links</h3>
+    <ul data-start="1204" data-end="1527">
+        <li class="" data-start="1204" data-end="1289">
+            <p class="" data-start="1206" data-end="1289">El joint define la relación entre los links, tanto para el
+                modelo como para los TF.</p>
+        </li>
+        <li class="" data-start="1290" data-end="1527">
+            <p class="" data-start="1292" data-end="1340">Se coloca dentro del <code data-start="1313"
+                    data-end="1320">robot</code>, como un nuevo tag:</p>
+            <p class="" data-start="1344" data-end="1527"><code data-start="1344"
+                    data-end="1391">&lt;joint name="base_second_joint" type="fixed"&gt;</code><br data-start="1391"
+                    data-end="1394"><code data-start="1396" data-end="1428">&lt;parent link="base_link"/&gt;</code><br
+                    data-start="1428" data-end="1431"><code data-start="1433"
+                    data-end="1466">&lt;child link="second_link"/&gt;</code><br data-start="1466" data-end="1469"><code
+                    data-start="1471" data-end="1512">&lt;origin xyz="0 0 0.2" rpy="0 0 0"/&gt;</code><br
+                    data-start="1512" data-end="1515"><code data-start="1517" data-end="1527">&lt;/joint&gt;</code></p>
+        </li>
+    </ul>
+    <blockquote data-start="1529" data-end="1611">
+        <p class="" data-start="1531" data-end="1611">🔧 <em data-start="1534" data-end="1611">Tipo <code
+                    data-start="1540" data-end="1547">fixed</code>: los dos links están fijos entre sí (sin movimiento
+                relativo).</em></p>
+    </blockquote>
+    <hr class="" data-start="1613" data-end="1616">
+    <h3 class="" data-start="1618" data-end="1672">🧭 4. Proceso correcto para ubicar los componentes</h3>
+    <ol data-start="1674" data-end="2243">
+        <li class="" data-start="1674" data-end="1729">
+            <p class="" data-start="1677" data-end="1729"><strong data-start="1677" data-end="1729">Poner todos los
+                    <code data-start="1695" data-end="1703">origin</code> en <code data-start="1707"
+                        data-end="1714">0 0 0</code> al comenzar.</strong></p>
+        </li>
+        <li class="" data-start="1730" data-end="2021">
+            <p class="" data-start="1733" data-end="1809"><strong data-start="1733" data-end="1774">Ajustar primero el
+                    <code data-start="1754" data-end="1762">origin</code> del joint</strong> para alinear correctamente
+                los TF.</p>
+            <ul data-start="1813" data-end="2021">
+                <li class="" data-start="1813" data-end="1900">
+                    <p class="" data-start="1815" data-end="1900">En este caso, se desea colocar el segundo link <strong
+                            data-start="1862" data-end="1884">encima del primero</strong> (la caja base).</p>
+                </li>
+                <li class="" data-start="1904" data-end="2021">
+                    <p class="" data-start="1906" data-end="1977">Como la caja tiene altura 0.2 m → offset de <code
+                            data-start="1950" data-end="1955">0.2</code> en eje Z en el joint:</p>
+                    <p class="" data-start="1984" data-end="2021"><code data-start="1984"
+                            data-end="2021">&lt;origin xyz="0 0 0.2" rpy="0 0 0"/&gt;</code></p>
+                </li>
+            </ul>
+        </li>
+        <li class="" data-start="2023" data-end="2243">
+            <p class="" data-start="2026" data-end="2122"><strong data-start="2026" data-end="2091">Una vez que el TF es
+                    correcto, ajustar el <code data-start="2070" data-end="2078">origin</code> del visual</strong> para
+                centrarlo sobre su marco.</p>
+            <ul data-start="2127" data-end="2243">
+                <li class="" data-start="2127" data-end="2243">
+                    <p class="" data-start="2129" data-end="2199">El cilindro tiene una altura (<code data-start="2159"
+                            data-end="2167">length</code>) de 0.2 → offset de <code data-start="2188"
+                            data-end="2193">0.1</code> en Z:</p>
+                    <p class="" data-start="2206" data-end="2243"><code data-start="2206"
+                            data-end="2243">&lt;origin xyz="0 0 0.1" rpy="0 0 0"/&gt;</code></p>
+                </li>
+            </ul>
+        </li>
+    </ol>
+    <hr class="" data-start="2245" data-end="2248">
+    <h3 class="" data-start="2250" data-end="2278">🧠 Recomendaciones clave</h3>
+    <ul data-start="2280" data-end="2484">
+        <li class="" data-start="2280" data-end="2328">
+            <p class="" data-start="2282" data-end="2328">No modifiques ambos <code data-start="2302"
+                    data-end="2310">origin</code> al mismo tiempo.</p>
+        </li>
+        <li class="" data-start="2329" data-end="2394">
+            <p class="" data-start="2331" data-end="2394">Primero alinea bien los TF (joint), <strong data-start="2367"
+                    data-end="2376">luego</strong> ajusta el visual.</p>
+        </li>
+        <li class="" data-start="2395" data-end="2484">
+            <p class="" data-start="2397" data-end="2484">Esto evitará errores comunes de solapamiento o ubicación
+                incorrecta del modelo en RViz.</p>
+        </li>
+    </ul>
+    <hr class="" data-start="2486" data-end="2489">
+    <p class="" data-start="2491" data-end="2525">💾 <strong data-start="2494" data-end="2525">Código trabajado /
+            recursos</strong></p>
+    <p class="" data-start="2527" data-end="2577"><strong data-start="2527" data-end="2577">Resumen estructural de los
+            componentes nuevos:</strong></p>
+    <ul data-start="2579" data-end="3112">
+        <li class="" data-start="2579" data-end="2873">
+            <p class="" data-start="2581" data-end="2594">Segundo link:</p>
+            <p class="" data-start="2598" data-end="2873"><code data-start="2598"
+                    data-end="2625">&lt;link name="second_link"&gt;</code><br data-start="2625" data-end="2628"><code
+                    data-start="2630" data-end="2644">&lt;visual&gt;</code><br data-start="2644" data-end="2647"><code
+                    data-start="2649" data-end="2669">&lt;geometry&gt;</code><br data-start="2669" data-end="2672"><code
+                    data-start="2674" data-end="2725">&lt;cylinder radius="0.1" length="0.2"/&gt;</code><br
+                    data-start="2725" data-end="2728"><code data-start="2730"
+                    data-end="2751">&lt;/geometry&gt;</code><br data-start="2751" data-end="2754"><code
+                    data-start="2756" data-end="2801">&lt;origin xyz="0 0 0.1" rpy="0 0 0"/&gt;</code><br
+                    data-start="2801" data-end="2804"><code data-start="2806"
+                    data-end="2839">&lt;material name="gray"/&gt;</code><br data-start="2839" data-end="2842"><code
+                    data-start="2844" data-end="2859">&lt;/visual&gt;</code><br data-start="2859" data-end="2862"><code
+                    data-start="2864" data-end="2873">&lt;/link&gt;</code></p>
+        </li>
+        <li class="" data-start="2875" data-end="3112">
+            <p class="" data-start="2877" data-end="2925">Joint que conecta <code data-start="2895"
+                    data-end="2906">base_link</code> con <code data-start="2911" data-end="2924">second_link</code>:</p>
+            <p class="" data-start="2929" data-end="3112"><code data-start="2929"
+                    data-end="2976">&lt;joint name="base_second_joint" type="fixed"&gt;</code><br data-start="2976"
+                    data-end="2979"><code data-start="2981" data-end="3013">&lt;parent link="base_link"/&gt;</code><br
+                    data-start="3013" data-end="3016"><code data-start="3018"
+                    data-end="3051">&lt;child link="second_link"/&gt;</code><br data-start="3051" data-end="3054"><code
+                    data-start="3056" data-end="3097">&lt;origin xyz="0 0 0.2" rpy="0 0 0"/&gt;</code><br
+                    data-start="3097" data-end="3100"><code data-start="3102" data-end="3112">&lt;/joint&gt;</code></p>
+        </li>
+    </ul>
+    <hr class="" data-start="3114" data-end="3117">
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js">
+    </script>
+
+</body>
+
+</html>

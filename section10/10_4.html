@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>10.4. Añadir un tercer link con su joint y visualización precisa - ROS 2 Jazzy Notes</title>
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <style>
+        .back-link {
+            margin-bottom: 2rem;
+        }
+    </style>
+
+</head>
+
+<body class="container py-4">
+
+    <button class="btn btn-secondary back-link" onclick="history.back()">← Volver al inicio</button>
+
+    <h1 class="mb-4">10.4. Añadir un tercer link con su joint y visualización precisa</h1>
+
+    <p class="lead">Aprenderás a expandir tu modelo URDF con un tercer link y precisar los parámetros geométricos para
+        una visualización exacta.</p>
+
+    <p class="" data-start="374" data-end="398">📘 <strong data-start="377" data-end="398">Notas de la clase</strong>
+    </p>
+    <h3 class="" data-start="400" data-end="430">🧱 1. Crear un tercer link</h3>
+    <ul data-start="432" data-end="781">
+        <li class="" data-start="432" data-end="781">
+            <p class="" data-start="434" data-end="517">Añadimos un nuevo <code data-start="452"
+                    data-end="460">&lt;link&gt;</code> después del <code data-start="473"
+                    data-end="486">second_link</code>, usando nuevamente un <code data-start="509"
+                    data-end="516">&lt;box&gt;</code>:</p>
+            <p class="" data-start="521" data-end="781"><code data-start="521"
+                    data-end="547">&lt;link name="third_link"&gt;</code><br data-start="547" data-end="550"><code
+                    data-start="552" data-end="566">&lt;visual&gt;</code><br data-start="566" data-end="569"><code
+                    data-start="571" data-end="591">&lt;geometry&gt;</code><br data-start="591" data-end="594"><code
+                    data-start="596" data-end="635">&lt;box size="0.1 0.1 0.1"/&gt;</code><br data-start="635"
+                    data-end="638"><code data-start="640" data-end="661">&lt;/geometry&gt;</code><br data-start="661"
+                    data-end="664"><code data-start="666"
+                    data-end="709">&lt;origin xyz="0 0 0" rpy="0 0 0"/&gt;</code><br data-start="709"
+                    data-end="712"><code data-start="714" data-end="747">&lt;material name="blue"/&gt;</code><br
+                    data-start="747" data-end="750"><code data-start="752" data-end="767">&lt;/visual&gt;</code><br
+                    data-start="767" data-end="770"><code data-start="772" data-end="781">&lt;/link&gt;</code></p>
+        </li>
+    </ul>
+    <hr class="" data-start="783" data-end="786">
+    <h3 class="" data-start="788" data-end="834">⚙️ 2. Conectar el tercer link con un joint</h3>
+    <ul data-start="836" data-end="1085">
+        <li class="" data-start="836" data-end="1085">
+            <p class="" data-start="838" data-end="896">Se crea un nuevo joint entre <code data-start="867"
+                    data-end="880">second_link</code> y <code data-start="883" data-end="895">third_link</code>:</p>
+            <p class="" data-start="900" data-end="1085"><code data-start="900"
+                    data-end="948">&lt;joint name="second_third_joint" type="fixed"&gt;</code><br data-start="948"
+                    data-end="951"><code data-start="953" data-end="987">&lt;parent link="second_link"/&gt;</code><br
+                    data-start="987" data-end="990"><code data-start="992"
+                    data-end="1024">&lt;child link="third_link"/&gt;</code><br data-start="1024" data-end="1027"><code
+                    data-start="1029" data-end="1070">&lt;origin xyz="0 0 0.2" rpy="0 0 0"/&gt;</code><br
+                    data-start="1070" data-end="1073"><code data-start="1075" data-end="1085">&lt;/joint&gt;</code></p>
+        </li>
+    </ul>
+    <blockquote data-start="1087" data-end="1203">
+        <p class="" data-start="1089" data-end="1203">📌 0.2 es el <strong data-start="1102" data-end="1124">largo del
+                cilindro</strong>, por lo tanto, el desplazamiento en Z necesario para colocar la caja sobre él.</p>
+    </blockquote>
+    <hr class="" data-start="1205" data-end="1208">
+    <h3 class="" data-start="1210" data-end="1253">🎯 3. Ajustar el visual del tercer link</h3>
+    <ul data-start="1255" data-end="1470">
+        <li class="" data-start="1255" data-end="1307">
+            <p class="" data-start="1257" data-end="1307">El <code data-start="1260" data-end="1267">&lt;box&gt;</code>
+                está centrado en su origen por defecto.</p>
+        </li>
+        <li class="" data-start="1308" data-end="1470">
+            <p class="" data-start="1310" data-end="1428">Para colocarlo justo <strong data-start="1331"
+                    data-end="1354">encima del cilindro</strong>, se necesita un offset en <code data-start="1381"
+                    data-end="1384">z</code> igual a <strong data-start="1393" data-end="1418">la mitad de su
+                    altura</strong> (<code data-start="1420" data-end="1426">0.05</code>):</p>
+            <p class="" data-start="1432" data-end="1470"><code data-start="1432"
+                    data-end="1470">&lt;origin xyz="0 0 0.05" rpy="0 0 0"/&gt;</code></p>
+        </li>
+    </ul>
+    <hr class="" data-start="1472" data-end="1475">
+    <h3 class="" data-start="1477" data-end="1528">✅ 4. Orden correcto para posicionar componentes</h3>
+    <ol data-start="1530" data-end="1811">
+        <li class="" data-start="1530" data-end="1594">
+            <p class="" data-start="1533" data-end="1594">Crear el nuevo <code data-start="1548"
+                    data-end="1554">link</code> y su <code data-start="1560" data-end="1568">visual</code>, con <code
+                    data-start="1574" data-end="1582">origin</code> en <code data-start="1586"
+                    data-end="1593">0 0 0</code>.</p>
+        </li>
+        <li class="" data-start="1595" data-end="1705">
+            <p class="" data-start="1598" data-end="1705">Crear el <code data-start="1607" data-end="1614">joint</code>,
+                especificar el <code data-start="1631" data-end="1639">parent</code>, <code data-start="1641"
+                    data-end="1648">child</code>, y ajustar su <code data-start="1663" data-end="1671">origin</code>
+                para que el <strong data-start="1684" data-end="1704">TF esté correcto</strong>.</p>
+        </li>
+        <li class="" data-start="1706" data-end="1811">
+            <p class="" data-start="1709" data-end="1811">Una vez verificado el TF en RViz, ajustar el <code
+                    data-start="1754" data-end="1762">origin</code> del <code data-start="1767"
+                    data-end="1775">visual</code> para alinear visualmente el objeto.</p>
+        </li>
+    </ol>
+    <blockquote data-start="1813" data-end="1885">
+        <p class="" data-start="1815" data-end="1885">⚠️ No intentes ajustar ambos origins (visual y joint) al mismo
+            tiempo.</p>
+    </blockquote>
+    <hr class="" data-start="1887" data-end="1890">
+    <p class="" data-start="1892" data-end="1926">💾 <strong data-start="1895" data-end="1926">Código trabajado /
+            recursos</strong></p>
+    <p class="" data-start="1928" data-end="1966"><strong data-start="1928" data-end="1966">Resumen de los nuevos
+            componentes:</strong></p>
+    <ul data-start="1968" data-end="2483">
+        <li class="" data-start="1968" data-end="2256">
+            <p class="" data-start="1970" data-end="1989">Tercer link (caja):</p>
+            <p class="" data-start="1993" data-end="2256"><code data-start="1993"
+                    data-end="2019">&lt;link name="third_link"&gt;</code><br data-start="2019" data-end="2022"><code
+                    data-start="2024" data-end="2038">&lt;visual&gt;</code><br data-start="2038" data-end="2041"><code
+                    data-start="2043" data-end="2063">&lt;geometry&gt;</code><br data-start="2063" data-end="2066"><code
+                    data-start="2068" data-end="2107">&lt;box size="0.1 0.1 0.1"/&gt;</code><br data-start="2107"
+                    data-end="2110"><code data-start="2112" data-end="2133">&lt;/geometry&gt;</code><br
+                    data-start="2133" data-end="2136"><code data-start="2138"
+                    data-end="2184">&lt;origin xyz="0 0 0.05" rpy="0 0 0"/&gt;</code><br data-start="2184"
+                    data-end="2187"><code data-start="2189" data-end="2222">&lt;material name="blue"/&gt;</code><br
+                    data-start="2222" data-end="2225"><code data-start="2227" data-end="2242">&lt;/visual&gt;</code><br
+                    data-start="2242" data-end="2245"><code data-start="2247" data-end="2256">&lt;/link&gt;</code></p>
+        </li>
+        <li class="" data-start="2258" data-end="2483">
+            <p class="" data-start="2260" data-end="2294">Joint entre segundo y tercer link:</p>
+            <p class="" data-start="2298" data-end="2483"><code data-start="2298"
+                    data-end="2346">&lt;joint name="second_third_joint" type="fixed"&gt;</code><br data-start="2346"
+                    data-end="2349"><code data-start="2351" data-end="2385">&lt;parent link="second_link"/&gt;</code><br
+                    data-start="2385" data-end="2388"><code data-start="2390"
+                    data-end="2422">&lt;child link="third_link"/&gt;</code><br data-start="2422" data-end="2425"><code
+                    data-start="2427" data-end="2468">&lt;origin xyz="0 0 0.2" rpy="0 0 0"/&gt;</code><br
+                    data-start="2468" data-end="2471"><code data-start="2473" data-end="2483">&lt;/joint&gt;</code></p>
+        </li>
+    </ul>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js">
+    </script>
+
+</body>
+
+</html>

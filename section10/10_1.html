@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>10.1. Creación de un archivo URDF y visualización con RViz - ROS 2 Jazzy Notes</title>
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <style>
+        .back-link {
+            margin-bottom: 2rem;
+        }
+    </style>
+
+</head>
+
+<body class="container py-4">
+
+    <button class="btn btn-secondary back-link" onclick="history.back()">← Volver al inicio</button>
+
+    <h1 class="mb-4">10.1. Creación de un archivo URDF y visualización con RViz</h1>
+
+    <p class="lead">Aprenderás a crear tu primer archivo URDF, entender su estructura XML básica y visualizar tu robot
+        en RViz2.</p>
+
+    <p class="" data-start="377" data-end="401">📘 <strong data-start="380" data-end="401">Notas de la clase</strong>
+    </p>
+    <h3 class="" data-start="403" data-end="438">📂 1. Creación del archivo URDF</h3>
+    <ul data-start="440" data-end="691">
+        <li class="" data-start="440" data-end="545">
+            <p class="" data-start="442" data-end="545">No es necesario crear un paquete de ROS todavía. El enfoque es
+                entender la estructura del archivo URDF.</p>
+        </li>
+        <li class="" data-start="546" data-end="624">
+            <p class="" data-start="548" data-end="624">Crear un archivo en tu directorio personal (por ejemplo: <code
+                    data-start="605" data-end="622">~/my_robot.urdf</code>).</p>
+        </li>
+        <li class="" data-start="625" data-end="691">
+            <p class="" data-start="627" data-end="691">Editarlo con Visual Studio Code u otro editor de tu preferencia.
+            </p>
+        </li>
+    </ul>
+    <p class="" data-start="693" data-end="721"><strong data-start="693" data-end="721">Inicio del archivo
+            URDF:</strong></p>
+    <ul data-start="723" data-end="897">
+        <li class="" data-start="723" data-end="777">
+            <p class="" data-start="725" data-end="777">Aunque la extensión es <code data-start="748"
+                    data-end="755">.urdf</code>, el contenido es XML.</p>
+        </li>
+        <li class="" data-start="778" data-end="833">
+            <p class="" data-start="780" data-end="803">Añadir la cabecera XML:</p>
+            <p class="" data-start="807" data-end="833"><code data-start="807"
+                    data-end="833">&lt; ?xml version="1.0" ? &gt;</code></p>
+        </li>
+        <li class="" data-start="835" data-end="897">
+            <p class="" data-start="837" data-end="855">Declarar el robot:</p>
+            <p class="" data-start="859" data-end="897"><code data-start="859"
+                    data-end="897">&lt;robot name="my_robot"&gt; ... &lt;/robot&gt;</code></p>
+        </li>
+    </ul>
+    <hr class="" data-start="899" data-end="902">
+    <h3 class="" data-start="904" data-end="937">🧱 2. Añadir el primer <code data-start="931"
+            data-end="937">link</code></h3>
+    <ul data-start="939" data-end="1085">
+        <li class="" data-start="939" data-end="989">
+            <p class="" data-start="941" data-end="989">Un <code data-start="944" data-end="950">link</code> representa
+                una parte rígida del robot.</p>
+        </li>
+        <li class="" data-start="990" data-end="1085">
+            <p class="" data-start="992" data-end="1085">Se suele comenzar con <code data-start="1014"
+                    data-end="1025">base_link</code> porque algunas aplicaciones (como navegación) lo requieren.</p>
+        </li>
+    </ul>
+    <p class="" data-start="1087" data-end="1133"><strong data-start="1087" data-end="1133">Ejemplo de estructura para
+            el primer link:</strong></p>
+    <p class="" data-start="1137" data-end="1174"><code data-start="1137"
+            data-end="1174">&lt;link name="base_link"&gt; ... &lt;/link&gt;</code></p>
+    <hr class="" data-start="1176" data-end="1179">
+    <h3 class="" data-start="1181" data-end="1213">🧩 3. Visualización del link</h3>
+    <ul data-start="1215" data-end="1417">
+        <li class="" data-start="1215" data-end="1295">
+            <p class="" data-start="1217" data-end="1295">Añadir una etiqueta <code data-start="1237"
+                    data-end="1245">visual</code> dentro del <code data-start="1257" data-end="1263">link</code> para
+                representar su apariencia.</p>
+        </li>
+        <li class="" data-start="1296" data-end="1417">
+            <p class="" data-start="1298" data-end="1326">Dentro de <code data-start="1308"
+                    data-end="1316">visual</code>, incluir:</p>
+            <ul data-start="1330" data-end="1417">
+                <li class="" data-start="1330" data-end="1368">
+                    <p class="" data-start="1332" data-end="1368"><code data-start="1332"
+                            data-end="1342">geometry</code> con un <code data-start="1350" data-end="1355">box</code> y
+                        su tamaño.</p>
+                </li>
+                <li class="" data-start="1371" data-end="1417">
+                    <p class="" data-start="1373" data-end="1417"><code data-start="1373" data-end="1381">origin</code>
+                        para posicionamiento y orientación.</p>
+                </li>
+            </ul>
+        </li>
+    </ul>
+    <p class="" data-start="1419" data-end="1431"><strong data-start="1419" data-end="1431">Ejemplo:</strong></p>
+    <p class="" data-start="1437" data-end="1590"><code data-start="1437" data-end="1447">&lt;visual&gt;</code><br
+            data-start="1447" data-end="1450"><code data-start="1452" data-end="1468">&lt;geometry&gt;</code><br
+            data-start="1468" data-end="1471"><code data-start="1473"
+            data-end="1508">&lt;box size="0.6 0.4 0.2"/&gt;</code><br data-start="1508" data-end="1511"><code
+            data-start="1513" data-end="1530">&lt;/geometry&gt;</code><br data-start="1530" data-end="1533"><code
+            data-start="1535" data-end="1574">&lt;origin xyz="0 0 0" rpy="0 0 0"/&gt;</code><br data-start="1574"
+            data-end="1577"><code data-start="1579" data-end="1590">&lt;/visual&gt;</code></p>
+    <ul data-start="1592" data-end="1657">
+        <li class="" data-start="1592" data-end="1657">
+            <p class="" data-start="1594" data-end="1657">Medidas en metros. Si usas sistema imperial, deberás
+                convertir.</p>
+        </li>
+    </ul>
+    <hr class="" data-start="1659" data-end="1662">
+    <h3 class="" data-start="1664" data-end="1715">🧭 4. Posicionamiento del <code data-start="1694"
+            data-end="1702">visual</code> con <code data-start="1707" data-end="1715">origin</code></h3>
+    <ul data-start="1717" data-end="1954">
+        <li class="" data-start="1717" data-end="1774">
+            <p class="" data-start="1719" data-end="1774">Por defecto, el centro del <code data-start="1746"
+                    data-end="1751">box</code> se ubica en el origen.</p>
+        </li>
+        <li class="" data-start="1775" data-end="1954">
+            <p class="" data-start="1777" data-end="1913">Para que la base del <code data-start="1798"
+                    data-end="1803">box</code> esté sobre el suelo (y no atravesándolo), desplazar en <code
+                    data-start="1859" data-end="1862">z</code> la mitad de la altura (0.1 m si el alto es 0.2 m):</p>
+            <p class="" data-start="1917" data-end="1954"><code data-start="1917"
+                    data-end="1954">&lt;origin xyz="0 0 0.1" rpy="0 0 0"/&gt;</code></p>
+        </li>
+    </ul>
+    <hr class="" data-start="1956" data-end="1959">
+    <h3 class="" data-start="1961" data-end="1994">👁️ 5. Visualización con RViz</h3>
+    <ul data-start="1996" data-end="2054">
+        <li class="" data-start="1996" data-end="2054">
+            <p class="" data-start="1998" data-end="2054">Asegúrate de tener instalado el paquete <code
+                    data-start="2038" data-end="2053">urdf_tutorial</code>.</p>
+        </li>
+    </ul>
+    <p class="" data-start="2056" data-end="2068"><strong data-start="2056" data-end="2068">Comando:</strong></p>
+    <p class="" data-start="2072" data-end="2138"><code data-start="2072"
+            data-end="2138">ros2 launch urdf_tutorial display.launch.py model:=my_robot.urdf</code></p>
+    <ul data-start="2140" data-end="2220">
+        <li class="" data-start="2140" data-end="2220">
+            <p class="" data-start="2142" data-end="2220">Esto abrirá RViz y mostrará el <code data-start="2173"
+                    data-end="2184">base_link</code> como un cubo centrado en el origen.</p>
+        </li>
+    </ul>
+    <hr class="" data-start="2222" data-end="2225">
+    <p class="" data-start="2227" data-end="2261">💾 <strong data-start="2230" data-end="2261">Código trabajado /
+            recursos</strong></p>
+    <p class="" data-start="2263" data-end="2313"><strong data-start="2263" data-end="2313">Estructura mínima del
+            archivo <code data-start="2295" data-end="2310">my_robot.urdf</code>:</strong></p>
+    <p class="" data-start="2317" data-end="2610"><code data-start="2317"
+            data-end="2343">&lt; ?xml version="1.0" ? &gt;</code><br data-start="2343" data-end="2346"><code
+            data-start="2348" data-end="2373">&lt;robot name="my_robot"&gt;</code><br data-start="2373"
+            data-end="2376"><code data-start="2378" data-end="2405">&lt;link name="base_link"&gt;</code><br
+            data-start="2405" data-end="2408"><code data-start="2410" data-end="2424">&lt;visual&gt;</code><br
+            data-start="2424" data-end="2427"><code data-start="2429" data-end="2447">&lt;geometry&gt;</code><br
+            data-start="2447" data-end="2450"><code data-start="2452"
+            data-end="2487">&lt;box size="0.6 0.4 0.2"/&gt;</code><br data-start="2487" data-end="2490"><code
+            data-start="2492" data-end="2511">&lt;/geometry&gt;</code><br data-start="2511" data-end="2514"><code
+            data-start="2516" data-end="2559">&lt;origin xyz="0 0 0.1" rpy="0 0 0"/&gt;</code><br data-start="2559"
+            data-end="2562"><code data-start="2564" data-end="2579">&lt;/visual&gt;</code><br data-start="2579"
+            data-end="2582"><code data-start="2584" data-end="2595">&lt;/link&gt;</code><br data-start="2595"
+            data-end="2598"><code data-start="2600" data-end="2610">&lt;/robot&gt;</code></p>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js">
+    </script>
+
+</body>
+
+</html>

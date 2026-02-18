@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>10.2. Añadir color a un link URDF con etiquetas material - ROS 2 Jazzy Notes</title>
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <style>
+        .back-link {
+            margin-bottom: 2rem;
+        }
+    </style>
+
+</head>
+
+<body class="container py-4">
+
+    <button class="btn btn-secondary back-link" onclick="history.back()">← Volver al inicio</button>
+
+    <h1 class="mb-4">10.2. Añadir color a un link URDF con etiquetas material</h1>
+
+    <p class="lead">Aprenderás a añadir colores y propiedades visuales a los links de tu URDF usando las etiquetas
+        material.</p>
+
+    <p class="" data-start="352" data-end="376">📘 <strong data-start="355" data-end="376">Notas de la clase</strong>
+    </p>
+    <h3 class="" data-start="378" data-end="413">🎨 1. Color por defecto en RViz</h3>
+    <ul data-start="415" data-end="580">
+        <li class="" data-start="415" data-end="504">
+            <p class="" data-start="417" data-end="504">Cuando no se especifica color para un <code data-start="455"
+                    data-end="461">link</code>, RViz lo mostrará en <strong data-start="483" data-end="503">rojo por
+                    defecto</strong>.</p>
+        </li>
+        <li class="" data-start="505" data-end="580">
+            <p class="" data-start="507" data-end="580">Esto puede dificultar la visualización cuando se agregan
+                múltiples links.</p>
+        </li>
+    </ul>
+    <hr class="" data-start="582" data-end="585">
+    <h3 class="" data-start="587" data-end="626">🧾 2. Crear una etiqueta <code data-start="616"
+            data-end="626">material</code></h3>
+    <ul data-start="628" data-end="837">
+        <li class="" data-start="628" data-end="729">
+            <p class="" data-start="630" data-end="729">La etiqueta <code data-start="642"
+                    data-end="652">material</code> se coloca <strong data-start="663" data-end="692">dentro del bloque
+                    <code data-start="683" data-end="690">robot</code></strong>, pero <strong data-start="699"
+                    data-end="728">fuera de cualquier <code data-start="720" data-end="726">link</code></strong>.</p>
+        </li>
+        <li class="" data-start="730" data-end="837">
+            <p class="" data-start="732" data-end="837">Cada <code data-start="737" data-end="747">material</code> debe
+                tener un atributo <code data-start="771" data-end="777">name</code> y contener una sub-etiqueta <code
+                    data-start="806" data-end="813">color</code> con los valores <code data-start="830"
+                    data-end="836">rgba</code>.</p>
+        </li>
+    </ul>
+    <p class="" data-start="839" data-end="869"><strong data-start="839" data-end="869">Ejemplo de material
+            verde:</strong></p>
+    <p class="" data-start="873" data-end="952"><code data-start="873"
+            data-end="898">&lt;material name="green"&gt;</code><br data-start="898" data-end="901"><code
+            data-start="903" data-end="934">&lt;color rgba="0 0.5 0 1"/&gt;</code><br data-start="934"
+            data-end="937"><code data-start="939" data-end="952">&lt;/material&gt;</code></p>
+    <blockquote data-start="954" data-end="1031">
+        <p class="" data-start="956" data-end="1031">📌 RGBA: Red, Green, Blue, Alpha (transparencia). Los valores van
+            de 0 a 1.</p>
+    </blockquote>
+    <hr class="" data-start="1033" data-end="1036">
+    <h3 class="" data-start="1038" data-end="1077">🧩 3. Aplicar el material a un link</h3>
+    <ul data-start="1079" data-end="1176">
+        <li class="" data-start="1079" data-end="1176">
+            <p class="" data-start="1081" data-end="1176">La referencia al color se hace <strong data-start="1112"
+                    data-end="1142">dentro del bloque <code data-start="1132" data-end="1140">visual</code></strong>,
+                después de la etiqueta <code data-start="1167" data-end="1175">origin</code>.</p>
+        </li>
+    </ul>
+    <p class="" data-start="1178" data-end="1190"><strong data-start="1178" data-end="1190">Ejemplo:</strong></p>
+    <p class="" data-start="1194" data-end="1384"><code data-start="1194" data-end="1204">&lt;visual&gt;</code><br
+            data-start="1204" data-end="1207"><code data-start="1209" data-end="1225">&lt;geometry&gt;</code><br
+            data-start="1225" data-end="1228"><code data-start="1230"
+            data-end="1265">&lt;box size="0.6 0.4 0.2"/&gt;</code><br data-start="1265" data-end="1268"><code
+            data-start="1270" data-end="1287">&lt;/geometry&gt;</code><br data-start="1287" data-end="1290"><code
+            data-start="1292" data-end="1333">&lt;origin xyz="0 0 0.1" rpy="0 0 0"/&gt;</code><br data-start="1333"
+            data-end="1336"><code data-start="1338" data-end="1368">&lt;material name="green"/&gt;</code><br
+            data-start="1368" data-end="1371"><code data-start="1373" data-end="1384">&lt;/visual&gt;</code></p>
+    <blockquote data-start="1386" data-end="1490">
+        <p class="" data-start="1388" data-end="1490">⚠️ Importante: La etiqueta <code data-start="1415"
+                data-end="1425">material</code> <strong data-start="1426" data-end="1490">no debe colocarse dentro de
+                <code data-start="1456" data-end="1466">geometry</code> ni fuera de <code data-start="1479"
+                    data-end="1487">visual</code>.</strong></p>
+    </blockquote>
+    <hr class="" data-start="1492" data-end="1495">
+    <h3 class="" data-start="1497" data-end="1546">🌈 4. Cambiar colores y reutilizar materiales</h3>
+    <ul data-start="1548" data-end="1693">
+        <li class="" data-start="1548" data-end="1618">
+            <p class="" data-start="1550" data-end="1618">Puedes crear múltiples etiquetas <code data-start="1583"
+                    data-end="1593">material</code> para diferentes colores.</p>
+        </li>
+        <li class="" data-start="1619" data-end="1693">
+            <p class="" data-start="1621" data-end="1693">Cambia el valor de <code data-start="1640"
+                    data-end="1646">rgba</code> y su nombre para representar el color deseado.</p>
+        </li>
+    </ul>
+    <p class="" data-start="1695" data-end="1724"><strong data-start="1695" data-end="1724">Ejemplo de material
+            azul:</strong></p>
+    <p class="" data-start="1728" data-end="1806"><code data-start="1728"
+            data-end="1752">&lt;material name="blue"&gt;</code><br data-start="1752" data-end="1755"><code
+            data-start="1757" data-end="1788">&lt;color rgba="0 0 0.5 1"/&gt;</code><br data-start="1788"
+            data-end="1791"><code data-start="1793" data-end="1806">&lt;/material&gt;</code></p>
+    <ul data-start="1808" data-end="1896">
+        <li class="" data-start="1808" data-end="1896">
+            <p class="" data-start="1810" data-end="1867">Para usarlo, cambia también la referencia en el <code
+                    data-start="1858" data-end="1866">visual</code>:</p>
+            <p class="" data-start="1871" data-end="1896"><code data-start="1871"
+                    data-end="1896">&lt;material name="blue"/&gt;</code></p>
+        </li>
+    </ul>
+    <hr class="" data-start="1898" data-end="1901">
+    <p class="" data-start="1903" data-end="1937">💾 <strong data-start="1906" data-end="1937">Código trabajado /
+            recursos</strong></p>
+    <p class="" data-start="1939" data-end="1960"><strong data-start="1939" data-end="1960">Ejemplo completo:</strong>
+    </p>
+    <p class="" data-start="1964" data-end="2380"><code data-start="1964"
+            data-end="1990">&lt; ?xml version="1.0" ? &gt;</code><br data-start="1990" data-end="1993"><code
+            data-start="1995" data-end="2020">&lt;robot name="my_robot"&gt;</code><br data-start="2020"
+            data-end="2023"><code data-start="2025" data-end="2051">&lt;material name="blue"&gt;</code><br
+            data-start="2051" data-end="2054"><code data-start="2056"
+            data-end="2087">&lt;color rgba="0 0 0.5 1"/&gt;</code><br data-start="2087" data-end="2090"><code
+            data-start="2092" data-end="2107">&lt;/material&gt;</code><br data-start="2107" data-end="2110"><code
+            data-start="2112" data-end="2139">&lt;link name="base_link"&gt;</code><br data-start="2139"
+            data-end="2142"><code data-start="2144" data-end="2158">&lt;visual&gt;</code><br data-start="2158"
+            data-end="2161"><code data-start="2163" data-end="2181">&lt;geometry&gt;</code><br data-start="2181"
+            data-end="2184"><code data-start="2186" data-end="2221">&lt;box size="0.6 0.4 0.2"/&gt;</code><br
+            data-start="2221" data-end="2224"><code data-start="2226" data-end="2245">&lt;/geometry&gt;</code><br
+            data-start="2245" data-end="2248"><code data-start="2250"
+            data-end="2293">&lt;origin xyz="0 0 0.1" rpy="0 0 0"/&gt;</code><br data-start="2293" data-end="2296"><code
+            data-start="2298" data-end="2329">&lt;material name="blue"/&gt;</code><br data-start="2329"
+            data-end="2332"><code data-start="2334" data-end="2349">&lt;/visual&gt;</code><br data-start="2349"
+            data-end="2352"><code data-start="2354" data-end="2365">&lt;/link&gt;</code><br data-start="2365"
+            data-end="2368"><code data-start="2370" data-end="2380">&lt;/robot&gt;</code></p>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js">
+    </script>
+
+</body>
+
+</html>
