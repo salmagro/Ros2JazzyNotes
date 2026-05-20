@@ -1,14 +1,12 @@
 <!DOCTYPE html>
 <html>
+
 <head>
   <meta charset="utf-8">
   <title>5.5. Crear un nodo suscriptor en C++ para ROS 2 - ROS 2 Jazzy Notes</title>
 
   <!-- Bootstrap CSS -->
-  <link
-    href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
-    rel="stylesheet"
-  >
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
 
   <style>
     .back-link {
@@ -17,22 +15,187 @@
   </style>
 
 </head>
+
 <body class="container py-4">
 
   <button class="btn btn-secondary back-link" onclick="history.back()">← Volver al inicio</button>
 
   <h1 class="mb-4">5.5. Crear un nodo suscriptor en C++ para ROS 2</h1>
 
-  <p class="lead">En esta clase aprenderás a crear un nodo suscriptor en C++ que escuche mensajes de un topic. Completarás el ciclo de comunicación pub-sub con C++.</p>
+  <p class="lead">En esta clase aprenderás a crear un nodo suscriptor en C++ que escuche mensajes de un topic.
+    Completarás el ciclo de comunicación pub-sub con C++.</p>
 
-  <div class="alert alert-light">
-    <p><strong>Contenido:</strong> Esta sección está en desarrollo.</p>
-  </div>
+  <p class="" data-start="570" data-end="594">📘 <strong data-start="573" data-end="594">Notas de la clase</strong></p>
+  <h3 class="" data-start="596" data-end="621">📂 Estructura general</h3>
+  <ul data-start="622" data-end="746">
+    <li class="" data-start="622" data-end="686">
+      <p class="" data-start="624" data-end="686">Se trabaja dentro del paquete de C++ ya creado (<code data-start="672"
+          data-end="684">my_cpp_pkg</code>).</p>
+    </li>
+    <li class="" data-start="687" data-end="746">
+      <p class="" data-start="689" data-end="746">Se crea un nuevo archivo fuente llamado <code data-start="729"
+          data-end="745">smartphone.cpp</code>.</p>
+    </li>
+  </ul>
+  <h3 class="" data-start="748" data-end="784">🛠️ Creación del nodo suscriptor</h3>
+  <ol data-start="785" data-end="2100">
+    <li class="" data-start="785" data-end="960">
+      <p class="" data-start="788" data-end="807"><strong data-start="788" data-end="807">Archivo fuente:</strong></p>
+      <ul data-start="811" data-end="960">
+        <li class="" data-start="811" data-end="872">
+          <p class="" data-start="813" data-end="872">Crear <code data-start="819" data-end="835">smartphone.cpp</code>
+            en el directorio <code data-start="853" data-end="859">src/</code> del paquete.</p>
+        </li>
+        <li class="" data-start="876" data-end="960">
+          <p class="" data-start="878" data-end="960">Utilizar una plantilla de nodo ROS 2 en C++ y renombrar el nodo
+            como <code data-start="947" data-end="959">smartphone</code>.</p>
+        </li>
+      </ul>
+    </li>
+    <li class="" data-start="962" data-end="1205">
+      <p class="" data-start="965" data-end="1005"><strong data-start="965" data-end="1005">Inclusión de la interfaz de
+          mensaje:</strong></p>
+      <ul data-start="1009" data-end="1205">
+        <li class="" data-start="1009" data-end="1113">
+          <p class="" data-start="1011" data-end="1113">Usar el mismo tipo de mensaje que el publicador:<br
+              data-start="1059" data-end="1062"><code data-start="1067"
+              data-end="1113">#include "example_interfaces/msg/string.hpp"</code></p>
+        </li>
+        <li class="" data-start="1117" data-end="1205">
+          <p class="" data-start="1119" data-end="1205">Verificar que <code data-start="1133"
+              data-end="1153">example_interfaces</code> esté declarado en <code data-start="1172"
+              data-end="1185">package.xml</code> y <code data-start="1188" data-end="1204">CMakeLists.txt</code>.</p>
+        </li>
+      </ul>
+    </li>
+    <li class="" data-start="1207" data-end="1497">
+      <p class="" data-start="1210" data-end="1238"><strong data-start="1210" data-end="1238">Callback del
+          suscriptor:</strong></p>
+      <ul data-start="1242" data-end="1497">
+        <li class="" data-start="1242" data-end="1362">
+          <p class="" data-start="1244" data-end="1362">Definir un método:<br data-start="1262" data-end="1265"><code
+              data-start="1270"
+              data-end="1362">void callback_robot_news(const std::shared_ptr&lt;const example_interfaces::msg::String&gt; msg)</code>
+          </p>
+        </li>
+        <li class="" data-start="1366" data-end="1497">
+          <p class="" data-start="1368" data-end="1497">Dentro del callback, imprimir el mensaje con <code
+              data-start="1413" data-end="1426">RCLCPP_INFO</code>:<br data-start="1427" data-end="1430">Usar <code
+              data-start="1440" data-end="1459">msg-&gt;data.c_str()</code> para convertir el mensaje a C-string.</p>
+        </li>
+      </ul>
+    </li>
+    <li class="" data-start="1499" data-end="1637">
+      <p class="" data-start="1502" data-end="1552"><strong data-start="1502" data-end="1552">Declaración del suscriptor
+          (atributo privado):</strong></p>
+      <ul data-start="1556" data-end="1637">
+        <li class="" data-start="1556" data-end="1637">
+          <p class="" data-start="1558" data-end="1637"><code data-start="1558"
+              data-end="1637">rclcpp::Subscription&lt;example_interfaces::msg::String&gt;::SharedPtr subscriber_;</code>
+          </p>
+        </li>
+      </ul>
+    </li>
+    <li class="" data-start="1639" data-end="1972">
+      <p class="" data-start="1642" data-end="1694"><strong data-start="1642" data-end="1694">Inicialización del
+          suscriptor en el constructor:</strong></p>
+      <ul data-start="1698" data-end="1972">
+        <li class="" data-start="1698" data-end="1881">
+          <p class="" data-start="1700" data-end="1731">Usar <code data-start="1705"
+              data-end="1726">create_subscription</code> con:</p>
+          <ul data-start="1737" data-end="1881">
+            <li class="" data-start="1737" data-end="1772">
+              <p class="" data-start="1739" data-end="1772">Nombre del tópico: <code data-start="1758"
+                  data-end="1772">"robot_news"</code></p>
+            </li>
+            <li class="" data-start="1778" data-end="1803">
+              <p class="" data-start="1780" data-end="1803">Tamaño de la cola: <code data-start="1799"
+                  data-end="1803">10</code></p>
+            </li>
+            <li class="" data-start="1809" data-end="1881">
+              <p class="" data-start="1811" data-end="1881">Callback: usar <code data-start="1826"
+                  data-end="1881">std::bind(&amp;Smartphone::callback_robot_news, this, _1)</code></p>
+            </li>
+          </ul>
+        </li>
+        <li class="" data-start="1885" data-end="1972">
+          <p class="" data-start="1887" data-end="1972">Para simplificar: agregar <code data-start="1913"
+              data-end="1949">using namespace std::placeholders;</code> al inicio del archivo.</p>
+        </li>
+      </ul>
+    </li>
+    <li class="" data-start="1974" data-end="2100">
+      <p class="" data-start="1977" data-end="2008"><strong data-start="1977" data-end="2008">Mensaje de inicio del
+          nodo:</strong></p>
+      <ul data-start="2012" data-end="2100">
+        <li class="" data-start="2012" data-end="2100">
+          <p class="" data-start="2014" data-end="2100">Añadir:<br data-start="2021" data-end="2024"><code
+              data-start="2029"
+              data-end="2100">RCLCPP_INFO(this-&gt;get_logger(), "Smartphone node has been started.");</code></p>
+        </li>
+      </ul>
+    </li>
+  </ol>
+  <hr class="" data-start="2102" data-end="2105">
+  <h3 class="" data-start="2107" data-end="2148">⚙️ Configuración del <code data-start="2132"
+      data-end="2148">CMakeLists.txt</code></h3>
+  <ul data-start="2149" data-end="2413">
+    <li class="" data-start="2149" data-end="2230">
+      <p class="" data-start="2151" data-end="2230">Añadir el nuevo ejecutable:<br data-start="2178"
+          data-end="2181"><code data-start="2183" data-end="2230">add_executable(smartphone src/smartphone.cpp)</code>
+      </p>
+    </li>
+    <li class="" data-start="2231" data-end="2332">
+      <p class="" data-start="2233" data-end="2332">Especificar las dependencias:<br data-start="2262"
+          data-end="2265"><code data-start="2267"
+          data-end="2332">ament_target_dependencies(smartphone rclcpp example_interfaces)</code></p>
+    </li>
+    <li class="" data-start="2333" data-end="2413">
+      <p class="" data-start="2335" data-end="2413">Incluir el ejecutable en la instalación:<br data-start="2375"
+          data-end="2378"><code data-start="2380" data-end="2413">install(TARGETS smartphone ...)</code></p>
+    </li>
+  </ul>
+  <hr class="" data-start="2415" data-end="2418">
+  <h3 class="" data-start="2420" data-end="2446">🚀 Compilar y ejecutar</h3>
+  <ol data-start="2447" data-end="2947">
+    <li class="" data-start="2447" data-end="2512">
+      <p class="" data-start="2450" data-end="2512"><strong data-start="2450" data-end="2463">Compilar:</strong><br
+          data-start="2463" data-end="2466"><code data-start="2469"
+          data-end="2512">colcon build --packages-select my_cpp_pkg</code></p>
+    </li>
+    <li class="" data-start="2514" data-end="2615">
+      <p class="" data-start="2517" data-end="2615"><strong data-start="2517" data-end="2549">Ejecutar el nodo
+          suscriptor:</strong><br data-start="2549" data-end="2552"><code data-start="2555"
+          data-end="2577">. install/setup.bash</code><br data-start="2577" data-end="2580"><code data-start="2583"
+          data-end="2615">ros2 run my_cpp_pkg smartphone</code></p>
+    </li>
+    <li class="" data-start="2617" data-end="2698">
+      <p class="" data-start="2620" data-end="2698"><strong data-start="2620" data-end="2642">Verificar el
+          nodo:</strong><br data-start="2642" data-end="2645"><code data-start="2648"
+          data-end="2664">ros2 node list</code><br data-start="2664" data-end="2667"><code data-start="2670"
+          data-end="2698">ros2 node info /smartphone</code></p>
+    </li>
+    <li class="" data-start="2700" data-end="2947">
+      <p class="" data-start="2703" data-end="2733"><strong data-start="2703" data-end="2731">Probar con
+          publicadores:</strong></p>
+      <ul data-start="2737" data-end="2947">
+        <li class="" data-start="2737" data-end="2856">
+          <p class="" data-start="2739" data-end="2856">Puedes usar cualquier publicador (C++ o Python) que publique en
+            el tópico <code data-start="2813" data-end="2825">robot_news</code> con el tipo <code data-start="2838"
+              data-end="2855">std_msgs/String</code>.</p>
+        </li>
+        <li class="" data-start="2860" data-end="2947">
+          <p class="" data-start="2862" data-end="2947">Al suscriptor no le importa quién publica, siempre que el tipo y
+            el tópico coincidan.</p>
+        </li>
+      </ul>
+    </li>
+  </ol>
 
   <!-- Bootstrap JS -->
-  <script
-    src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js">
   </script>
 
 </body>
+
 </html>

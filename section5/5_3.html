@@ -1,14 +1,12 @@
 <!DOCTYPE html>
 <html>
+
 <head>
   <meta charset="utf-8">
   <title>5.3. Crear un subscriber en Python con ROS 2 - ROS 2 Jazzy Notes</title>
 
   <!-- Bootstrap CSS -->
-  <link
-    href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
-    rel="stylesheet"
-  >
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
 
   <style>
     .back-link {
@@ -17,22 +15,217 @@
   </style>
 
 </head>
+
 <body class="container py-4">
 
   <button class="btn btn-secondary back-link" onclick="history.back()">← Volver al inicio</button>
 
   <h1 class="mb-4">5.3. Crear un subscriber en Python con ROS 2</h1>
 
-  <p class="lead">En esta clase aprenderás a crear un nodo en Python que actúe como suscriptor, recibiendo y procesando mensajes de un topic. Completarás el ciclo de comunicación pub-sub con Python.</p>
+  <p class="lead">En esta clase aprenderás a crear un nodo en Python que actúe como suscriptor, recibiendo y procesando
+    mensajes de un topic. Completarás el ciclo de comunicación pub-sub con Python.</p>
 
-  <div class="alert alert-light">
-    <p><strong>Contenido:</strong> Esta sección está en desarrollo.</p>
-  </div>
+  <p class="" data-start="578" data-end="602">📘 <strong data-start="581" data-end="602">Notas de la clase</strong></p>
+  <p class="" data-start="604" data-end="622"><strong data-start="604" data-end="622">📂 Preparación</strong></p>
+  <ul data-start="623" data-end="831">
+    <li class="" data-start="623" data-end="681">
+      <p class="" data-start="625" data-end="681">Ubícate en el directorio <code data-start="650"
+          data-end="655">src</code> del <em data-start="660" data-end="671">workspace</em> de ROS 2.</p>
+    </li>
+    <li class="" data-start="682" data-end="737">
+      <p class="" data-start="684" data-end="737">Usa el mismo paquete Python, por ejemplo <code data-start="725"
+          data-end="736">my_py_pkg</code>.</p>
+    </li>
+    <li class="" data-start="738" data-end="786">
+      <p class="" data-start="740" data-end="786">Crea un nuevo archivo llamado <code data-start="770"
+          data-end="785">smartphone.py</code>.</p>
+    </li>
+    <li class="" data-start="787" data-end="831">
+      <p class="" data-start="789" data-end="831">Hazlo ejecutable: chmod +x smartphone.py</p>
+    </li>
+  </ul>
+  <p class="" data-start="833" data-end="864"><strong data-start="833" data-end="864">🧱 Estructura base del
+      nodo</strong></p>
+  <ul data-start="865" data-end="1079">
+    <li class="" data-start="865" data-end="907">
+      <p class="" data-start="867" data-end="907">Usa la plantilla estándar de nodo ROS 2.</p>
+    </li>
+    <li class="" data-start="908" data-end="950">
+      <p class="" data-start="910" data-end="950">Clase <code data-start="916" data-end="928">Smartphone</code> que
+        hereda de <code data-start="943" data-end="949">Node</code>.</p>
+    </li>
+    <li class="" data-start="951" data-end="1029">
+      <p class="" data-start="953" data-end="1029">Nombre del nodo: <code data-start="970"
+          data-end="984">"smartphone"</code> (evita redundancias como <code data-start="1010"
+          data-end="1027">smartphone_node</code>).</p>
+    </li>
+    <li class="" data-start="1030" data-end="1079">
+      <p class="" data-start="1032" data-end="1079">Método <code data-start="1039" data-end="1047">main()</code> que
+        inicializa y lanza el nodo.</p>
+    </li>
+  </ul>
+  <p class="" data-start="1081" data-end="1109"><strong data-start="1081" data-end="1109">📥 Crear un <em
+        data-start="1095" data-end="1107">subscriber</em></strong></p>
+  <ul data-start="1110" data-end="1487">
+    <li class="" data-start="1110" data-end="1487">
+      <p class="" data-start="1112" data-end="1146">Dentro del constructor <code data-start="1135"
+          data-end="1145">__init__</code>:</p>
+      <ul data-start="1149" data-end="1487">
+        <li class="" data-start="1149" data-end="1414">
+          <p class="" data-start="1151" data-end="1214">Usa <code data-start="1155"
+              data-end="1183">self.create_subscription()</code> con los siguientes argumentos:</p>
+          <ul data-start="1219" data-end="1414">
+            <li class="" data-start="1219" data-end="1282">
+              <p class="" data-start="1221" data-end="1282">Tipo de mensaje: <code data-start="1238"
+                  data-end="1246">String</code> (igual al usado por el <em data-start="1270"
+                  data-end="1281">publisher</em>)</p>
+            </li>
+            <li class="" data-start="1287" data-end="1323">
+              <p class="" data-start="1289" data-end="1323">Nombre del <em data-start="1300" data-end="1307">topic</em>:
+                <code data-start="1309" data-end="1323">"robot_news"</code></p>
+            </li>
+            <li class="" data-start="1328" data-end="1384">
+              <p class="" data-start="1330" data-end="1384">Función <em data-start="1338" data-end="1348">callback</em>
+                para manejar los mensajes recibidos</p>
+            </li>
+            <li class="" data-start="1389" data-end="1414">
+              <p class="" data-start="1391" data-end="1414">Tamaño de <em data-start="1401" data-end="1408">queue</em>:
+                <code data-start="1410" data-end="1414">10</code></p>
+            </li>
+          </ul>
+        </li>
+        <li class="" data-start="1417" data-end="1487">
+          <p class="" data-start="1419" data-end="1487">Código de importación: from example_interfaces.msg import String
+          </p>
+        </li>
+      </ul>
+    </li>
+  </ul>
+  <p class="" data-start="1489" data-end="1523"><strong data-start="1489" data-end="1523">📣 Crear la función <em
+        data-start="1511" data-end="1521">callback</em></strong></p>
+  <ul>
+    <li class="" data-start="1524" data-end="1590">
+      <p class="" data-start="1526" data-end="1590">Método de clase llamado <code data-start="1550"
+          data-end="1590">callback_robot_news(self, msg: String)</code></p>
+    </li>
+    <li class="" data-start="1591" data-end="1627">
+      <p class="" data-start="1593" data-end="1627">Accede al contenido con <code data-start="1617"
+          data-end="1627">msg.data</code></p>
+    </li>
+    <li data-start="1630" data-end="1638">
+      Ejemplo:<br><br><code>'console_scripts': [</code><br><code>    'smartphone = my_py_pkg.smartphone:main',</code><br><code>]</code><br><br
+        data-mce-bogus="1"></li>
+    <li class="" data-start="1692" data-end="1768">
+      <p class="" data-start="1694" data-end="1768">Esta función se ejecuta automáticamente cada vez que se recibe un
+        mensaje.</p>
+    </li>
+  </ul>
+  <p class="" data-start="1770" data-end="1807"><strong data-start="1770" data-end="1807">📦 Añadir ejecutable a <code
+        data-start="1795" data-end="1805">setup.py</code></strong></p>
+  <ul data-start="1808" data-end="1928">
+    <li class="" data-start="1808" data-end="1928">
+      <p class="" data-start="1810" data-end="1835">Dentro de <code data-start="1820"
+          data-end="1834">entry_points</code>:</p>
+    </li>
+  </ul>
+  <p class="" data-start="1630" data-end="1638"> </p>
+  <p class="" data-start="1930" data-end="1956"><strong data-start="1930" data-end="1956">🔧 Compilar e
+      instalar</strong></p>
+  <ul data-start="1957" data-end="2032">
+    <li class="" data-start="1957" data-end="2032">
+      <p class="" data-start="1959" data-end="2032">Compila con: colcon build --packages-select my_py_pkg
+        --symlink-install</p>
+    </li>
+  </ul>
+  <p class="" data-start="2034" data-end="2058"><strong data-start="2034" data-end="2058">▶️ Ejecutar y probar</strong>
+  </p>
+  <ol data-start="2059" data-end="2572">
+    <li class="" data-start="2059" data-end="2167">
+      <p class="" data-start="2062" data-end="2167">En una terminal:<br data-start="2078" data-end="2081">ros2 run
+        my_py_pkg smartphone<br data-start="2113" data-end="2116">Deberías ver:<br data-start="2132"
+          data-end="2135"><code data-start="2138" data-end="2167">Smartphone has been started</code></p>
+    </li>
+    <li class="" data-start="2168" data-end="2257">
+      <p class="" data-start="2171" data-end="2257">En otra terminal, ejecuta el <em data-start="2200"
+          data-end="2211">publisher</em>:<br data-start="2212" data-end="2215">ros2 run my_py_pkg robot_news_station</p>
+    </li>
+    <li class="" data-start="2258" data-end="2408">
+      <p class="" data-start="2261" data-end="2408">Resultado esperado: la terminal del <em data-start="2297"
+          data-end="2309">subscriber</em> mostrará los mensajes recibidos, por ejemplo:<br data-start="2355"
+          data-end="2358"><code data-start="2361" data-end="2408">Hi, this is C-3PO from the Robot News Station</code>
+      </p>
+    </li>
+    <li class="" data-start="2409" data-end="2493">
+      <p class="" data-start="2412" data-end="2493">Al detener el <em data-start="2426" data-end="2437">publisher</em>,
+        el <em data-start="2442" data-end="2454">subscriber</em> sigue activo pero no recibe más datos.</p>
+    </li>
+    <li class="" data-start="2494" data-end="2572">
+      <p class="" data-start="2497" data-end="2572">Al reiniciar el <em data-start="2513"
+          data-end="2524">publisher</em>, el <em data-start="2529" data-end="2541">subscriber</em> vuelve a mostrar los
+        mensajes.</p>
+    </li>
+  </ol>
+  <p class="" data-start="2574" data-end="2606"><strong data-start="2574" data-end="2606">🧠 Conceptos clave
+      repasados</strong></p>
+  <ul data-start="2607" data-end="2957">
+    <li class="" data-start="2607" data-end="2713">
+      <p class="" data-start="2609" data-end="2625">Un <em data-start="2612" data-end="2624">subscriber</em>:</p>
+      <ul data-start="2628" data-end="2713">
+        <li class="" data-start="2628" data-end="2664">
+          <p class="" data-start="2630" data-end="2664">No controla cuándo recibe mensajes</p>
+        </li>
+        <li class="" data-start="2667" data-end="2713">
+          <p class="" data-start="2669" data-end="2713">Reacciona a través de una función <em data-start="2703"
+              data-end="2713">callback</em></p>
+        </li>
+      </ul>
+    </li>
+    <li class="" data-start="2714" data-end="2814">
+      <p class="" data-start="2716" data-end="2814">El nombre del <em data-start="2730" data-end="2737">topic</em> y el
+        tipo de mensaje <strong data-start="2759" data-end="2778">deben coincidir</strong> exactamente con los del <em
+          data-start="2803" data-end="2814">publisher</em></p>
+    </li>
+    <li class="" data-start="2815" data-end="2895">
+      <p class="" data-start="2817" data-end="2895">El tamaño de <em data-start="2830" data-end="2837">queue</em> actúa
+        como buffer ante pérdidas de red o mensajes grandes</p>
+    </li>
+    <li class="" data-start="2896" data-end="2957">
+      <p class="" data-start="2898" data-end="2957">ROS 2 permite múltiples <em data-start="2922"
+          data-end="2935">subscribers</em> para un mismo <em data-start="2950" data-end="2957">topic</em></p>
+    </li>
+  </ul>
+  <p class="" data-start="2959" data-end="2993">💾 <strong data-start="2962" data-end="2993">Código trabajado /
+      recursos</strong></p>
+  <ul data-start="2994" data-end="3211">
+    <li class="" data-start="2994" data-end="3020">
+      <p class="" data-start="2996" data-end="3020">Archivo: <code data-start="3005"
+          data-end="3020">smartphone.py</code></p>
+    </li>
+    <li class="" data-start="3021" data-end="3071">
+      <p class="" data-start="3023" data-end="3071">Tipo de mensaje: <code data-start="3040"
+          data-end="3071">example_interfaces/msg/String</code></p>
+    </li>
+    <li class="" data-start="3072" data-end="3106">
+      <p class="" data-start="3074" data-end="3106">Nombre del <em data-start="3085" data-end="3092">topic</em>: <code
+          data-start="3094" data-end="3106">robot_news</code></p>
+    </li>
+    <li class="" data-start="3107" data-end="3140">
+      <p class="" data-start="3109" data-end="3140">Callback: <code data-start="3119"
+          data-end="3140">callback_robot_news</code></p>
+    </li>
+    <li class="" data-start="3141" data-end="3211">
+      <p class="" data-start="3143" data-end="3211">Ejecutable registrado como: <code data-start="3171"
+          data-end="3211">smartphone = my_py_pkg.smartphone:main</code></p>
+    </li>
+  </ul>
+  <p class="" data-start="1630" data-end="1638"><br><br></p>
+  <p class="" data-start="1630" data-end="1638"> </p>
+  <p> </p>
 
   <!-- Bootstrap JS -->
-  <script
-    src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js">
   </script>
 
 </body>
+
 </html>

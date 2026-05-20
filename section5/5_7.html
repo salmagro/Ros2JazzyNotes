@@ -1,14 +1,12 @@
 <!DOCTYPE html>
 <html>
+
 <head>
   <meta charset="utf-8">
   <title>5.7. Renombrar nodos y tópicos en tiempo de ejecución con ROS 2 - ROS 2 Jazzy Notes</title>
 
   <!-- Bootstrap CSS -->
-  <link
-    href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
-    rel="stylesheet"
-  >
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
 
   <style>
     .back-link {
@@ -17,22 +15,107 @@
   </style>
 
 </head>
+
 <body class="container py-4">
 
   <button class="btn btn-secondary back-link" onclick="history.back()">← Volver al inicio</button>
 
   <h1 class="mb-4">5.7. Renombrar nodos y tópicos en tiempo de ejecución con ROS 2</h1>
 
-  <p class="lead">En esta clase aprenderás a utilizar el remapeo para renombrar nodos y tópicos en tiempo de ejecución. Esta técnica es fundamental para reutilizar código y crear sistemas modulares con ROS 2.</p>
+  <p class="lead">En esta clase aprenderás a utilizar el remapeo para renombrar nodos y tópicos en tiempo de ejecución.
+    Esta técnica es fundamental para reutilizar código y crear sistemas modulares con ROS 2.</p>
 
-  <div class="alert alert-light">
-    <p><strong>Contenido:</strong> Esta sección está en desarrollo.</p>
-  </div>
+  <p class="" data-start="520" data-end="544">📘 <strong data-start="523" data-end="544">Notas de la clase</strong></p>
+  <h3 class="" data-start="546" data-end="593">🔁 Renombrar un nodo en tiempo de ejecución</h3>
+  <ul data-start="595" data-end="842">
+    <li class="" data-start="595" data-end="688">
+      <p class="" data-start="597" data-end="688">Comando general:<br data-start="613" data-end="616"><code
+          data-start="618"
+          data-end="688">ros2 run &lt;paquete&gt; &lt;ejecutable&gt; --ros-args -r __node:=&lt;nuevo_nombre&gt;</code>
+      </p>
+    </li>
+    <li class="" data-start="690" data-end="777">
+      <p class="" data-start="692" data-end="777">Ejemplo:<br data-start="700" data-end="703"><code data-start="705"
+          data-end="777">ros2 run my_py_pkg robot_news_station --ros-args -r __node:=my_station</code></p>
+    </li>
+    <li class="" data-start="779" data-end="842">
+      <p class="" data-start="781" data-end="842">Verificar:<br data-start="791" data-end="794"><code data-start="796"
+          data-end="812">ros2 node list</code> → debe aparecer <code data-start="829" data-end="842">/my_station</code>
+      </p>
+    </li>
+  </ul>
+  <hr class="" data-start="844" data-end="847">
+  <h3 class="" data-start="849" data-end="898">🔃 Renombrar un tópico en tiempo de ejecución</h3>
+  <ul data-start="900" data-end="1288">
+    <li class="" data-start="900" data-end="996">
+      <p class="" data-start="902" data-end="996">Sintaxis para remapear un tópico:<br data-start="935"
+          data-end="938"><code data-start="940"
+          data-end="996">--ros-args -r &lt;nombre_original_tópico&gt;:=&lt;nuevo_nombre&gt;</code></p>
+    </li>
+    <li class="" data-start="998" data-end="1147">
+      <p class="" data-start="1000" data-end="1147">Ejemplo renombrando el tópico <code data-start="1030"
+          data-end="1042">robot_news</code> a <code data-start="1045" data-end="1050">abc</code>:<br data-start="1051"
+          data-end="1054"><code data-start="1056"
+          data-end="1147">ros2 run my_py_pkg robot_news_station --ros-args -r __node:=my_station -r robot_news:=abc</code>
+      </p>
+    </li>
+    <li class="" data-start="1149" data-end="1288">
+      <p class="" data-start="1151" data-end="1288">Verificar:<br data-start="1161" data-end="1164"><code
+          data-start="1166" data-end="1183">ros2 topic list</code> → ahora verás <code data-start="1198"
+          data-end="1204">/abc</code> en lugar de <code data-start="1217" data-end="1230">/robot_news</code><br
+          data-start="1230" data-end="1233"><code data-start="1235" data-end="1257">ros2 topic echo /abc</code> → para
+        visualizar los mensajes</p>
+    </li>
+  </ul>
+  <hr class="" data-start="1290" data-end="1293">
+  <h3 class="" data-start="1295" data-end="1340">🧩 ¿Qué pasa si no coinciden los nombres?</h3>
+  <ul data-start="1342" data-end="1491">
+    <li class="" data-start="1342" data-end="1437">
+      <p class="" data-start="1344" data-end="1437">Si un publicador está usando <code data-start="1373"
+          data-end="1379">/abc</code> y un suscriptor <code data-start="1396" data-end="1409">/robot_news</code>,
+        <strong data-start="1411" data-end="1436">no habrá comunicación</strong>.</p>
+    </li>
+    <li class="" data-start="1438" data-end="1491">
+      <p class="" data-start="1440" data-end="1491">Ambos deben coincidir en nombre <strong data-start="1472"
+          data-end="1477">y</strong> tipo de dato.</p>
+    </li>
+  </ul>
+  <hr class="" data-start="1493" data-end="1496">
+  <h3 class="" data-start="1498" data-end="1538">🛠️ Solución: Remapeo del suscriptor</h3>
+  <ul data-start="1540" data-end="1749">
+    <li class="" data-start="1540" data-end="1681">
+      <p class="" data-start="1542" data-end="1681">Para hacer que un suscriptor escuche en <code data-start="1582"
+          data-end="1588">/abc</code> en lugar de <code data-start="1601" data-end="1614">/robot_news</code>:<br
+          data-start="1615" data-end="1618"><code data-start="1620"
+          data-end="1681">ros2 run my_py_pkg smartphone --ros-args -r robot_news:=abc</code></p>
+    </li>
+    <li class="" data-start="1683" data-end="1749">
+      <p class="" data-start="1685" data-end="1749">Verifica que ahora el suscriptor reciba los datos correctamente.</p>
+    </li>
+  </ul>
+  <hr class="" data-start="1751" data-end="1754">
+  <h3 class="" data-start="1756" data-end="1790">⚠️ Consideraciones importantes</h3>
+  <ul data-start="1792" data-end="2056">
+    <li class="" data-start="1792" data-end="1878">
+      <p class="" data-start="1794" data-end="1878">Solo se debe escribir <code data-start="1816"
+          data-end="1828">--ros-args</code> <strong data-start="1829" data-end="1840">una vez</strong>, sin importar
+        cuántos remapeos hagas.</p>
+    </li>
+    <li class="" data-start="1879" data-end="1971">
+      <p class="" data-start="1881" data-end="1971">Cada remapeo se especifica con <code data-start="1912"
+          data-end="1916">-r</code> seguido del patrón:<br data-start="1936" data-end="1939"><code data-start="1941"
+          data-end="1971">nombre_antiguo:=nombre_nuevo</code></p>
+    </li>
+    <li class="" data-start="1972" data-end="2056">
+      <p class="" data-start="1974" data-end="2056">Esto funciona con nodos en Python y en C++, y <strong
+          data-start="2020" data-end="2055">no requiere modificar el código</strong>.</p>
+    </li>
+  </ul>
 
   <!-- Bootstrap JS -->
-  <script
-    src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js">
   </script>
 
 </body>
+
 </html>

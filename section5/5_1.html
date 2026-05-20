@@ -1,14 +1,12 @@
 <!DOCTYPE html>
 <html>
+
 <head>
   <meta charset="utf-8">
   <title>5.1. ¿Qué es un topic en ROS 2? - ROS 2 Jazzy Notes</title>
 
   <!-- Bootstrap CSS -->
-  <link
-    href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
-    rel="stylesheet"
-  >
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
 
   <style>
     .back-link {
@@ -17,22 +15,213 @@
   </style>
 
 </head>
+
 <body class="container py-4">
 
   <button class="btn btn-secondary back-link" onclick="history.back()">← Volver al inicio</button>
 
   <h1 class="mb-4">5.1. ¿Qué es un topic en ROS 2?</h1>
 
-  <p class="lead">En esta clase se explica qué es un topic en ROS 2 mediante una analogía sencilla con emisoras de radio. Aprenderás cómo los nodos se comunican publicando y suscribiéndose a tópicos, y qué condiciones deben cumplirse para que esta comunicación funcione correctamente.</p>
+  <p class="lead">En esta clase se explica qué es un topic en ROS 2 mediante una analogía sencilla con emisoras de
+    radio. Aprenderás cómo los nodos se comunican publicando y suscribiéndose a tópicos, y qué condiciones deben
+    cumplirse para que esta comunicación funcione correctamente.</p>
 
-  <div class="alert alert-light">
-    <p><strong>Contenido:</strong> Esta sección está en desarrollo.</p>
-  </div>
-
+  <p class="" data-start="612" data-end="636">📘 <strong data-start="615" data-end="636">Notas de la clase</strong></p>
+  <p class="" data-start="638" data-end="669"><strong data-start="638" data-end="669">Concepto general de <em
+        data-start="660" data-end="667">topic</em></strong></p>
+  <ul data-start="670" data-end="921">
+    <li class="" data-start="670" data-end="782">
+      <p class="" data-start="672" data-end="782">Un <em data-start="675" data-end="682">topic</em> es un canal de
+        comunicación unidireccional usado por los nodos en ROS 2 para intercambiar mensajes.</p>
+    </li>
+    <li class="" data-start="783" data-end="921">
+      <p class="" data-start="785" data-end="921">Se utiliza principalmente para transmitir flujos de datos desde
+        sensores, controles u otros procesos que no requieren respuesta directa.</p>
+    </li>
+  </ul>
+  <p class="" data-start="923" data-end="953"><strong data-start="923" data-end="953">Analogía: emisora de
+      radio</strong></p>
+  <ul data-start="954" data-end="1247">
+    <li class="" data-start="954" data-end="1029">
+      <p class="" data-start="956" data-end="1029">Imagina un transmisor de radio que emite música en la frecuencia 98.7
+        FM.</p>
+    </li>
+    <li class="" data-start="1030" data-end="1095">
+      <p class="" data-start="1032" data-end="1095">Esta frecuencia es comparable al nombre de un <em data-start="1078"
+          data-end="1085">topic</em> en ROS 2.</p>
+    </li>
+    <li class="" data-start="1096" data-end="1247">
+      <p class="" data-start="1098" data-end="1247">Cualquier dispositivo (receptor) que quiera oír la música debe estar
+        sintonizado en esa frecuencia y decodificar correctamente el tipo de señal (FM).</p>
+    </li>
+  </ul>
+  <p class="" data-start="1249" data-end="1284"><strong data-start="1249" data-end="1284">Elementos clave de la
+      analogía:</strong></p>
+  <ul data-start="1285" data-end="1480">
+    <li class="" data-start="1285" data-end="1342">
+      <p class="" data-start="1287" data-end="1342">El <strong data-start="1290" data-end="1304">transmisor</strong> de
+        radio = nodo <em data-start="1321" data-end="1332">publisher</em> en ROS 2.</p>
+    </li>
+    <li class="" data-start="1343" data-end="1393">
+      <p class="" data-start="1345" data-end="1393">El <strong data-start="1348" data-end="1372">dispositivo
+          receptor</strong> = nodo <em data-start="1380" data-end="1392">subscriber</em>.</p>
+    </li>
+    <li class="" data-start="1394" data-end="1440">
+      <p class="" data-start="1396" data-end="1440">La <strong data-start="1399" data-end="1418">frecuencia
+          98.7</strong> = nombre del <em data-start="1432" data-end="1439">topic</em>.</p>
+    </li>
+    <li class="" data-start="1441" data-end="1480">
+      <p class="" data-start="1443" data-end="1480">La <strong data-start="1446" data-end="1461">señal FM/AM</strong> =
+        tipo de mensaje.</p>
+    </li>
+  </ul>
+  <p class="" data-start="1482" data-end="1537"><strong data-start="1482" data-end="1537">Condiciones necesarias para
+      una comunicación válida</strong></p>
+  <ul data-start="1538" data-end="1786">
+    <li class="" data-start="1538" data-end="1711">
+      <p class="" data-start="1540" data-end="1585">Todos los <em data-start="1550" data-end="1562">publishers</em> y
+        <em data-start="1565" data-end="1578">subscribers</em> deben:</p>
+      <ul data-start="1588" data-end="1711">
+        <li class="" data-start="1588" data-end="1622">
+          <p class="" data-start="1590" data-end="1622">Usar el mismo nombre de <em data-start="1614"
+              data-end="1621">topic</em>.</p>
+        </li>
+        <li class="" data-start="1625" data-end="1711">
+          <p class="" data-start="1627" data-end="1711">Utilizar el mismo tipo de mensaje (por ejemplo, ambos FM o ambos
+            AM en la analogía).</p>
+        </li>
+      </ul>
+    </li>
+    <li class="" data-start="1712" data-end="1786">
+      <p class="" data-start="1714" data-end="1786">Si hay una incompatibilidad de tipo de mensaje, la comunicación
+        fallará.</p>
+    </li>
+  </ul>
+  <p class="" data-start="1788" data-end="1813"><strong data-start="1788" data-end="1813">Variaciones posibles:</strong>
+  </p>
+  <ul data-start="1814" data-end="2101">
+    <li class="" data-start="1814" data-end="2101">
+      <p class="" data-start="1816" data-end="1839">Un <em data-start="1819" data-end="1826">topic</em> puede tener:</p>
+      <ul data-start="1842" data-end="2101">
+        <li class="" data-start="1842" data-end="1890">
+          <p class="" data-start="1844" data-end="1890">Un solo <em data-start="1852" data-end="1863">publisher</em> y
+            múltiples <em data-start="1876" data-end="1889">subscribers</em>.</p>
+        </li>
+        <li class="" data-start="1893" data-end="1944">
+          <p class="" data-start="1895" data-end="1944">Múltiples <em data-start="1905" data-end="1917">publishers</em>
+            y múltiples <em data-start="1930" data-end="1943">subscribers</em>.</p>
+        </li>
+        <li class="" data-start="1947" data-end="2006">
+          <p class="" data-start="1949" data-end="2006"><em data-start="1949" data-end="1962">Subscribers</em> sin
+            ningún <em data-start="1974" data-end="1985">publisher</em>: no recibirán datos.</p>
+        </li>
+        <li class="" data-start="2009" data-end="2101">
+          <p class="" data-start="2011" data-end="2101"><em data-start="2011" data-end="2023">Publishers</em> sin ningún
+            <em data-start="2035" data-end="2047">subscriber</em>: los datos serán emitidos pero no los recibirá nadie.
+          </p>
+        </li>
+      </ul>
+    </li>
+  </ul>
+  <p class="" data-start="2103" data-end="2148"><strong data-start="2103" data-end="2148">Ejemplo extendido con
+      múltiples <em data-start="2137" data-end="2145">topics</em>:</strong></p>
+  <ul data-start="2149" data-end="2417">
+    <li class="" data-start="2149" data-end="2337">
+      <p class="" data-start="2151" data-end="2196">Un nodo (como el coche en la analogía) puede:</p>
+      <ul data-start="2199" data-end="2337">
+        <li class="" data-start="2199" data-end="2270">
+          <p class="" data-start="2201" data-end="2270">Suscribirse al <em data-start="2216" data-end="2223">topic</em>
+            <code data-start="2224" data-end="2231">101.3</code> (por ejemplo, para recibir música AM).</p>
+        </li>
+        <li class="" data-start="2273" data-end="2337">
+          <p class="" data-start="2275" data-end="2337">Publicar su posición actual en otro <em data-start="2311"
+              data-end="2318">topic</em> (<code data-start="2320" data-end="2335">/car_location</code>).</p>
+        </li>
+      </ul>
+    </li>
+    <li class="" data-start="2338" data-end="2417">
+      <p class="" data-start="2340" data-end="2417">Otro nodo (por ejemplo, una computadora) puede suscribirse a <code
+          data-start="2401" data-end="2416">/car_location</code>.</p>
+    </li>
+  </ul>
+  <p class="" data-start="2419" data-end="2460"><strong data-start="2419" data-end="2460">Propiedades de los <em
+        data-start="2440" data-end="2448">topics</em> en ROS 2:</strong></p>
+  <ul data-start="2461" data-end="2960">
+    <li class="" data-start="2461" data-end="2588">
+      <p class="" data-start="2463" data-end="2493">Son independientes y anónimos.</p>
+      <ul data-start="2496" data-end="2588">
+        <li class="" data-start="2496" data-end="2542">
+          <p class="" data-start="2498" data-end="2542">Los <em data-start="2502" data-end="2514">publishers</em> no
+            saben quién se suscribe.</p>
+        </li>
+        <li class="" data-start="2545" data-end="2588">
+          <p class="" data-start="2547" data-end="2588">Los <em data-start="2551" data-end="2564">subscribers</em> no
+            saben quién publica.</p>
+        </li>
+      </ul>
+    </li>
+    <li class="" data-start="2589" data-end="2625">
+      <p class="" data-start="2591" data-end="2625">La comunicación es unidireccional.</p>
+    </li>
+    <li class="" data-start="2626" data-end="2711">
+      <p class="" data-start="2628" data-end="2711">Un nodo puede contener múltiples <em data-start="2661"
+          data-end="2673">publishers</em> y <em data-start="2676" data-end="2689">subscribers</em> a distintos <em
+          data-start="2702" data-end="2710">topics</em>.</p>
+    </li>
+    <li class="" data-start="2712" data-end="2837">
+      <p class="" data-start="2714" data-end="2734">Los <em data-start="2718" data-end="2726">topics</em> tienen:</p>
+      <ul data-start="2737" data-end="2837">
+        <li class="" data-start="2737" data-end="2781">
+          <p class="" data-start="2739" data-end="2781">Un nombre (ej. <code data-start="2754"
+              data-end="2761">/odom</code>, <code data-start="2763" data-end="2773">/cmd_vel</code>, etc.).</p>
+        </li>
+        <li class="" data-start="2784" data-end="2837">
+          <p class="" data-start="2786" data-end="2837">Un tipo de mensaje (ej. <code data-start="2810"
+              data-end="2835">geometry_msgs/msg/Twist</code>).</p>
+        </li>
+      </ul>
+    </li>
+    <li class="" data-start="2838" data-end="2960">
+      <p class="" data-start="2840" data-end="2960">Los nombres de <em data-start="2855" data-end="2862">topic</em>
+        deben comenzar con letra y pueden contener letras, números, guiones bajos, tildes y barras (<code
+          data-start="2955" data-end="2958">/</code>).</p>
+    </li>
+  </ul>
+  <p class="" data-start="2962" data-end="2984"><strong data-start="2962" data-end="2984">Detalles técnicos:</strong>
+  </p>
+  <ul data-start="2985" data-end="3267">
+    <li class="" data-start="2985" data-end="3169">
+      <p class="" data-start="2987" data-end="3169">Los mensajes se transmiten internamente usando DDS (Data
+        Distribution Service), pero las bibliotecas cliente de ROS 2 como <code data-start="3110"
+          data-end="3118">rclcpp</code> (C++) y <code data-start="3127" data-end="3134">rclpy</code> (Python) abstraen
+        esa complejidad.</p>
+    </li>
+    <li class="" data-start="3170" data-end="3267">
+      <p class="" data-start="3172" data-end="3267">Puedes escribir nodos que usen <em data-start="3203"
+          data-end="3211">topics</em> en C++, Python u otros lenguajes compatibles con ROS 2.</p>
+    </li>
+  </ul>
+  <p class="" data-start="3269" data-end="3296">📌 <strong data-start="3272" data-end="3296">Cuándo usar <em
+        data-start="3286" data-end="3294">topics</em></strong></p>
+  <ul data-start="3297" data-end="3509">
+    <li class="" data-start="3297" data-end="3431">
+      <p class="" data-start="3299" data-end="3373">Cuando necesitas enviar flujos constantes de datos sin requerir
+        respuesta.</p>
+      <ul data-start="3376" data-end="3431">
+        <li class="" data-start="3376" data-end="3431">
+          <p class="" data-start="3378" data-end="3431">Ejemplos: sensores, posiciones, velocidades, estados.</p>
+        </li>
+      </ul>
+    </li>
+    <li class="" data-start="3432" data-end="3509">
+      <p class="" data-start="3434" data-end="3509">No usar <em data-start="3442" data-end="3450">topics</em> para
+        servicios o acciones que requieren retroalimentación.</p>
+    </li>
+  </ul>
   <!-- Bootstrap JS -->
-  <script
-    src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js">
   </script>
 
 </body>
+
 </html>

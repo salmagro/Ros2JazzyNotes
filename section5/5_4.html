@@ -1,14 +1,12 @@
 <!DOCTYPE html>
 <html>
+
 <head>
   <meta charset="utf-8">
   <title>5.4. Crear un nodo publicador en C++ para ROS 2 - ROS 2 Jazzy Notes</title>
 
   <!-- Bootstrap CSS -->
-  <link
-    href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
-    rel="stylesheet"
-  >
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
 
   <style>
     .back-link {
@@ -17,22 +15,215 @@
   </style>
 
 </head>
+
 <body class="container py-4">
 
   <button class="btn btn-secondary back-link" onclick="history.back()">← Volver al inicio</button>
 
   <h1 class="mb-4">5.4. Crear un nodo publicador en C++ para ROS 2</h1>
 
-  <p class="lead">En esta clase aprenderás a crear un nodo publicador en C++ que publique mensajes en un topic. Implementarás la misma funcionalidad que en Python pero utilizando C++ y rclcpp.</p>
+  <p class="lead">En esta clase aprenderás a crear un nodo publicador en C++ que publique mensajes en un topic.
+    Implementarás la misma funcionalidad que en Python pero utilizando C++ y rclcpp.</p>
 
-  <div class="alert alert-light">
-    <p><strong>Contenido:</strong> Esta sección está en desarrollo.</p>
-  </div>
+  <p class="" data-start="505" data-end="529">📘 <strong data-start="508" data-end="529">Notas de la clase</strong></p>
+  <h3 class="" data-start="531" data-end="561">📂 Preparación del entorno</h3>
+  <ul data-start="562" data-end="709">
+    <li class="" data-start="562" data-end="597">
+      <p class="" data-start="564" data-end="597">Ir al workspace: <code data-start="581"
+          data-end="597">~/ros2_ws/src/</code></p>
+    </li>
+    <li class="" data-start="598" data-end="651">
+      <p class="" data-start="600" data-end="651">Entrar al paquete en C++ (por ejemplo <code data-start="638"
+          data-end="650">my_cpp_pkg</code>)</p>
+    </li>
+    <li class="" data-start="652" data-end="709">
+      <p class="" data-start="654" data-end="709">Crear un nuevo archivo fuente: <code data-start="685"
+          data-end="709">robot_news_station.cpp</code></p>
+    </li>
+  </ul>
+  <h3 class="" data-start="711" data-end="739">🔧 Configuración inicial</h3>
+  <ul data-start="740" data-end="1009">
+    <li class="" data-start="740" data-end="865">
+      <p class="" data-start="742" data-end="791">Utilizar una plantilla de nodo ROS 2 y renombrar:</p>
+      <ul data-start="794" data-end="865">
+        <li class="" data-start="794" data-end="821">
+          <p class="" data-start="796" data-end="821">Clase: <code data-start="803"
+              data-end="821">RobotNewsStation</code></p>
+        </li>
+        <li class="" data-start="824" data-end="865">
+          <p class="" data-start="826" data-end="865">Nombre del nodo: <code data-start="843"
+              data-end="865">"robot_news_station"</code></p>
+        </li>
+      </ul>
+    </li>
+    <li class="" data-start="866" data-end="1009">
+      <p class="" data-start="868" data-end="890">El archivo debe tener:</p>
+      <ul data-start="893" data-end="1009">
+        <li class="" data-start="893" data-end="927">
+          <p class="" data-start="895" data-end="927">Inclusión de <code data-start="908"
+              data-end="927">rclcpp/rclcpp.hpp</code></p>
+        </li>
+        <li class="" data-start="930" data-end="968">
+          <p class="" data-start="932" data-end="968">Creación del nodo con <code data-start="954"
+              data-end="968">rclcpp::Node</code></p>
+        </li>
+        <li class="" data-start="971" data-end="1009">
+          <p class="" data-start="973" data-end="1009">Función <code data-start="981" data-end="987">main</code> que
+            ejecuta el <code data-start="1003" data-end="1009">spin</code></p>
+        </li>
+      </ul>
+    </li>
+  </ul>
+  <h3 class="" data-start="1011" data-end="1047">📥 Inclusión del tipo de mensaje</h3>
+  <ul data-start="1048" data-end="1418">
+    <li class="" data-start="1048" data-end="1167">
+      <p class="" data-start="1050" data-end="1167">Incluir el mensaje <code data-start="1069"
+          data-end="1077">String</code> desde el paquete <code data-start="1095"
+          data-end="1115">example_interfaces</code>:<br data-start="1116" data-end="1119"><code data-start="1121"
+          data-end="1167">#include "example_interfaces/msg/string.hpp"</code></p>
+    </li>
+    <li class="" data-start="1169" data-end="1418">
+      <p class="" data-start="1171" data-end="1194">Verificar dependencias:</p>
+      <ul data-start="1197" data-end="1418">
+        <li class="" data-start="1197" data-end="1269">
+          <p class="" data-start="1199" data-end="1269">En <code data-start="1202" data-end="1215">package.xml</code>,
+            agregar:<br data-start="1225" data-end="1228"><code data-start="1232"
+              data-end="1269">&lt;depend&gt;example_interfaces&lt;/depend&gt;</code></p>
+        </li>
+        <li class="" data-start="1272" data-end="1418">
+          <p class="" data-start="1274" data-end="1418">En <code data-start="1277"
+              data-end="1293">CMakeLists.txt</code>:<br data-start="1294" data-end="1297">Agregar <code
+              data-start="1309" data-end="1352">find_package(example_interfaces REQUIRED)</code><br data-start="1352"
+              data-end="1355">Incluir <code data-start="1367" data-end="1387">example_interfaces</code> en <code
+              data-start="1391" data-end="1418">ament_target_dependencies</code></p>
+        </li>
+      </ul>
+    </li>
+  </ul>
+  <h3 class="" data-start="1420" data-end="1446">📤 Crear el publicador</h3>
+  <ol data-start="1448" data-end="1791">
+    <li class="" data-start="1448" data-end="1567">
+      <p class="" data-start="1451" data-end="1567"><strong data-start="1451" data-end="1486">Declarar como atributo
+          privado:</strong><br data-start="1486" data-end="1489"><code data-start="1492"
+          data-end="1567">rclcpp::Publisher&lt;example_interfaces::msg::String&gt;::SharedPtr publisher_;</code></p>
+    </li>
+    <li class="" data-start="1569" data-end="1791">
+      <p class="" data-start="1572" data-end="1701"><strong data-start="1572" data-end="1606">Inicializar en el
+          constructor:</strong><br data-start="1606" data-end="1609"><code data-start="1612"
+          data-end="1701">publisher_ = this-&gt;create_publisher&lt;example_interfaces::msg::String&gt;("robot_news", 10);</code>
+      </p>
+      <ul data-start="1706" data-end="1791">
+        <li class="" data-start="1706" data-end="1748">
+          <p class="" data-start="1708" data-end="1748"><code data-start="1708" data-end="1722">"robot_news"</code> es
+            el nombre del tópico</p>
+        </li>
+        <li class="" data-start="1752" data-end="1791">
+          <p class="" data-start="1754" data-end="1791"><code data-start="1754" data-end="1758">10</code> es el tamaño
+            de la cola (buffer)</p>
+        </li>
+      </ul>
+    </li>
+  </ol>
+  <h3 class="" data-start="1793" data-end="1817">✉️ Publicar mensajes</h3>
+  <ol data-start="1819" data-end="2560">
+    <li class="" data-start="1819" data-end="2115">
+      <p class="" data-start="1822" data-end="2115"><strong data-start="1822" data-end="1862">Crear método privado <code
+            data-start="1845" data-end="1859">publish_news</code>:</strong><br data-start="1862" data-end="1865"><code
+          data-start="1868" data-end="1891">void publish_news() {</code><br data-start="1891" data-end="1894"><code
+          data-start="1897" data-end="1946">auto msg = example_interfaces::msg::String();</code><br data-start="1946"
+          data-end="1949"><code data-start="1952" data-end="1988">std::string robot_name = "R2D2";</code><br
+          data-start="1988" data-end="1991"><code data-start="1994"
+          data-end="2071">msg.data = "Hi, this is " + robot_name + " from the robot news station.";</code><br
+          data-start="2071" data-end="2074"><code data-start="2077"
+          data-end="2106">publisher_-&gt;publish(msg);</code><br data-start="2106" data-end="2109"><code
+          data-start="2112" data-end="2115">}</code></p>
+    </li>
+    <li class="" data-start="2117" data-end="2432">
+      <p class="" data-start="2120" data-end="2176"><strong data-start="2120" data-end="2176">Crear <code
+            data-start="2128" data-end="2136">timer_</code> para llamar periódicamente al método:</strong></p>
+      <ul data-start="2180" data-end="2432">
+        <li class="" data-start="2180" data-end="2249">
+          <p class="" data-start="2182" data-end="2249">Declarar en la clase:<br data-start="2203" data-end="2206"><code
+              data-start="2211" data-end="2249">rclcpp::TimerBase::SharedPtr timer_;</code></p>
+        </li>
+        <li class="" data-start="2253" data-end="2432">
+          <p class="" data-start="2255" data-end="2432">Inicializar en el constructor:<br data-start="2285"
+              data-end="2288"><code data-start="2293" data-end="2332">using namespace std::chrono_literals;</code><br
+              data-start="2332" data-end="2335"><code data-start="2340"
+              data-end="2432">timer_ = this-&gt;create_wall_timer(500ms, std::bind(&amp;RobotNewsStation::publish_news, this));</code>
+          </p>
+        </li>
+      </ul>
+    </li>
+    <li class="" data-start="2434" data-end="2560">
+      <p class="" data-start="2437" data-end="2560"><strong data-start="2437" data-end="2480">Log de confirmación al
+          iniciar el nodo:</strong><br data-start="2480" data-end="2483"><code data-start="2486"
+          data-end="2560">RCLCPP_INFO(this-&gt;get_logger(), "Robot News Station has been started.");</code></p>
+    </li>
+  </ol>
+  <hr class="" data-start="2562" data-end="2565">
+  <h3 class="" data-start="2567" data-end="2608">⚙️ Configuración del <code data-start="2592"
+      data-end="2608">CMakeLists.txt</code></h3>
+  <ul data-start="2610" data-end="2884">
+    <li class="" data-start="2610" data-end="2707">
+      <p class="" data-start="2612" data-end="2707">Añadir el nuevo ejecutable:<br data-start="2639"
+          data-end="2642"><code data-start="2644"
+          data-end="2707">add_executable(robot_news_station src/robot_news_station.cpp)</code></p>
+    </li>
+    <li class="" data-start="2709" data-end="2811">
+      <p class="" data-start="2711" data-end="2811">Declarar dependencias:<br data-start="2733" data-end="2736"><code
+          data-start="2738"
+          data-end="2811">ament_target_dependencies(robot_news_station rclcpp example_interfaces)</code></p>
+    </li>
+    <li class="" data-start="2813" data-end="2884">
+      <p class="" data-start="2815" data-end="2884">Instalar el ejecutable:<br data-start="2838" data-end="2841"><code
+          data-start="2843" data-end="2884">install(TARGETS robot_news_station ...)</code></p>
+    </li>
+  </ul>
+  <hr class="" data-start="2886" data-end="2889">
+  <h3 class="" data-start="2891" data-end="2917">🚀 Compilar y ejecutar</h3>
+  <ol data-start="2919" data-end="3228">
+    <li class="" data-start="2919" data-end="2995">
+      <p class="" data-start="2922" data-end="2995"><strong data-start="2922" data-end="2946">Compilar el
+          paquete:</strong><br data-start="2946" data-end="2949"><code data-start="2952"
+          data-end="2995">colcon build --packages-select my_cpp_pkg</code></p>
+    </li>
+    <li class="" data-start="2997" data-end="3095">
+      <p class="" data-start="3000" data-end="3095"><strong data-start="3000" data-end="3021">Ejecutar el
+          nodo:</strong><br data-start="3021" data-end="3024"><code data-start="3027"
+          data-end="3049">. install/setup.bash</code><br data-start="3049" data-end="3052"><code data-start="3055"
+          data-end="3095">ros2 run my_cpp_pkg robot_news_station</code></p>
+    </li>
+    <li class="" data-start="3097" data-end="3228">
+      <p class="" data-start="3100" data-end="3228"><strong data-start="3100" data-end="3129">Verificar
+          funcionamiento:</strong><br data-start="3129" data-end="3132"><code data-start="3135"
+          data-end="3151">ros2 node list</code><br data-start="3151" data-end="3154"><code data-start="3157"
+          data-end="3193">ros2 node info /robot_news_station</code><br data-start="3193" data-end="3196"><code
+          data-start="3199" data-end="3228">ros2 topic echo /robot_news</code></p>
+    </li>
+  </ol>
+  <hr class="" data-start="3230" data-end="3233">
+  <h3 class="" data-start="3235" data-end="3267">🔁 Prueba cruzada con Python</h3>
+  <ul data-start="3269" data-end="3574">
+    <li class="" data-start="3269" data-end="3369">
+      <p class="" data-start="3271" data-end="3369">Ejecutar un suscriptor hecho en Python (<code data-start="3311"
+          data-end="3323">smartphone</code>) que escuche en el mismo tópico <code data-start="3356"
+          data-end="3369">/robot_news</code></p>
+    </li>
+    <li class="" data-start="3370" data-end="3441">
+      <p class="" data-start="3372" data-end="3441">Comprobar que recibe correctamente los mensajes del publicador en
+        C++</p>
+    </li>
+    <li class="" data-start="3442" data-end="3574">
+      <p class="" data-start="3444" data-end="3574">Confirmación: ROS 2 es agnóstico al lenguaje — los nodos en C++ y
+        Python pueden comunicarse si usan el mismo tópico y tipo de dato</p>
+    </li>
+  </ul>
 
   <!-- Bootstrap JS -->
-  <script
-    src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js">
   </script>
 
 </body>
+
 </html>

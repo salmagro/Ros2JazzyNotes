@@ -1,14 +1,12 @@
 <!DOCTYPE html>
 <html>
+
 <head>
   <meta charset="utf-8">
   <title>5.8. Monitoreo de tópicos con RQT Graph - ROS 2 Jazzy Notes</title>
 
   <!-- Bootstrap CSS -->
-  <link
-    href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
-    rel="stylesheet"
-  >
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
 
   <style>
     .back-link {
@@ -17,22 +15,167 @@
   </style>
 
 </head>
+
 <body class="container py-4">
 
   <button class="btn btn-secondary back-link" onclick="history.back()">← Volver al inicio</button>
 
   <h1 class="mb-4">5.8. Monitoreo de tópicos con RQT Graph</h1>
 
-  <p class="lead">En esta clase aprenderás a visualizar gráficamente todos los tópicos y sus conexiones utilizando rqt_graph. Esta herramienta es esencial para depurar y entender la arquitectura de comunicación de tu sistema ROS 2.</p>
+  <p class="lead">En esta clase aprenderás a visualizar gráficamente todos los tópicos y sus conexiones utilizando
+    rqt_graph. Esta herramienta es esencial para depurar y entender la arquitectura de comunicación de tu sistema ROS 2.
+  </p>
 
-  <div class="alert alert-light">
-    <p><strong>Contenido:</strong> Esta sección está en desarrollo.</p>
-  </div>
+  <p class="" data-start="519" data-end="543">📘 <strong data-start="522" data-end="543">Notas de la clase</strong></p>
+  <h3 class="" data-start="545" data-end="589">🖼️ Iniciar el monitoreo con <code data-start="578"
+      data-end="589">rqt_graph</code></h3>
+  <ul data-start="591" data-end="771">
+    <li class="" data-start="591" data-end="618">
+      <p class="" data-start="593" data-end="618">Ejecutar:<br data-start="602" data-end="605"><code data-start="607"
+          data-end="618">rqt_graph</code></p>
+    </li>
+    <li class="" data-start="619" data-end="696">
+      <p class="" data-start="621" data-end="696">En la interfaz visual, se mostrarán nodos (círculos) y tópicos
+        (cuadrados).</p>
+    </li>
+    <li class="" data-start="697" data-end="771">
+      <p class="" data-start="699" data-end="771">Las flechas indican el flujo de datos entre publicadores y
+        suscriptores.</p>
+    </li>
+  </ul>
+  <hr class="" data-start="773" data-end="776">
+  <h3 class="" data-start="778" data-end="825">🧪 Ejecutar nodos para visualizar actividad</h3>
+  <ol data-start="827" data-end="1160">
+    <li class="" data-start="827" data-end="919">
+      <p class="" data-start="830" data-end="919"><strong data-start="830" data-end="873">Publicador en C++
+          (robot_news_station):</strong><br data-start="873" data-end="876"><code data-start="879"
+          data-end="919">ros2 run my_cpp_pkg robot_news_station</code></p>
+    </li>
+    <li class="" data-start="921" data-end="999">
+      <p class="" data-start="924" data-end="999"><strong data-start="924" data-end="962">Suscriptor en Python
+          (smartphone):</strong><br data-start="962" data-end="965"><code data-start="968"
+          data-end="999">ros2 run my_py_pkg smartphone</code></p>
+    </li>
+    <li class="" data-start="1001" data-end="1160">
+      <p class="" data-start="1004" data-end="1033"><strong data-start="1004" data-end="1033">Refrescar en <code
+            data-start="1019" data-end="1030">rqt_graph</code>:</strong></p>
+      <ul data-start="1037" data-end="1160">
+        <li class="" data-start="1037" data-end="1081">
+          <p class="" data-start="1039" data-end="1081">Seleccionar la vista: <code data-start="1061"
+              data-end="1081">Nodes/Topics (all)</code></p>
+        </li>
+        <li class="" data-start="1085" data-end="1160">
+          <p class="" data-start="1087" data-end="1160">Verás el tópico <code data-start="1103"
+              data-end="1115">robot_news</code> con un publicador y un suscriptor conectados</p>
+        </li>
+      </ul>
+    </li>
+  </ol>
+  <hr class="" data-start="1162" data-end="1165">
+  <h3 class="" data-start="1167" data-end="1217">➕ Añadir múltiples publicadores y suscriptores</h3>
+  <ul data-start="1219" data-end="1719">
+    <li class="" data-start="1219" data-end="1341">
+      <p class="" data-start="1221" data-end="1341"><strong data-start="1221" data-end="1263">Nuevo publicador con
+          nombre diferente:</strong><br data-start="1263" data-end="1266"><code data-start="1268"
+          data-end="1341">ros2 run my_py_pkg robot_news_station --ros-args -r __node:=station_two</code></p>
+    </li>
+    <li class="" data-start="1343" data-end="1461">
+      <p class="" data-start="1345" data-end="1461"><strong data-start="1345" data-end="1381">Otro publicador
+          (station_three):</strong><br data-start="1381" data-end="1384"><code data-start="1386"
+          data-end="1461">ros2 run my_py_pkg robot_news_station --ros-args -r __node:=station_three</code></p>
+    </li>
+    <li class="" data-start="1463" data-end="1603">
+      <p class="" data-start="1465" data-end="1603"><strong data-start="1465" data-end="1482">Verificación:</strong><br
+          data-start="1482" data-end="1485">Todos los publicadores están conectados al mismo tópico <code
+          data-start="1543" data-end="1555">robot_news</code><br data-start="1555" data-end="1558">Todos los
+        suscriptores reciben los mensajes</p>
+    </li>
+    <li class="" data-start="1605" data-end="1719">
+      <p class="" data-start="1607" data-end="1719"><strong data-start="1607" data-end="1645">Nuevo suscriptor
+          (smartphone_two):</strong><br data-start="1645" data-end="1648"><code data-start="1650"
+          data-end="1719">ros2 run my_cpp_pkg smartphone --ros-args -r __node:=smartphone_two</code></p>
+    </li>
+  </ul>
+  <hr class="" data-start="1721" data-end="1724">
+  <h3 class="" data-start="1726" data-end="1764">🧭 Publicador con tópico diferente</h3>
+  <ul data-start="1766" data-end="2007">
+    <li class="" data-start="1766" data-end="1914">
+      <p class="" data-start="1768" data-end="1914"><strong data-start="1768" data-end="1812">Crear publicador con
+          remapeo del tópico:</strong><br data-start="1812" data-end="1815"><code data-start="1817"
+          data-end="1914">ros2 run my_py_pkg robot_news_station --ros-args -r __node:=station_four -r robot_news:=my_news</code>
+      </p>
+    </li>
+    <li class="" data-start="1916" data-end="2007">
+      <p class="" data-start="1918" data-end="2007"><strong data-start="1918" data-end="1932">Resultado:</strong><br
+          data-start="1932" data-end="1935"><code data-start="1937" data-end="1951">station_four</code> publica en el
+        tópico <code data-start="1973" data-end="1982">my_news</code>, independiente del resto</p>
+    </li>
+  </ul>
+  <hr class="" data-start="2009" data-end="2012">
+  <h3 class="" data-start="2014" data-end="2053">🎯 Añadir suscriptor para <code data-start="2044"
+      data-end="2053">my_news</code></h3>
+  <ul data-start="2055" data-end="2348">
+    <li class="" data-start="2055" data-end="2195">
+      <p class="" data-start="2057" data-end="2195"><strong data-start="2057" data-end="2097">Nuevo suscriptor
+          (smartphone_three):</strong><br data-start="2097" data-end="2100"><code data-start="2102"
+          data-end="2195">ros2 run my_py_pkg smartphone --ros-args -r __node:=smartphone_three -r robot_news:=my_news</code>
+      </p>
+    </li>
+    <li class="" data-start="2197" data-end="2348">
+      <p class="" data-start="2199" data-end="2231"><strong data-start="2199" data-end="2231">Verificación en <code
+            data-start="2217" data-end="2228">rqt_graph</code>:</strong></p>
+      <ul data-start="2234" data-end="2348">
+        <li class="" data-start="2234" data-end="2294">
+          <p class="" data-start="2236" data-end="2294"><code data-start="2236" data-end="2254">smartphone_three</code>
+            solo está conectado al tópico <code data-start="2285" data-end="2294">my_news</code></p>
+        </li>
+        <li class="" data-start="2297" data-end="2348">
+          <p class="" data-start="2299" data-end="2348">Recibe solo los datos enviados por <code data-start="2334"
+              data-end="2348">station_four</code></p>
+        </li>
+      </ul>
+    </li>
+  </ul>
+  <hr class="" data-start="2350" data-end="2353">
+  <h3 class="" data-start="2355" data-end="2389">🧠 Análisis y buenas prácticas</h3>
+  <ul data-start="2391" data-end="2808">
+    <li class="" data-start="2391" data-end="2532">
+      <p class="" data-start="2393" data-end="2438"><code data-start="2393" data-end="2404">rqt_graph</code> permite
+        detectar errores comunes:</p>
+      <ul data-start="2441" data-end="2532">
+        <li class="" data-start="2441" data-end="2478">
+          <p class="" data-start="2443" data-end="2478">Nombres de tópicos mal configurados</p>
+        </li>
+        <li class="" data-start="2481" data-end="2502">
+          <p class="" data-start="2483" data-end="2502">Nodos desconectados</p>
+        </li>
+        <li class="" data-start="2505" data-end="2532">
+          <p class="" data-start="2507" data-end="2532">Flujo de datos inesperado</p>
+        </li>
+      </ul>
+    </li>
+    <li class="" data-start="2534" data-end="2623">
+      <p class="" data-start="2536" data-end="2623">Puedes crear sistemas con múltiples "canales" de comunicación usando
+        diferentes tópicos</p>
+    </li>
+    <li class="" data-start="2625" data-end="2808">
+      <p class="" data-start="2627" data-end="2684">Renombrar nodos y tópicos en tiempo de ejecución permite:</p>
+      <ul data-start="2687" data-end="2808">
+        <li class="" data-start="2687" data-end="2742">
+          <p class="" data-start="2689" data-end="2742">Probar diferentes configuraciones sin tocar el código</p>
+        </li>
+        <li class="" data-start="2745" data-end="2808">
+          <p class="" data-start="2747" data-end="2808">Ejecutar múltiples instancias de un mismo nodo sin conflictos
+          </p>
+        </li>
+      </ul>
+    </li>
+  </ul>
 
   <!-- Bootstrap JS -->
-  <script
-    src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js">
   </script>
 
 </body>
+
 </html>

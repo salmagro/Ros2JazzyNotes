@@ -1,14 +1,12 @@
 <!DOCTYPE html>
 <html>
+
 <head>
   <meta charset="utf-8">
   <title>5.2. Crear un publisher en Python con ROS 2 - ROS 2 Jazzy Notes</title>
 
   <!-- Bootstrap CSS -->
-  <link
-    href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
-    rel="stylesheet"
-  >
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
 
   <style>
     .back-link {
@@ -17,22 +15,150 @@
   </style>
 
 </head>
+
 <body class="container py-4">
 
   <button class="btn btn-secondary back-link" onclick="history.back()">← Volver al inicio</button>
 
   <h1 class="mb-4">5.2. Crear un publisher en Python con ROS 2</h1>
 
-  <p class="lead">En esta clase aprenderás a crear un nodo en Python con ROS 2 que actúe como publisher, publicando mensajes de texto en un topic dos veces por segundo. Este es tu primer paso práctico para comunicar nodos mediante topics en ROS 2.</p>
+  <p class="lead">En esta clase aprenderás a crear un nodo en Python con ROS 2 que actúe como publisher, publicando
+    mensajes de texto en un topic dos veces por segundo. Este es tu primer paso práctico para comunicar nodos mediante
+    topics en ROS 2.</p>
 
-  <div class="alert alert-light">
-    <p><strong>Contenido:</strong> Esta sección está en desarrollo.</p>
-  </div>
+  <p class="" data-start="500" data-end="524">📘 <strong data-start="503" data-end="524">Notas de la clase</strong></p>
+  <p class="" data-start="526" data-end="556"><strong data-start="526" data-end="556">📂 Preparación del
+      entorno</strong></p>
+  <ul data-start="557" data-end="764">
+    <li class="" data-start="557" data-end="607">
+      <p class="" data-start="559" data-end="607">Navega al <em data-start="569" data-end="580">workspace</em> de ROS 2,
+        dentro de <code data-start="601" data-end="606">src</code>.</p>
+    </li>
+    <li class="" data-start="608" data-end="670">
+      <p class="" data-start="610" data-end="670">Usa un paquete Python ya existente, por ejemplo <code data-start="658"
+          data-end="669">my_py_pkg</code>.</p>
+    </li>
+    <li class="" data-start="671" data-end="764">
+      <p class="" data-start="673" data-end="764">Crea un nuevo archivo Python dentro del subdirectorio homónimo:<br
+          data-start="736" data-end="739"><code data-start="741" data-end="764">robot_news_station.py</code></p>
+    </li>
+  </ul>
+  <p class="" data-start="766" data-end="800"><strong data-start="766" data-end="800">🔧 Hacer el archivo
+      ejecutable</strong></p>
+  <ul data-start="801" data-end="848">
+    <li class="" data-start="801" data-end="848">
+      <p class="" data-start="803" data-end="848">En terminal: chmod +x robot_news_station.py</p>
+    </li>
+  </ul>
+  <p class="" data-start="850" data-end="881"><strong data-start="850" data-end="881">🧱 Estructura base del
+      nodo</strong></p>
+  <ul data-start="882" data-end="1047">
+    <li class="" data-start="882" data-end="1047">
+      <p class="" data-start="884" data-end="938">Utiliza la plantilla estándar de nodo Python en ROS 2:</p>
+      <ul data-start="941" data-end="1047">
+        <li class="" data-start="941" data-end="965">
+          <p class="" data-start="943" data-end="965">Importación de <code data-start="958" data-end="965">rclpy</code>
+          </p>
+        </li>
+        <li class="" data-start="968" data-end="996">
+          <p class="" data-start="970" data-end="996">Clase que hereda de <code data-start="990"
+              data-end="996">Node</code></p>
+        </li>
+        <li class="" data-start="999" data-end="1047">
+          <p class="" data-start="1001" data-end="1047">Método <code data-start="1008" data-end="1016">main()</code> que
+            inicializa y lanza el nodo</p>
+        </li>
+      </ul>
+    </li>
+  </ul>
+  <p class="" data-start="1049" data-end="1076"><strong data-start="1049" data-end="1076">📢 Crear un <em
+        data-start="1063" data-end="1074">publisher</em></strong></p>
+  <ul data-start="1077" data-end="1386">
+    <li class="" data-start="1077" data-end="1386">
+      <p class="" data-start="1079" data-end="1125">Dentro del constructor <code data-start="1102"
+          data-end="1112">__init__</code> de la clase:</p>
+      <ul data-start="1128" data-end="1386">
+        <li class="" data-start="1128" data-end="1295">
+          <p class="" data-start="1130" data-end="1164">Usa <code data-start="1134"
+              data-end="1159">self.create_publisher()</code> con:</p>
+          <ul data-start="1169" data-end="1295">
+            <li class="" data-start="1169" data-end="1226">
+              <p class="" data-start="1171" data-end="1226">Tipo de mensaje: <code data-start="1188"
+                  data-end="1196">String</code> (de <code data-start="1201"
+                  data-end="1225">example_interfaces.msg</code>)</p>
+            </li>
+            <li class="" data-start="1231" data-end="1265">
+              <p class="" data-start="1233" data-end="1265">Nombre del <em data-start="1244" data-end="1251">topic</em>:
+                <code data-start="1253" data-end="1265">robot_news</code></p>
+            </li>
+            <li class="" data-start="1270" data-end="1295">
+              <p class="" data-start="1272" data-end="1295">Tamaño de <em data-start="1282" data-end="1289">queue</em>:
+                <code data-start="1291" data-end="1295">10</code></p>
+            </li>
+          </ul>
+        </li>
+        <li class="" data-start="1298" data-end="1386">
+          <p class="" data-start="1300" data-end="1386">Código de ejemplo para importar el tipo: from
+            example_interfaces.msg import String</p>
+        </li>
+      </ul>
+    </li>
+  </ul>
+  <p class="" data-start="1388" data-end="1438"><strong data-start="1388" data-end="1438">📦 Añadir dependencia al
+      archivo <code data-start="1423" data-end="1436">package.xml</code></strong></p>
+  <ul data-start="1439" data-end="1502">
+    <li class="" data-start="1439" data-end="1502">
+      <p class="" data-start="1441" data-end="1502">Asegúrate de incluir: <code data-start="1465"
+          data-end="1502">&lt;depend&gt;example_interfaces&lt;/depend&gt;</code></p>
+    </li>
+  </ul>
+  <p class="" data-start="1504" data-end="1542"><strong data-start="1504" data-end="1542">⏱ Publicar mensajes
+      periódicamente</strong></p>
+  <ul data-start="1543" data-end="1817">
+    <li class="" data-start="1543" data-end="1708">
+      <p class="" data-start="1545" data-end="1585">Define una función <code data-start="1564"
+          data-end="1580">publish_news()</code> que:</p>
+      <ul data-start="1588" data-end="1708">
+        <li class="" data-start="1588" data-end="1622">
+          <p class="" data-start="1590" data-end="1622">Crea un mensaje de tipo <code data-start="1614"
+              data-end="1622">String</code></p>
+        </li>
+        <li class="" data-start="1625" data-end="1656">
+          <p class="" data-start="1627" data-end="1656">Asigna contenido a <code data-start="1646"
+              data-end="1656">msg.data</code></p>
+        </li>
+        <li class="" data-start="1659" data-end="1708">
+          <p class="" data-start="1661" data-end="1708">Usa <code data-start="1665"
+              data-end="1694">self.publisher.publish(msg)</code> para enviarlo</p>
+        </li>
+      </ul>
+    </li>
+    <li class="" data-start="1709" data-end="1817">
+      <p class="" data-start="1711" data-end="1817">Crea un <em data-start="1719" data-end="1726">timer</em> con <code
+          data-start="1731" data-end="1774">self.create_timer(0.5, self.publish_news)</code> para llamar a la función
+        cada 0.5 segundos</p>
+    </li>
+  </ul>
+  <p class="" data-start="1819" data-end="1849"><strong data-start="1819" data-end="1849">🧪 Prueba de
+      funcionalidad</strong></p>
+  <ul data-start="1850" data-end="2262">
+    <li class="" data-start="1850" data-end="1950">
+      <p class="" data-start="1852" data-end="1950">Añade un <em data-start="1861" data-end="1866">log</em> al iniciar
+        el nodo: self.get_logger().info("Robot News Station has been started")</p>
+    </li>
+    <li class="" data-start="1951" data-end="2145">
+      <p class="" data-start="1953" data-end="2003">Usa <code data-start="1957" data-end="1967">setup.py</code> para
+        registrar el nuevo ejecutable:</p>
+      <div
+        class="contain-inline-size rounded-md border-[0.5px] border-token-border-medium relative bg-token-sidebar-surface-primary">
+         </div>
+    </li>
+  </ul>
 
   <!-- Bootstrap JS -->
-  <script
-    src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js">
   </script>
 
 </body>
+
 </html>

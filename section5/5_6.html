@@ -1,14 +1,12 @@
 <!DOCTYPE html>
 <html>
+
 <head>
   <meta charset="utf-8">
   <title>5.6. Introspección de tópicos en ROS 2 usando la línea de comandos - ROS 2 Jazzy Notes</title>
 
   <!-- Bootstrap CSS -->
-  <link
-    href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
-    rel="stylesheet"
-  >
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
 
   <style>
     .back-link {
@@ -17,22 +15,205 @@
   </style>
 
 </head>
+
 <body class="container py-4">
 
   <button class="btn btn-secondary back-link" onclick="history.back()">← Volver al inicio</button>
 
   <h1 class="mb-4">5.6. Introspección de tópicos en ROS 2 usando la línea de comandos</h1>
 
-  <p class="lead">En esta clase aprenderás a explorar y analizar los tópicos disponibles en tu sistema ROS 2 utilizando herramientas de línea de comandos como ros2 topic list, ros2 topic echo, ros2 topic info y ros2 topic type.</p>
+  <p class="lead">En esta clase aprenderás a explorar y analizar los tópicos disponibles en tu sistema ROS 2 utilizando
+    herramientas de línea de comandos como ros2 topic list, ros2 topic echo, ros2 topic info y ros2 topic type.</p>
 
-  <div class="alert alert-light">
-    <p><strong>Contenido:</strong> Esta sección está en desarrollo.</p>
-  </div>
+  <p class="" data-start="613" data-end="637">📘 <strong data-start="616" data-end="637">Notas de la clase</strong></p>
+  <h3 class="" data-start="639" data-end="684">🔍 Comandos básicos para explorar tópicos</h3>
+  <ul data-start="686" data-end="1263">
+    <li class="" data-start="686" data-end="879">
+      <p class="" data-start="688" data-end="715"><strong data-start="688" data-end="715">Listar tópicos
+          activos:</strong></p>
+      <ul data-start="718" data-end="879">
+        <li class="" data-start="718" data-end="737">
+          <p class="" data-start="720" data-end="737"><code data-start="720" data-end="737">ros2 topic list</code></p>
+        </li>
+        <li class="" data-start="740" data-end="794">
+          <p class="" data-start="742" data-end="794">Muestra todos los tópicos disponibles en el sistema.</p>
+        </li>
+        <li class="" data-start="797" data-end="879">
+          <p class="" data-start="799" data-end="879">Solo aparecen los tópicos que tienen al menos un publicador o
+            suscriptor activo.</p>
+        </li>
+      </ul>
+    </li>
+    <li class="" data-start="881" data-end="1096">
+      <p class="" data-start="883" data-end="930"><strong data-start="883" data-end="930">Obtener información detallada
+          de un tópico:</strong></p>
+      <ul data-start="933" data-end="1096">
+        <li class="" data-start="933" data-end="964">
+          <p class="" data-start="935" data-end="964"><code data-start="935"
+              data-end="964">ros2 topic info /robot_news</code></p>
+        </li>
+        <li class="" data-start="967" data-end="1096">
+          <p class="" data-start="969" data-end="977">Muestra:</p>
+          <ul data-start="982" data-end="1096">
+            <li class="" data-start="982" data-end="1043">
+              <p class="" data-start="984" data-end="1043">Tipo de mensaje usado (ej. <code data-start="1011"
+                  data-end="1042">example_interfaces/msg/String</code>)</p>
+            </li>
+            <li class="" data-start="1048" data-end="1096">
+              <p class="" data-start="1050" data-end="1096">Número de publicadores y suscriptores actuales</p>
+            </li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+    <li class="" data-start="1098" data-end="1263">
+      <p class="" data-start="1100" data-end="1139"><strong data-start="1100" data-end="1139">Visualizar mensajes en
+          tiempo real:</strong></p>
+      <ul data-start="1142" data-end="1263">
+        <li class="" data-start="1142" data-end="1173">
+          <p class="" data-start="1144" data-end="1173"><code data-start="1144"
+              data-end="1173">ros2 topic echo /robot_news</code></p>
+        </li>
+        <li class="" data-start="1176" data-end="1263">
+          <p class="" data-start="1178" data-end="1263">Se convierte en un suscriptor temporal y muestra los mensajes
+            publicados en el tópico</p>
+        </li>
+      </ul>
+    </li>
+  </ul>
+  <hr class="" data-start="1265" data-end="1268">
+  <h3 class="" data-start="1270" data-end="1307">📦 Inspeccionar tipos de mensajes</h3>
+  <ul data-start="1309" data-end="1535">
+    <li class="" data-start="1309" data-end="1535">
+      <p class="" data-start="1311" data-end="1355"><strong data-start="1311" data-end="1355">Ver la estructura de un
+          tipo de mensaje:</strong></p>
+      <ul data-start="1358" data-end="1535">
+        <li class="" data-start="1358" data-end="1411">
+          <p class="" data-start="1360" data-end="1411"><code data-start="1360"
+              data-end="1411">ros2 interface show example_interfaces/msg/String</code></p>
+        </li>
+        <li class="" data-start="1414" data-end="1480">
+          <p class="" data-start="1416" data-end="1480">Útil para confirmar los campos disponibles en un tipo de mensaje
+          </p>
+        </li>
+        <li class="" data-start="1483" data-end="1535">
+          <p class="" data-start="1485" data-end="1535">En este caso, solo muestra un campo: <code data-start="1522"
+              data-end="1535">string data</code></p>
+        </li>
+      </ul>
+    </li>
+  </ul>
+  <hr class="" data-start="1537" data-end="1540">
+  <h3 class="" data-start="1542" data-end="1582">📈 Medir frecuencia y ancho de banda</h3>
+  <ul data-start="1584" data-end="1876">
+    <li class="" data-start="1584" data-end="1741">
+      <p class="" data-start="1586" data-end="1621"><strong data-start="1586" data-end="1621">Frecuencia de publicación
+          (Hz):</strong></p>
+      <ul data-start="1624" data-end="1741">
+        <li class="" data-start="1624" data-end="1653">
+          <p class="" data-start="1626" data-end="1653"><code data-start="1626"
+              data-end="1653">ros2 topic hz /robot_news</code></p>
+        </li>
+        <li class="" data-start="1656" data-end="1741">
+          <p class="" data-start="1658" data-end="1741">Muestra la tasa promedio de mensajes por segundo (ej. 2 Hz = un
+            mensaje cada 0.5 s)</p>
+        </li>
+      </ul>
+    </li>
+    <li class="" data-start="1743" data-end="1876">
+      <p class="" data-start="1745" data-end="1775"><strong data-start="1745" data-end="1775">Consumo de ancho de
+          banda:</strong></p>
+      <ul data-start="1778" data-end="1876">
+        <li class="" data-start="1778" data-end="1807">
+          <p class="" data-start="1780" data-end="1807"><code data-start="1780"
+              data-end="1807">ros2 topic bw /robot_news</code></p>
+        </li>
+        <li class="" data-start="1810" data-end="1876">
+          <p class="" data-start="1812" data-end="1876">Muestra el volumen de datos transmitido por segundo (en bytes/s)
+          </p>
+        </li>
+      </ul>
+    </li>
+  </ul>
+  <hr class="" data-start="1878" data-end="1881">
+  <h3 class="" data-start="1883" data-end="1916">🧪 Publicar desde la terminal</h3>
+  <ul data-start="1918" data-end="2520">
+    <li class="" data-start="1918" data-end="2403">
+      <p class="" data-start="1920" data-end="1967"><strong data-start="1920" data-end="1967">Comando para publicar
+          mensajes manualmente:</strong></p>
+      <ul data-start="1970" data-end="2403">
+        <li class="" data-start="1970" data-end="2071">
+          <p class="" data-start="1972" data-end="2071"><code data-start="1972"
+              data-end="2071">ros2 topic pub -r 5 /robot_news example_interfaces/msg/String "{data: 'Hello from the terminal'}"</code>
+          </p>
+        </li>
+        <li class="" data-start="2074" data-end="2302">
+          <p class="" data-start="2076" data-end="2088">Explicación:</p>
+          <ul data-start="2093" data-end="2302">
+            <li class="" data-start="2093" data-end="2138">
+              <p class="" data-start="2095" data-end="2138"><code data-start="2095" data-end="2101">-r 5</code> →
+                frecuencia: 5 mensajes por segundo</p>
+            </li>
+            <li class="" data-start="2143" data-end="2178">
+              <p class="" data-start="2145" data-end="2178"><code data-start="2145" data-end="2158">/robot_news</code> →
+                nombre del tópico</p>
+            </li>
+            <li class="" data-start="2183" data-end="2234">
+              <p class="" data-start="2185" data-end="2234"><code data-start="2185"
+                  data-end="2216">example_interfaces/msg/String</code> → tipo de mensaje</p>
+            </li>
+            <li class="" data-start="2239" data-end="2302">
+              <p class="" data-start="2241" data-end="2302"><code data-start="2241"
+                  data-end="2278">"{data: 'Hello from the terminal'}"</code> → contenido del mensaje</p>
+            </li>
+          </ul>
+        </li>
+        <li class="" data-start="2305" data-end="2403">
+          <p class="" data-start="2307" data-end="2403">Solo funciona con mensajes simples (ej. tipo <code
+              data-start="2352" data-end="2360">String</code>). No es viable para estructuras complejas.</p>
+        </li>
+      </ul>
+    </li>
+    <li class="" data-start="2405" data-end="2520">
+      <p class="" data-start="2407" data-end="2520"><strong data-start="2407" data-end="2520">Mientras este comando se
+          ejecuta, puedes usar <code data-start="2455" data-end="2484">ros2 topic echo /robot_news</code> para ver los
+          mensajes publicados.</strong></p>
+    </li>
+  </ul>
+  <hr class="" data-start="2522" data-end="2525">
+  <h3 class="" data-start="2527" data-end="2567">🧠 Complemento: Comandos <code data-start="2556"
+      data-end="2567">ros2 node</code></h3>
+  <ul data-start="2569" data-end="2795">
+    <li class="" data-start="2569" data-end="2616">
+      <p class="" data-start="2571" data-end="2595"><strong data-start="2571" data-end="2593">Ver nodos
+          activos:</strong></p>
+      <ul data-start="2598" data-end="2616">
+        <li class="" data-start="2598" data-end="2616">
+          <p class="" data-start="2600" data-end="2616"><code data-start="2600" data-end="2616">ros2 node list</code>
+          </p>
+        </li>
+      </ul>
+    </li>
+    <li class="" data-start="2618" data-end="2795">
+      <p class="" data-start="2620" data-end="2664"><strong data-start="2620" data-end="2662">Ver información de un nodo
+          específico:</strong></p>
+      <ul data-start="2667" data-end="2795">
+        <li class="" data-start="2667" data-end="2705">
+          <p class="" data-start="2669" data-end="2705"><code data-start="2669"
+              data-end="2705">ros2 node info /robot_news_station</code></p>
+        </li>
+        <li class="" data-start="2708" data-end="2795">
+          <p class="" data-start="2710" data-end="2795">Muestra los tópicos que publica y suscribe, así como los tipos
+            de mensajes utilizados</p>
+        </li>
+      </ul>
+    </li>
+  </ul>
 
   <!-- Bootstrap JS -->
-  <script
-    src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js">
   </script>
 
 </body>
+
 </html>
