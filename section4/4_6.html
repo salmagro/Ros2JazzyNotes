@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>4.6. ROS_DOMAIN_ID: Aislamiento de Red - ROS 2 Jazzy Notes</title>
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <style>
+        .back-link {
+            margin-bottom: 2rem;
+        }
+
+        .port-result {
+            padding: 12px;
+            margin: 8px 0;
+            border-radius: 4px;
+            font-family: 'Courier New', monospace;
+            background-color: #f0f0f0;
+            border-left: 4px solid #007bff;
+        }
+
+        .port-safe {
+            border-left-color: #28a745;
+            background-color: #d4edda;
+        }
+
+        .port-warning {
+            border-left-color: #ffc107;
+            background-color: #fff3cd;
+        }
+
+        .port-danger {
+            border-left-color: #dc3545;
+            background-color: #f8d7da;
+        }
+
+        .calculator-section {
+            background-color: #f8f9fa;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+
+        .form-group-calculator {
+            margin-bottom: 15px;
+        }
+
+        .calculator-button {
+            margin-top: 10px;
+        }
+
+        .alert-box {
+            margin-top: 15px;
+            padding: 12px;
+            border-radius: 4px;
+        }
+
+        .formula-box {
+            background-color: #f0f0f0;
+            padding: 15px;
+            border-radius: 4px;
+            margin: 10px 0;
+            font-family: 'Courier New', monospace;
+            overflow-x: auto;
+        }
+
+        .documentation-link {
+            margin: 15px 0;
+            padding: 12px;
+            background-color: #e3f2fd;
+            border-left: 4px solid #2196F3;
+            border-radius: 4px;
+        }
+
+        .section-title {
+            margin-top: 30px;
+            margin-bottom: 15px;
+            border-bottom: 2px solid #007bff;
+            padding-bottom: 10px;
+        }
+
+        code {
+            background-color: #f4f4f4;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-size: 0.9em;
+        }
+
+        .concept-box {
+            background-color: #fff9e6;
+            padding: 15px;
+            border-left: 4px solid #ffc107;
+            margin: 15px 0;
+            border-radius: 4px;
+        }
+    </style>
+
+</head>
+
+<body class="container py-4">
+
+    <button class="btn btn-secondary back-link" onclick="history.back()">← Volver al inicio</button>
+
+    <h1 class="mb-4">4.6. Explicación de ROS_DOMAIN_ID: Aislamiento de Red en ROS 2</h1>
+
+    <p class="lead">En esta clase aprenderás cómo ROS 2 utiliza la variable de entorno <code>ROS_DOMAIN_ID</code> para
+        evitar que diferentes sistemas robóticos interfieran entre sí cuando comparten la misma red física (Wi-Fi o
+        Ethernet).</p>
+
+    <div class="documentation-link">
+        <strong>📚 Documentación oficial:</strong><br>
+        <a href="https://docs.ros.org/en/jazzy/Concepts/Intermediate/About-Domain-ID.html"
+            target="_blank">https://docs.ros.org/en/jazzy/Concepts/Intermediate/About-Domain-ID.html</a>
+    </div>
+
+    <!-- Concepto Central -->
+    <div class="section-title">
+        <h2>1. El concepto central: Aislamiento de red</h2>
+    </div>
+
+    <div class="concept-box">
+        <strong>🎧 Analogía con walkie-talkies:</strong> Imagina que es como configurar el canal de un par de
+        walkie-talkies: si todos están en el Canal 0, se interrumpirán mutuamente. Si cambias a tu equipo al Canal 42,
+        podrán comunicarse sin interferencias.
+    </div>
+
+    <p>Por defecto, ROS 2 utiliza <strong>DDS</strong> (Data Distribution Service) como columna vertebral para sus
+        comunicaciones. DDS emplea el <strong>Domain ID</strong> (ID de Dominio) para crear redes lógicas aisladas
+        encima de la red física.</p>
+
+    <ul>
+        <li><strong>Mismo Domain ID:</strong> Los nodos pueden descubrirse y enviarse mensajes libremente de forma
+            automática.</li>
+        <li><strong>Diferente Domain ID:</strong> Los nodos se ignoran por completo. Esto evita comandos accidentales
+            (por ejemplo, que un compañero de clase mueva tu robot por error).</li>
+        <li><strong>El valor por defecto:</strong> Todos los sistemas ROS 2 utilizan el <strong>Dominio 0</strong> de
+            forma nativa.</li>
+    </ul>
+
+    <!-- Rango Limitado -->
+    <div class="section-title">
+        <h2>2. Por qué el rango está limitado de 0 a 232</h2>
+    </div>
+
+    <p>DDS no solo usa el Domain ID como una simple etiqueta de texto; lo introduce en una fórmula matemática para
+        calcular los <strong>puertos de red UDP</strong> específicos que se usarán para enviar los datos.</p>
+
+    <p>Las reglas de redes establecen que los puertos UDP son enteros de 16 bits sin signo, lo que significa que el
+        número de puerto más alto posible es <strong>65,535</strong>. Debido a que la matemática de DDS escala hacia
+        arriba junto con el Domain ID, alcanzar ese techo de 65,535 limita el ID de Dominio máximo posible a
+        <strong>232</strong>.</p>
+
+    <!-- Rango Seguro -->
+    <div class="section-title">
+        <h2>3. El "Rango Seguro" (0 a 101) y los puertos efímeros</h2>
+    </div>
+
+    <p>Aunque técnicamente se puede llegar hasta el 232, la documentación recomienda encarecidamente mantenerse entre
+        <strong>0 y 101</strong>. Esto se debe a los <strong>puertos efímeros</strong> del sistema operativo (puertos
+        temporales que se asignan aleatoriamente a aplicaciones cotidianas como los navegadores web).</p>
+
+    <p>En Linux, por defecto, los puertos <strong>32,768 a 60,999</strong> están reservados para este tráfico temporal.
+        Si tu Domain ID de ROS 2 calcula un puerto de red dentro de ese rango, una aplicación como Google Chrome podría
+        adueñarse del puerto que tu robot necesita, provocando pérdidas de comunicación.</p>
+
+    <ul>
+        <li>Los <strong>Domain IDs del 0 al 101</strong> se asignan a puertos <em>por debajo</em> de 32,768 (Zona
+            segura).</li>
+        <li>Los <strong>Domain IDs del 102 al 214</strong> se asignan directamente <em>dentro</em> de la zona de peligro.
+        </li>
+        <li>Los <strong>Domain IDs del 215 al 232</strong> se asignan <em>por encima</em> de ella.</li>
+    </ul>
+
+    <!-- Restricciones de Participantes -->
+    <div class="section-title">
+        <h2>4. Restricciones de participantes (La letra pequeña)</h2>
+    </div>
+
+    <p>Cada vez que lanzas un nuevo proceso de ROS 2 (como ejecutar un nodo de telemetría o un nodo de cámara), DDS
+        crea un <strong>"Participante"</strong>. Cada participante toma sus propios puertos UDP <em>unicast</em>
+        dedicados para recibir información.</p>
+
+    <p>Como estos números de puerto se incrementan con cada proceso individual que abres, pueden ocurrir dos tipos de
+        conflictos:</p>
+
+    <h4>Desbordamiento entre dominios</h4>
+    <p>Si abres más de 120 procesos de ROS 2 en el Dominio 1, los números de puerto seguirán subiendo hasta invadir
+        exactamente los números de puerto reservados para el Dominio 2.</p>
+
+    <h4>Colisiones efímeras</h4>
+    <p>Si eliges un Domain ID que está justo en el límite de la zona segura —como el <strong>Dominio 101</strong>—
+        tienes muy poco margen de maniobra. El proceso número 0 se ubica de forma segura justo debajo del límite
+        efímero, pero para cuando lanzas tu proceso número 54, la matemática obliga al puerto a entrar en el rango
+        mayor a 32,768, arriesgándose a un conflicto con el sistema operativo.</p>
+
+    <!-- Calculadora Interactiva -->
+    <div class="section-title">
+        <h2>5. Calculadora Interactiva de Puertos UDP</h2>
+    </div>
+
+    <p>Utiliza la siguiente calculadora para verificar qué puertos se utilizarán para tu combinación de Domain ID y
+        Participant ID. Esto te ayudará a determinar si tus puertos están en la zona segura o en riesgo de colisión.</p>
+
+    <div class="calculator-section">
+        <h4>Calculadora de Puertos DDS</h4>
+
+        <div class="form-group-calculator">
+            <label for="domainId" class="form-label"><strong>Domain ID:</strong></label>
+            <input type="number" class="form-control" id="domainId" min="0" max="232" value="0"
+                placeholder="Ingresa el Domain ID (0-232)">
+            <small class="form-text text-muted">Recomendado: 0-101 (Zona segura)</small>
+        </div>
+
+        <div class="form-group-calculator">
+            <label for="participantId" class="form-label"><strong>Participant ID:</strong></label>
+            <input type="number" class="form-control" id="participantId" min="0" value="0"
+                placeholder="Ingresa el Participant ID">
+            <small class="form-text text-muted">Por defecto es 0 para el primer proceso</small>
+        </div>
+
+        <button class="btn btn-primary calculator-button" onclick="calculatePorts()">Calcular Puertos</button>
+        <button class="btn btn-secondary calculator-button" onclick="clearCalculator()">Limpiar</button>
+    </div>
+
+    <div id="results" style="display: none;">
+        <h5 class="mt-4">Resultados del cálculo:</h5>
+
+        <div class="port-result" id="discoveryMulticast">
+            <strong>Discovery Multicast Port:</strong> <span id="discoveryMulticastValue">-</span>
+        </div>
+
+        <div class="port-result" id="userMulticast">
+            <strong>User Multicast Port:</strong> <span id="userMulticastValue">-</span>
+        </div>
+
+        <div class="port-result" id="discoveryUnicast">
+            <strong>Discovery Unicast Port:</strong> <span id="discoveryUnicastValue">-</span>
+        </div>
+
+        <div class="port-result" id="userUnicast">
+            <strong>User Unicast Port:</strong> <span id="userUnicastValue">-</span>
+        </div>
+
+        <div id="alertBox"></div>
+    </div>
+
+    <!-- Fórmulas -->
+    <div class="section-title">
+        <h2>6. Fórmulas de Cálculo (DDSI-RTPS)</h2>
+    </div>
+
+    <p>Los puertos UDP se calculan utilizando las siguientes fórmulas basadas en la especificación DDSI-RTPS:</p>
+
+    <div class="formula-box">
+        <strong>Variables base:</strong><br>
+        • Port Base (Puerto Base): 7400<br>
+        • Domain Gain (Ganancia de Dominio): 250<br>
+        • Participant Gain (Ganancia de Participante): 2<br>
+        <br>
+        <strong>Fórmulas:</strong><br>
+        • Discovery Multicast Port = 7400 + (250 × domainId) + 0<br>
+        • User Multicast Port = 7400 + (250 × domainId) + 1<br>
+        • Discovery Unicast Port = 7400 + (250 × domainId) + 10 + (2 × participantId)<br>
+        • User Unicast Port = 7400 + (250 × domainId) + 11 + (2 × participantId)
+    </div>
+
+    <!-- Establecer Domain ID -->
+    <div class="section-title">
+        <h2>7. Cómo establecer ROS_DOMAIN_ID</h2>
+    </div>
+
+    <h4>Opción 1: En la línea de comandos (temporal)</h4>
+    <p>Para un solo comando:</p>
+    <div class="formula-box">
+        export ROS_DOMAIN_ID=42<br>
+        ros2 run my_py_pkg py_node
+    </div>
+
+    <h4>Opción 2: En ~/.bashrc (permanente)</h4>
+    <p>Para que sea permanente en tu sesión, agrega al final de tu archivo <code>~/.bashrc</code>:</p>
+    <div class="formula-box">
+        export ROS_DOMAIN_ID=42
+    </div>
+    <p>Luego recarga tu terminal:</p>
+    <div class="formula-box">
+        source ~/.bashrc
+    </div>
+
+    <h4>Opción 3: Verificar el Domain ID actual</h4>
+    <p>Para ver qué Domain ID está activo en tu sesión:</p>
+    <div class="formula-box">
+        echo $ROS_DOMAIN_ID
+    </div>
+
+    <!-- Mejores Prácticas -->
+    <div class="section-title">
+        <h2>8. Mejores prácticas</h2>
+    </div>
+
+    <ul>
+        <li>✅ Usa Domain IDs del <strong>0 al 101</strong> siempre que sea posible (zona segura).</li>
+        <li>✅ En ambientes compartidos (aula, laboratorio), <strong>asigna un Domain ID único a cada equipo</strong>.
+        </li>
+        <li>✅ <strong>Documenta qué Domain ID usa cada robot o sistema</strong> para evitar conflictos.</li>
+        <li>✅ Si usas Domain IDs cercanos al 101, <strong>evita lanzar muchos nodos</strong> en paralelo.</li>
+        <li>✅ Verifica con la calculadora anterior si tus puertos estarán en la zona segura.</li>
+        <li>❌ Evita Domain IDs entre 102 y 214 (colisionan con puertos efímeros).</li>
+        <li>❌ Evita cambiar el Domain ID mientras los nodos están corriendo; detén todo y reinicia.</li>
+    </ul>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script>
+        function calculatePorts() {
+            const domainId = parseInt(document.getElementById('domainId').value);
+            const participantId = parseInt(document.getElementById('participantId').value);
+
+            // Validación
+            if (isNaN(domainId) || isNaN(participantId)) {
+                alert('Por favor, ingresa valores numéricos válidos.');
+                return;
+            }
+
+            if (domainId < 0 || domainId > 232) {
+                alert('El Domain ID debe estar entre 0 y 232.');
+                return;
+            }
+
+            if (participantId < 0) {
+                alert('El Participant ID no puede ser negativo.');
+                return;
+            }
+
+            // Fórmulas DDSI-RTPS
+            const portBase = 7400;
+            const domainGain = 250;
+            const participantGain = 2;
+
+            const discoveryMulticast = portBase + (domainGain * domainId) + 0;
+            const userMulticast = portBase + (domainGain * domainId) + 1;
+            const discoveryUnicast = portBase + (domainGain * domainId) + 10 + (participantGain * participantId);
+            const userUnicast = portBase + (domainGain * domainId) + 11 + (participantGain * participantId);
+
+            // Mostrar resultados
+            document.getElementById('discoveryMulticastValue').textContent = discoveryMulticast;
+            document.getElementById('userMulticastValue').textContent = userMulticast;
+            document.getElementById('discoveryUnicastValue').textContent = discoveryUnicast;
+            document.getElementById('userUnicastValue').textContent = userUnicast;
+
+            // Aplicar estilos según rangos
+            updatePortStyle('discoveryMulticast', discoveryMulticast);
+            updatePortStyle('userMulticast', userMulticast);
+            updatePortStyle('discoveryUnicast', discoveryUnicast);
+            updatePortStyle('userUnicast', userUnicast);
+
+            // Generar alertas
+            generateAlerts(domainId, discoveryMulticast, userMulticast, discoveryUnicast, userUnicast);
+
+            // Mostrar resultados
+            document.getElementById('results').style.display = 'block';
+        }
+
+        function updatePortStyle(elementId, port) {
+            const element = document.getElementById(elementId);
+            element.classList.remove('port-safe', 'port-warning', 'port-danger');
+
+            if (port > 65535) {
+                element.classList.add('port-danger');
+            } else if (port >= 32768 && port <= 60999) {
+                element.classList.add('port-warning');
+            } else {
+                element.classList.add('port-safe');
+            }
+        }
+
+        function generateAlerts(domainId, dmc, umc, duc, uuc) {
+            const alertBox = document.getElementById('alertBox');
+            alertBox.innerHTML = '';
+            let hasWarnings = false;
+            let hasDanger = false;
+
+            // Verificar si hay puertos en zona efímera
+            const ephemeralPorts = [dmc, umc, duc, uuc].filter(p => p >= 32768 && p <= 60999);
+            if (ephemeralPorts.length > 0) {
+                hasWarnings = true;
+                alertBox.innerHTML += `
+                    <div class="alert alert-warning alert-box" role="alert">
+                        <strong>⚠️ Advertencia:</strong> ${ephemeralPorts.length} puerto(s) están en la zona de puertos efímeros (32,768 - 60,999).
+                        Hay riesgo de colisión con aplicaciones del sistema.
+                    </div>
+                `;
+            }
+
+            // Verificar si hay puertos fuera de rango válido
+            const invalidPorts = [dmc, umc, duc, uuc].filter(p => p > 65535);
+            if (invalidPorts.length > 0) {
+                hasDanger = true;
+                alertBox.innerHTML += `
+                    <div class="alert alert-danger alert-box" role="alert">
+                        <strong>❌ Error:</strong> ${invalidPorts.length} puerto(s) excede el máximo permitido (65,535).
+                        Este Domain ID no es válido.
+                    </div>
+                `;
+            }
+
+            // Verificar si Domain ID está en zona segura
+            if (domainId >= 0 && domainId <= 101) {
+                if (!hasWarnings && !hasDanger) {
+                    alertBox.innerHTML += `
+                        <div class="alert alert-success alert-box" role="alert">
+                            <strong>✅ Excelente:</strong> Este Domain ID está en la zona segura (0-101).
+                            Todos los puertos están fuera de la zona efímera.
+                        </div>
+                    `;
+                }
+            } else if (domainId > 101 && domainId <= 214) {
+                if (!hasDanger) {
+                    alertBox.innerHTML += `
+                        <div class="alert alert-warning alert-box" role="alert">
+                            <strong>⚠️ Atención:</strong> Este Domain ID (${domainId}) está en la zona de riesgo (102-214).
+                            Los puertos probablemente colisionarán con la zona efímera.
+                        </div>
+                    `;
+                }
+            } else if (domainId > 214 && domainId <= 232) {
+                if (!hasDanger) {
+                    alertBox.innerHTML += `
+                        <div class="alert alert-info alert-box" role="alert">
+                            <strong>ℹ️ Información:</strong> Este Domain ID (${domainId}) usa puertos por encima de la zona efímera,
+                            pero está cerca del límite máximo (232).
+                        </div>
+                    `;
+                }
+            }
+        }
+
+        function clearCalculator() {
+            document.getElementById('domainId').value = '0';
+            document.getElementById('participantId').value = '0';
+            document.getElementById('results').style.display = 'none';
+        }
+    </script>
+
+</body>
+
+</html>
